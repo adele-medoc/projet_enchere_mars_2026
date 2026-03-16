@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+
+<!-- header : je remplace cette balise (th:replace) par celle défini dans le fragment situé au chemin fragments/head.html -->
+<head th:replace="~{fragments/head}"></head>
+
+
+<body>
+<!-- header : je remplace cette balise (th:replace) par celle défini dans le fragment situé au chemin fragments/header.html -->
+<header th:replace="~{fragments/header}"></header>
+<span id="error"></span>
+<!-- main : c'est le contenu principal de la page  qui va être rempli par la section de mes tempates annotées avec layout:fragment="contenu"-->
+<main layout:fragment="contenu"></main>
+
+<!--  footer : je remplace cette balise (th:replace) par celle défini dans le fragment situé au chemin fragments/footer.html -->
+<footer th:replace="~{fragments/footer}"></footer>
+
+</body>
+</html>
