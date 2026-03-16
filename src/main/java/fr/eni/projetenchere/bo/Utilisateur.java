@@ -32,4 +32,21 @@ public class Utilisateur {
         this.credit = credit;
         this.administrateur = administrateur;
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Utilisateur{");
+        sb.append("idUtilisateur=").append(idUtilisateur);
+        sb.append(", pseudo='").append(pseudo).append('\'');
+        sb.append(", nom='").append(nom).append('\'');
+        sb.append(", prenom='").append(prenom).append('\'');
+        sb.append(", email='").append(email).append('\'');
+        sb.append(", telephone='").append(telephone).append('\'');
+        sb.append(", adresse=").append(adresse);
+        sb.append(", motDePasse='").append(motDePasse).append('\'');
+        sb.append(", credit=").append(credit);
+        sb.append(", administrateur=").append(administrateur);
+        sb.append('}');
+        return sb.toString();
+    }
 }
