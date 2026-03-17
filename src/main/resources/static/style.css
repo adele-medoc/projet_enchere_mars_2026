@@ -1,3 +1,5 @@
+
+/* || Header */
 header{
 
     padding: 5px 20px;
@@ -15,4 +17,16 @@ header a{
 
 header a:hover{
     text-decoration: underline;
+}
+
+/* || Accueil (toutes les encheres) */
+
+/* || Classes utilitaires */
+.flex-row {
+    display: flex;
+}
+
+/* || Debug || */
+h1 {
+    color: red;
 }
