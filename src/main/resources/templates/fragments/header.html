@@ -1,17 +1,10 @@
-<!doctype html>
-<html lang="fr" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="styles.css">
-    <title>header</title>
-</head>
-<header>
-    <h2>ENI-Enchères</h2>
-
-    <section class="inline-display">
+<header xmlns:sec="http://www.w3.org/1999/xhtml">
+    <h2 th:text="#{header.titre}"></h2>
+    <nav>
         <a th:href="@{/login}">S'inscrire - Se connecter</a>
-    </section>
+        <a th:href="@{/nouvelleVente}" th:text="#{header.newVente}"></a>
+    </nav>
+    <section class="inline-display">
 
+    </section>
 </header>
-</html>
