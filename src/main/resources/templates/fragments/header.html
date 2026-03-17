@@ -1,21 +1,17 @@
-<header xmlns:sec="http://www.w3.org/1999/xhtml">
-    <!-- quand je clique sur le titre du site, je reviens sur lapage d'accueil -->
-    <a href="/"><h2 th:text="#{header.titre}"></h2></a>
-    <nav>
-        <!-- lien : balise a -->
-        <a th:href="" th:text="#{header.}" sec:authorize="isAuthenticated()" ></a>
+<!doctype html>
+<html lang="fr" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+    <title>header</title>
+</head>
+<header>
+    <h2>ENI-Enchères</h2>
 
-<!--        <a th:href="@{/genres}" th:text="#{header.}" sec:authorize="hasRole('admin')"></a>-->
-<!--        <section class="inline-display" sec:authorize="isAuthenticated()">-->
-<!--            &lt;!&ndash; on offre la possibilité de se déconnecter (${#authentication.name}" : recupère le username de l'utilisateur connecté) &ndash;&gt;-->
-<!--            <form th:action="@{/logout}" method="post">-->
-<!--                <button class="button" th:text="|déconnecter : ${#authentication.name}|"></button>-->
-<!--            </form>-->
-<!--        </section>-->
-        <!-- on n'affiche cette section que pour les utilisateurs NON connectés -->
-<!--        <section class="inline-display" sec:authorize="!isAuthenticated()">-->
-<!--            &lt;!&ndash; on offre la possibilité de se connecter &ndash;&gt; <a th:href="@{/login}">connexion</a>-->
-<!--        </section>-->
+    <section class="inline-display">
+        <a th:href="@{/login}">S'inscrire - Se connecter</a>
+    </section>
 
-    </nav>
 </header>
+</html>
