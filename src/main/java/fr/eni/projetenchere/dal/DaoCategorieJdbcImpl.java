@@ -1,4 +1,4 @@
 package fr.eni.projetenchere.dal;
 
-public class DaoNouvelleVente {
+public class DaoCategorieJdbcImpl {
 }
