@@ -1,5 +1,5 @@
 package fr.eni.projetenchere.service;
 
-public interface NouvelleVenteService {
+public interface VenteService {
     void CreerNouvelleVente();
 }
