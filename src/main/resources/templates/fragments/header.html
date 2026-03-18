@@ -1,10 +1,25 @@
-<header xmlns:sec="http://www.w3.org/1999/xhtml">
-    <h2 th:text="#{header.titre}"></h2>
-    <nav>
-        <a th:href="@{/login}">S'inscrire - Se connecter</a>
-        <a th:href="@{/nouvelleVente}" th:text="#{header.newVente}"></a>
-    </nav>
-    <section class="inline-display">
+<header th:fragment="header" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <a th:href="@{/}">
+        <h2 th:text="#{header.titre}"></h2>
+    </a>
 
+    <nav>
+        <a th:href="@{/}" th:text="#{header.categorie}" sec:authorize="hasRole('admin')"></a>
+        <a th:href="@{/}" th:text="#{header.user}" sec:authorize="hasRole('admin')"></a>
+        <a th:href="@{/nouvelleVente}" th:text="#{header.newVente}" sec:authorize="isAuthenticated()"></a>
+    </nav>
+
+    <!--    Si l'utilisateur est connectée on affiche ça -->
+    <section class="inline-display" sec:authorize="isAuthenticated()">
+        <!-- on offre la possibilité de se déconnecter (${#authentication.name}" : recupère le username de l'utilisateur connecté) -->
+        <form th:action="@{/logout}" method="post">
+            <button class="button" th:text="|déconnecter : ${#authentication.name}|"></button>
+        </form>
+    </section>
+
+    <!--    Si l'utilisateur n'est pas connectée on affiche ça -->
+    <section class="inline-display" sec:authorize="!isAuthenticated()">
+        <!-- on offre la possibilité de se connecter -->
+        <a th:href="@{/login}">S'inscrire - Se connecter</a>
     </section>
 </header>
