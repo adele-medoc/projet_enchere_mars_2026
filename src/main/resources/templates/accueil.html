@@ -1,110 +1,116 @@
-<!doctype html>
+<!DOCTYPE html>
 <!-- Je veux utiliser le layout défini dans le fichier layoutPrincipal -->
-<html lang="en" layout:decorate="~{layouts/mainLayout}"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.w3.org/1999/xhtml">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{layouts/mainLayout}">
 
 <body>
-<!-- main : c'est le contenu principal de la page -->
-<!-- avec layout:fragment="contenu", je vais remplacer le main de mon layout par celui de ma page -->
-<main layout:fragment="contenu">
+    <!-- main : c'est le contenu principal de la page -->
+    <!-- avec layout:fragment="contenu", je vais remplacer le main de mon layout par celui de ma page -->
+    <main layout:fragment="contenu">
 
-    <h1 th:text="#{titre.encheres}"></h1>
+        <h1 th:text="#{titre.encheres}"></h1>
 
-    <section id="filters-menu">
+        <section id="filters-menu">
 
-        <form th:action="@{/}" method="get" class="flex-row">
-
-            <div>
-
-                <input type="search" name="recherche" placeholder="🔍 Votre recherche...">
-
-                <p>
-                    <label for="categories">Catégories : </label>
-                    <select name="categories" id="categories">
-                        <option value="informatique">Informatique</option>
-                        <option value="ameublement">Ameublement</option>
-                        <option value="vetements">Vêtements</option>
-                        <option value="loisirs">Sport & Loisirs</option>
-                    </select>
-                </p>
-
-            </div>
-
-            <div>
-                <input type="submit" value="Rechercher">
-            </div>
-
-        </form>
-
-        <form action="" method="GET">
-                <div>
-                    <p>
-                        <input type="radio" name="filtreAccueil">
-
-                    </p>
-
-                    <p>
-                        <label for="encheresOuvertes">Enchères ouvertes</label>
-                        <input type="checkbox" name="enchereOuvertes" id="encheresOuvertes">
-                    </p>
-                    <p>
-                        <label for="encheresEnCours">Mes enchères en cours</label>
-                        <input type="checkbox" name="enchereEnCours" id="encheresEnCours">
-                    </p>
-                    <p>
-                        <label for="encheresRemportees">Mes enchères rapportées</label>
-                        <input type="checkbox" name="enchereRemportees" id="encheresRemportees">
-                    </p>
-
-                </div>
+            <form th:action="@{/}" method="get" class="flex-row">
 
                 <div>
-                    <p>
-                        <input type="radio" name="filtreAccueil">
 
+                    <input type="search" name="recherche" th:placeholder="#{recherche.placeholder}">
+
+                    <!--TODO: le select categorie doit être modifié pour être dynamique -->
+                    <p>
+                        <label for="categories" th:text="#{categories.menu.label}"> </label>
+                        <select name="categories" id="categories">
+                            <option value="informatique">Informatique</option>
+                            <option value="ameublement">Ameublement</option>
+                            <option value="vetements">Vêtements</option>
+                            <option value="loisirs">Sport & Loisirs</option>
+                        </select>
                     </p>
 
-                    <p>
-                        <label for="ventesEnCours">Mes ventes en cours</label>
-                        <input type="checkbox" name="ventesEnCours" id="ventesEnCours">
-                    </p>
-                    <label for="ventesNonDebutees">Ventes non débutées</label>
-                    <input type="checkbox" name="ventesNonDebutees" id="ventesNonDebutees">
-                    <p>
-                        <label for="ventesTerminees">Ventes terminées</label>
-                        <input type="checkbox" name="ventesTerminees" id="ventesTerminees">
-                    </p>
+                </div> <!-- fin div barre recherche & categories -->
+
+                <div>
+                    <input type="submit" th:value="#{search.action}">
                 </div>
 
-            </form>
+            </form> <!-- fin form recherche & categories -->
+
+            <!-- TODO: ajouter le lien vers le mapping -->
+            <!-- TODO: attribut disabled sur un des form filtres lorsque l'autre est sélectionné -->
+            <form action="" method="GET" class="flex-row">
+                    <div>
+                        <p>
+                            <input type="radio" name="filtreAccueil" id="filtreEncheres">
+                            <label for="filtreEncheres" th:text="#{filtre.achats.label}"></label>
+                        </p>
+
+                        <p>
+                            <label for="encheresOuvertes" th:text="#{achats.ouverts.label}"></label>
+                            <input type="checkbox" name="enchereOuvertes" id="encheresOuvertes">
+                        </p>
+                        <p>
+                            <label for="encheresEnCours" th:text="#{achats.encours.label}"></label>
+                            <input type="checkbox" name="enchereEnCours" id="encheresEnCours">
+                        </p>
+                        <p>
+                            <label for="encheresRemportees" th:text="#{achats.gagnes.label}"></label>
+                            <input type="checkbox" name="enchereRemportees" id="encheresRemportees">
+                        </p>
+
+                    </div> <!-- fin div filtre achats/encheres -->
+
+                    <div>
+                        <p>
+                            <input type="radio" name="filtreAccueil" id="filtreVentes">
+                            <label for="filtreVentes" th:text="#{filtre.ventes.label}"></label>
+                        </p>
+
+                        <p>
+                            <label for="ventesEnCours" th:text="#{ventes.encours.label}"></label>
+                            <input type="checkbox" name="ventesEnCours" id="ventesEnCours">
+                        </p>
+                        <label for="ventesNonDebutees" th:text="#{ventes.futures.label}"></label>
+                        <input type="checkbox" name="ventesNonDebutees" id="ventesNonDebutees">
+                        <p>
+                            <label for="ventesTerminees" th:text="#{ventes.terminees.label}"></label>
+                            <input type="checkbox" name="ventesTerminees" id="ventesTerminees">
+                        </p>
+                    </div>
+
+                </form> <!-- fin form filtre encheres/ventes actives en cours etc -->
 
 
-    </section>
+        </section> <!-- fin section menus filtres-->
 
-    <section id="enchere-grid">
+        <section id="enchere-grid">
 
-        <article>
-            <figure>
-                <img src="" alt="">
-            </figure>
+            <!-- TODO : modifier le template carte-enchere (<article>) pour qu'il soit dynamique avec th:each -->
+            <article class="carte-enchere">
 
-            <div>
-                <h3>Nom de l'article</h3>
-                <p>Prix : 210 points
-                Fin de l'enchère <time> 10/08/2018 </time></p>
-                <p>Vendeur : <a>jojo44</a></p>
-                <div class="etat-article"></div>
-            </div>
+                <figure>
+                    <!-- TODO: penser à bien renseigner la src et le alt-->
+                    <img src="#" alt="">
+                </figure>
 
-        </article>
+                <div class="infos-enchere">
+                    <h3><a href="#">Nom de l'article</a></h3> <!-- TODO: dynamique-->
 
-    </section>
+                    <div>
+                        <p> <span th:text="#{infos.encheres.prix}">Prix : </span> <span> 210 </span> points </p>
+                        <p> <span th:text="#{infos.encheres.fin}">Fin de l'enchère </span> <time> 10/08/2018 </time></p>
+                        <p> <span th:text="#{infos.encheres.vendeur}">Vendeur :</span> <a href="#">jojo44</a> </p> <!-- TODO: lien page uilisateur -->
+                    </div>
+
+                </div> <!-- fin div infos encheres-->
+
+            </article> <!-- fin article enchere -->
+
+        </section> <!-- fin section grille encheres -->
 
 
-</main>
+    </main>
 
-</body>
+    </body>
 
-</html>
+    </html>

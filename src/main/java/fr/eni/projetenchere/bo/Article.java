@@ -11,7 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Article {
-
     private long idArticle;
     private long idUtilisateur;
     private String nom;
