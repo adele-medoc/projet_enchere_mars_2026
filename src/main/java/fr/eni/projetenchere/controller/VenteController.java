@@ -15,11 +15,16 @@ public class VenteController {
     @Autowired
     VenteService nouvelleVenteService;
 
-@GetMapping("/nouvelArticle")
-    public String getNouvelleVente(Model model){
-    model.addAttribute("categorie");
-    return "nouvelleVente";
-}
+    @GetMapping
+    public String getListeEncheres(Model model){
+        return "accueil";
+    }
+
+    @GetMapping("/nouvelArticle")
+        public String getNouvelleVente(Model model){
+        model.addAttribute("categorie");
+        return "nouvelleVente";
+    }
 
     @PostMapping("/nouvelArticle")
     public String postNouvelleVente(Model model){

@@ -13,7 +13,7 @@
 
             <form th:action="@{/}" method="get" class="flex-row">
 
-                <div>
+                <div class="search-categories">
 
                     <input type="search" name="recherche" th:placeholder="#{recherche.placeholder}">
 
@@ -30,7 +30,7 @@
 
                 </div> <!-- fin div barre recherche & categories -->
 
-                <div>
+                <div class="search-input">
                     <input type="submit" th:value="#{search.action}">
                 </div>
 
