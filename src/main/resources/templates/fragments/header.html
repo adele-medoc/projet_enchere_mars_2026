@@ -1,12 +1,12 @@
 <header th:fragment="header" xmlns:sec="http://www.w3.org/1999/xhtml">
-    <a th:href="@{/}">
+    <a th:href="@{/enchere}">
         <h2 th:text="#{header.titre}"></h2>
     </a>
 
     <nav>
         <a th:href="@{/}" th:text="#{header.categorie}" sec:authorize="hasRole('admin')"></a>
         <a th:href="@{/}" th:text="#{header.user}" sec:authorize="hasRole('admin')"></a>
-        <a th:href="@{/nouvelleVente}" th:text="#{header.newVente}" sec:authorize="isAuthenticated()"></a>
+        <a th:href="@{/enchere/nouvelleVente}" th:text="#{header.newVente}" sec:authorize="isAuthenticated()"></a>
     </nav>
 
     <!--    Si l'utilisateur est connectée on affiche ça -->
