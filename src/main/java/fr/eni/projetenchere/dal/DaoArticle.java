@@ -1,0 +1,20 @@
+package fr.eni.projetenchere.dal;
+
+import fr.eni.projetenchere.bo.Article;
+
+import java.util.List;
+
+public interface DaoArticle {
+    void insertArticle();
+    List<Article> selectArticles();
+    //List<Article> selectEncheresOuvertes();
+    //List<Article> selectUserEncheresEnCours(long idUser);
+    //List<Article> selectUserEncheresremportées(long idUser);
+    //List<Article> selectUserVentesEnCours(long idUser);
+    //List<Article> selectUserVentesNonDebute(long idUser);
+    //List<Article> selectUserVentesTerminer(long idUser);
+    Article selectArticleById(long id);
+    void deleteArticle();
+    void updateArticle(Article article);
+
+}
