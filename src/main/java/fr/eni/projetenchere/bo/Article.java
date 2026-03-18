@@ -8,7 +8,6 @@ import java.util.List;
 
 @Data
 public class Article {
-
     private long idArticle;
     private long idUtilisateur;
     private String nom;
@@ -21,5 +20,4 @@ public class Article {
     private int noCategorie;
     private List<Enchere> listeEncheres;
     private Adresse adresseRetrait;
-
 }

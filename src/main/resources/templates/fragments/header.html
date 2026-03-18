@@ -1,10 +1,11 @@
-<header xmlns:sec="http://www.w3.org/1999/xhtml">
+<header th:fragment="header">
     <h2 th:text="#{header.titre}"></h2>
+
     <nav>
         <a th:href="@{/login}">S'inscrire - Se connecter</a>
         <a th:href="@{/nouvelleVente}" th:text="#{header.newVente}"></a>
     </nav>
-    <section class="inline-display">
 
-    </section>
+    <section class="inline-display"></section>
 </header>
+
