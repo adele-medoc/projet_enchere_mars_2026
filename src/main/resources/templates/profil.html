@@ -1,0 +1,37 @@
+<!doctype html>
+<!-- Je veux utiliser le layout défini dans le fichier layoutPrincipal -->
+<html lang="fr" layout:decorate="~{layouts/mainLayout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+<body>
+
+  <main layout:fragment="contenu">
+    <h1 th:text="#{profil.titre}"></h1>
+
+<form th:action="@{/profils}" method="post" th:object="${utilisateur}">
+  <label>Pseudo :</label>
+     <input type="text" th:field="*{pseudo}" required><br>
+  <label>Nom :</label>
+     <input type="text" th:field="*{nom}" required><br>
+  <label>Prénom :</label>
+      <input type="text" th:field="*{prenom}" required><br>
+  <label>Email :</label>
+      <input type="text" th:field="*{email}" required><br>
+
+  <label>Rue :</label>
+      <input type="text" th:field="*{adresse.rue}"><br>
+  <label>Code postal :</label>
+      <input type="text" th:field="*{adresse.codePostale}"><br>
+  <label>Ville :</label>
+      <input type="text" th:field="*{adresse.ville}"><br>
+  <label>Mot de passe :</label>
+      <input type="password" th:field="*{motDePasse}" required><br>
+  <label>Confirmation :</label>
+      <input type="password" th:field="*{motDePasse}" required><br>
+
+  <button type="submit">Créer</button>
+  <button type="reset">Annuler</button>
+</form>
+
+  </main>
+
+</body>
+</html>
