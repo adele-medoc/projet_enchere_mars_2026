@@ -1,0 +1,70 @@
+<!doctype html>
+<!-- Je veux utiliser le layout défini dans le fichier layoutPrincipal -->
+<html lang="fr" layout:decorate="~{layouts/mainLayout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+<body>
+
+<main layout:fragment="contenu" th:object="${utilisateur}">
+    <h2 th:text="#{gesUser.titre}"></h2>
+    <form method="post" th:action="@{/}" th:object="${utilisateur}">
+        <!--    <label for="prenom">Prenom </label>-->
+        <input th:placeholder="#{gesUser.prenom}" class="input" type="text" th:field="*{}" id="prenom">
+        <!--    <label for="nom">Nom </label>-->
+        <input th:placeholder="#{gesUser.nom}" class="input" type="text" th:field="*{}" id="nom">
+
+        <input th:placeholder="#{gesUser.pseudo}" class="input" type="text" th:field="*{}" id="pseudo">
+
+        <input th:placeholder="#{gesUser.email}" class="input" type="text" th:field="*{}" id="email">
+
+        <input th:placeholder="#{gesUser.telephone}" class="input" type="text" th:field="*{}" id="tel">
+        <input th:placeholder="#{gesUser.mdp}" class="input" type="text" th:field="*{}" id="mdp">
+        <input th:placeholder="#{gesUser.admin}" class="input" type="text" th:field="*{}" id="admin">
+        <input th:placeholder="#{newVente.rue}" class="input" type="text" th:field="*{}" id="rue">
+        <input th:placeholder="#{newVente.cp}" class="input" type="text" th:field="*{}" id="cp">
+        <input th:placeholder="#{newVente.ville}" class="input" type="text" th:field="*{}" id="ville">
+
+        <input class="button" type="submit" th:value="#{bouton.valider}">
+    </form>
+    <!-- balise de base : table -->
+    <table>
+        <!--entete de la table (première ligne) : thead-->
+        <thead>
+        <!--ligne :tr (table row)-->
+        <tr>
+            <!-- th (table header) : un colonne de titre de ma table -->
+            <th>ID</th>
+            <th th:text="#{gesUser.nom}" ></th>
+            <th th:text="#{gesUser.prenom}" ></th>
+            <th th:text="#{gesUser.pseudo}" ></th>
+            <th th:text="#{gesUser.email}" ></th>
+            <th th:text="#{gesUser.telephone}" ></th>
+            <th th:text="#{gesUser.mdp}" ></th>
+            <th th:text="#{gesUser.credit}" ></th>
+            <th th:text="#{gesUser.admin}" ></th>
+            <th th:text="#{gesUser.adresse}" ></th>
+        </tr>
+        </thead>
+        <!--donnees de la table : tbody-->
+        <tbody>
+        <!-- je vais générer une ligne  <tr> par film stocké dans mon application
+            pour cela, on va utilser l'attribut : th:each
+            qui va itérer sur la liste contenue dans mon attribut de model : films
+
+            th:each="film : ${films}"
+            c'est l'équivalent de la boucle FOR-EACH de java : for (Film film : films){}
+            => ${films} correspond à l'attribut de modèle qui contient la liste
+            film correspond à l'élément de l'itération courante
+          -->
+        <form th:action="@{/}" method="post">
+            <tr th:each="utilisateur : ${utilisateur}">
+                <!-- td (table data) : une donnée de cellule d'un ligne de ma table -->
+                <td th:text="${}"></td>
+                <td th:text="${}"></td>
+                <td> <button class="button" name="idGenreSupprimer" th:field="${participant.id}" th:value="${participant.id}">&#10007</button> </td>
+            </tr>
+        </form>
+        </tbody>
+    </table>
+</main>
+
+</body>
+</html>
