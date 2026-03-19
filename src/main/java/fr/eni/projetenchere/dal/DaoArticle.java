@@ -7,7 +7,13 @@ import java.util.List;
 public interface DaoArticle {
     void insertArticle(Article article);
     List<Article> selectArticles();
-    //List<Article> selectEncheresOuvertes();
+    List<Article> selectEncheresOuvertes();
+
+    Article selectArticleById(long idArticle);
+    void deleteArticle();
+    void updateArticle(Article article);
+
+    // Methodes propre à un utilisateur
     //List<Article> selectUserEncheresEnCours(long idUser);
     //List<Article> selectUserEncheresremportées(long idUser);
     //List<Article> selectUserVentesEnCours(long idUser);

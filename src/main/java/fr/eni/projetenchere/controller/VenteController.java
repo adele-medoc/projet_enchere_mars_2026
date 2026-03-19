@@ -20,6 +20,9 @@ public class VenteController {
     @Autowired
     private VenteService venteService;
 
+    @GetMapping
+    public String getListeEncheres(Model model){
+        model.addAttribute("listeArticlesEnCours", nouvelleVenteService.consulterArticles());
     @GetMapping()
     public String accueil(){
         return "accueil";
