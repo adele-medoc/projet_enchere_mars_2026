@@ -86,7 +86,7 @@
         <section id="enchere-grid">
 
             <!-- TODO : modifier le template carte-enchere (<article>) pour qu'il soit dynamique avec th:each -->
-            <article class="carte-enchere">
+            <article class="carte-enchere" th:each="articleEnCours : ${listeArticlesEnCours}">
 
                 <figure>
                     <!-- TODO: penser à bien renseigner la src et le alt-->
@@ -94,12 +94,13 @@
                 </figure>
 
                 <div class="infos-enchere">
-                    <h3><a href="#">Nom de l'article</a></h3> <!-- TODO: dynamique-->
+                    <h3><a href="#" th:text="${articleEnCours.nom}"></a></h3> <!-- TODO: dynamique-->
 
                     <div>
-                        <p> <span th:text="#{infos.encheres.prix}">Prix : </span> <span> 210 </span> points </p>
-                        <p> <span th:text="#{infos.encheres.fin}">Fin de l'enchère </span> <time> 10/08/2018 </time></p>
-                        <p> <span th:text="#{infos.encheres.vendeur}">Vendeur :</span> <a href="#">jojo44</a> </p> <!-- TODO: lien page uilisateur -->
+                        <p> <span th:text="#{infos.encheres.prix}"> </span> <span th:text="${articleEnCours.prixVente}"> </span>
+                            points </p>
+                        <p> <span th:text="#{infos.encheres.fin}"> </span> <time th:datetime="${articleEnCours.dateFin}" th:text="${articleEnCours.dateFin}"> </time></p>
+                        <p> <span th:text="#{infos.encheres.vendeur}"></span> <a href="#">jojo44</a> </p> <!-- TODO: lien page uilisateur -->
                     </div>
 
                 </div> <!-- fin div infos encheres-->

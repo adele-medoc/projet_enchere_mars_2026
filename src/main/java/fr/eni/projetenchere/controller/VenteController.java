@@ -17,6 +17,7 @@ public class VenteController {
 
     @GetMapping
     public String getListeEncheres(Model model){
+        model.addAttribute("listeArticlesEnCours", nouvelleVenteService.consulterArticles());
         return "accueil";
     }
 
