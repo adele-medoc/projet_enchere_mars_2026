@@ -1,4 +1,7 @@
 package fr.eni.projetenchere.dal;
 
-public class DaoUtilisateurJdbcImpl {
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class DaoUtilisateurJdbcImpl implements DaoUtilisateur{
 }

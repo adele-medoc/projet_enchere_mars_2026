@@ -5,7 +5,7 @@ import fr.eni.projetenchere.bo.Article;
 import java.util.List;
 
 public interface DaoArticle {
-    void insertArticle();
+    void insertArticle(Article article);
     List<Article> selectArticles();
     //List<Article> selectEncheresOuvertes();
     //List<Article> selectUserEncheresEnCours(long idUser);

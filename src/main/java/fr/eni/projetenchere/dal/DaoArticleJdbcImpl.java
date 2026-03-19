@@ -1,6 +1,9 @@
 package fr.eni.projetenchere.dal;
 
+import fr.eni.projetenchere.bo.Adresse;
 import fr.eni.projetenchere.bo.Article;
+import fr.eni.projetenchere.bo.Categorie;
+import fr.eni.projetenchere.bo.Utilisateur;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -8,12 +11,21 @@ import java.util.List;
 
 @Repository
 public class DaoArticleJdbcImpl implements DaoArticle {
-    private static final String SELECT_ARTICLES = "";
+    private static final String SELECT_ARTICLES = "SELECT * From ARTICLE";
+    private static final String SELECT_ARTICLE_BY_ID = """
+            SELECT *
+            FROM ARTICLE
+            WHERE id_article = ?
+            """;
+    private static final String INSERT_ARTICLE = """
+            INSERT INTO ARTICLE(nom_article,description_article,date_debut_vente_article,date_fin_vente_article,prix_initial_article,id_utilisateur,id_categorie,id_adresse)
+            VALUES (?,?,?,?,?,?,?,?)
+            """;
     JdbcTemplate jdbcTemplate;
 
     @Override
-    public void insertArticle() {
-
+    public void insertArticle(Article article) {
+        jdbcTemplate.update(INSERT_ARTICLE);
     }
 
     @Override
