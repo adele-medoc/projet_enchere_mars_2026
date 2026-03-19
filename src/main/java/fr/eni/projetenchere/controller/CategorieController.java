@@ -31,4 +31,9 @@ public class CategorieController {
         return "redirect:/categories";
     }
 
+    @GetMapping("/gestion")
+    public String getGestionCategorie(){
+        return "categories";
+    }
+
 }

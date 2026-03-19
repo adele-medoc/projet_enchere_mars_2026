@@ -11,7 +11,7 @@
     <form th:action="@{/categories}" method="post" th:object="${categorie}">
         <label th:text="#{categories.form.label}"></label>
         <!-- à la place de name="titre" j'utilise : th:field="*{titre}" afin de remplir l'attribut "titre" de mon objet genre -->
-        <input type="text" th:field="*{libelle}" required>
+<!--        <input type="text" th:field="*{libelle}" required>-->
         <br>
         <button type="submit">Valider</button>
     </form>
@@ -25,9 +25,9 @@
 
         <tr>
             <!-- th (table header) : un colonne de titre de ma table -->
-            <th th:text="#{categories.table.id}">Id</th>
-            <th th:text="#{categories.table.titre}">Genre</th>
-            <th th:text="#{categories.table.action}">Action</th>
+<!--            <th th:text="#{categories.table.id}">Id</th>-->
+<!--            <th th:text="#{categories.table.titre}">Genre</th>-->
+<!--            <th th:text="#{categories.table.action}">Action</th>-->
         </tr>
         </thead>
         <!--donnees de la table : tbody-->
@@ -49,9 +49,9 @@
                 sur le chemin "/genres/supprimer"
                 avec un parametre "idGenreASupprimer" qui indique
                 l'id du genre à supprimer avec : th:value="${genre.id}"-->
-                <form class="inline-form" th:action="@{/categories/supprimer}" method="post">
-                    <button class="delete-button" type="submit" name="idCategorieASupprimer" >✗</button>
-                </form>
+<!--                <form class="inline-form" th:action="@{/categories/supprimer}" method="post">-->
+<!--                    <button class="delete-button" type="submit" name="idCategorieASupprimer" >✗</button>-->
+<!--                </form>-->
 
             </td>
         </tr>
