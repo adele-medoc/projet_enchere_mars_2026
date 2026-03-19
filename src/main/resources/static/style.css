@@ -1,3 +1,5 @@
+/* || VARIABLES CSS (couleurs etc) */
+
 /* || RESET */
 body {
     margin:0;
@@ -5,13 +7,16 @@ body {
 }
 
 main {
-    max-width: 1040px;
+    max-width: 1200px;
     margin: auto;
+}
+
+button, input[type="text"], input[type="search"], select {
+    padding: 0.5rem 1rem;
 }
 
 /* || Header */
 header{
-
     padding: 5px 20px;
     background-color: grey;
     display: flex;
@@ -31,9 +36,47 @@ header a:hover{
 
 /* || Accueil (toutes les encheres) */
 
+#filters-menu > form {
+    gap: 16px;
+}
+
+.carte-enchere {
+    padding:8px;
+    border:1px solid black;
+}
+
+.search-categories {
+    flex-grow: 2;
+}
+
+.search-categories > input {
+    width: 100%;
+}
+
+
+.search-input{
+    flex-grow: 2;
+}
+
+.search-input > input {
+    width: 100%;
+    height: 100%;
+}
+
+/* || Gestion catégories (admin) */
+.category-admin thead {
+    background-color: black;
+    color: white;
+}
+
 /* || Classes utilitaires */
 .flex-row {
     display: flex;
 }
+
+.inline-form>button {
+    display: inline;
+}
+
 
 /* || Debug || */

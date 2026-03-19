@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!-- Je veux utiliser le layout défini dans le fichier layoutPrincipal -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{layouts/mainLayout}">
+
+<body>
+
+<main layout:fragment="contenu">
+
+    <h2 th:text="#{categories.page.title}"></h2>
+
+    <form th:action="@{/categories}" method="post" th:object="${categorie}">
+        <label th:text="#{categories.form.label}"></label>
+        <!-- à la place de name="titre" j'utilise : th:field="*{titre}" afin de remplir l'attribut "titre" de mon objet genre -->
+        <input type="text" th:field="*{libelle}" required>
+        <br>
+        <button type="submit">Valider</button>
+    </form>
+
+    <h2 th:text="#{categories.liste.title}"></h2>
+
+
+    <table class="category-admin">
+
+        <thead>
+
+        <tr>
+            <!-- th (table header) : un colonne de titre de ma table -->
+            <th th:text="#{categories.table.id}">Id</th>
+            <th th:text="#{categories.table.titre}">Genre</th>
+            <th th:text="#{categories.table.action}">Action</th>
+        </tr>
+        </thead>
+        <!--donnees de la table : tbody-->
+        <tbody>
+        <!-- je vais générer une ligne  <tr> par genre stocké dans mon application
+            pour cela, on va utilser l'attribut : th:each
+            qui va itérer sur la liste contenue dans mon attribut de model : genres
+
+            th:each="genre : ${genres}"
+          -->
+        <!-- TODO: ajouter boucle th:each categorie sur le tableau-->
+        <tr>
+            <!-- td (table data) : une donnée de cellule d'un ligne de ma table -->
+            <td></td>
+            <td></td>
+            <td>
+                <!-- pour chaque genre j'affiche un bouton de suppression
+                dans un formulaire qui va envoyer une requête POST
+                sur le chemin "/genres/supprimer"
+                avec un parametre "idGenreASupprimer" qui indique
+                l'id du genre à supprimer avec : th:value="${genre.id}"-->
+                <form class="inline-form" th:action="@{/categories/supprimer}" method="post">
+                    <button class="delete-button" type="submit" name="idCategorieASupprimer" >✗</button>
+                </form>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+
+</body>
+</html>
