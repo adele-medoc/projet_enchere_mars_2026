@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface VenteService {
     void CreerNouvelleVente(Article article);
-    Article supprimerVente();
+    void supprimerVente(long id);
     List<Categorie> consulterCategories();
     List<Article> consulterArticles();
     Utilisateur consulterUserAuthentifier();

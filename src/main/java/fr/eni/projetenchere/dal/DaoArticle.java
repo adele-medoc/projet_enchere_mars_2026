@@ -19,7 +19,8 @@ public interface DaoArticle {
     //List<Article> selectUserVentesEnCours(long idUser);
     //List<Article> selectUserVentesNonDebute(long idUser);
     //List<Article> selectUserVentesTerminer(long idUser);
-
-
+    Article selectArticleById(long id);
+    void deleteArticle(long id);
+    void updateArticle(Article article);
 
 }

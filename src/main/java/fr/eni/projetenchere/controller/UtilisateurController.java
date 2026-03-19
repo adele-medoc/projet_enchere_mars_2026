@@ -10,13 +10,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping()
 public class UtilisateurController {
-@GetMapping("/")
-    public String accueil(){
-        return "accueil";
-    }
 
 
+
+@GetMapping("/utilisateur/gestion")
+    public String getUtilisateur(){
+    return "gestionCompteUtilisateur";
+}
 
 //    @Autowired
 //    UtilisateurService utilisateurService;

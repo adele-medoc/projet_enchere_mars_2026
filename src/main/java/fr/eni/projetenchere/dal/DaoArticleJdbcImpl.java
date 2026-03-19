@@ -62,7 +62,7 @@ public class DaoArticleJdbcImpl implements DaoArticle {
     }
 
     @Override
-    public void deleteArticle() {
+    public void deleteArticle(long id) {
 
     }
 
