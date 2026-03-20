@@ -14,6 +14,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
+import java.util.List;
+
 @Controller
 @RequestMapping()
 public class VenteController {
@@ -48,6 +50,9 @@ public class VenteController {
         model.addAttribute("article", a);
         return "nouvelleVente";
     }
+
+    @ModelAttribute("listeArticlesEnCours")public List<Article> getArticles(){
+        return venteService.consulterArticles(); }
 
     @PostMapping("/enchere/nouvelArticle")
     public String postNouvelleVente(Article article, RedirectAttributes modelRedirect){
