@@ -6,15 +6,15 @@
   <main layout:fragment="contenu">
     <h1 th:text="#{profil.titre}"></h1>
 
-<form th:action="@{/profils}" method="post" th:object="${utilisateur}">
+<form th:action="@{/profil}" method="post" th:object="${utilisateur}">
   <label>Pseudo :</label>
-     <input type="text" th:field="*{pseudo}" required><br>
+     <input type="text" th:field="*{pseudo}"><br>
   <label>Nom :</label>
-     <input type="text" th:field="*{nom}" required><br>
+     <input type="text" th:field="*{nom}"><br>
   <label>Prénom :</label>
-      <input type="text" th:field="*{prenom}" required><br>
+      <input type="text" th:field="*{prenom}"><br>
   <label>Email :</label>
-      <input type="text" th:field="*{email}" required><br>
+      <input type="text" th:field="*{email}"><br>
 
   <label>Rue :</label>
       <input type="text" th:field="*{adresse.rue}"><br>
@@ -23,15 +23,15 @@
   <label>Ville :</label>
       <input type="text" th:field="*{adresse.ville}"><br>
   <label>Mot de passe :</label>
-      <input type="password" th:field="*{motDePasse}" required><br>
+      <input type="password" th:field="*{motDePasse}"><br>
   <label>Confirmation :</label>
-      <input type="password" th:field="*{motDePasse}" required><br>
+      <input type="password" th:field="*{motDePasse}"><br>
+  </form>
 
-  <button type="submit">Créer</button>
-  <button type="reset">Annuler</button>
+<form th:action="@{/}" method="post">
+    <button type="submit">Annuler</button>
 </form>
 
   </main>
-
 </body>
 </html>

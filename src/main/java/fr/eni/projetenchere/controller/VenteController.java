@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping()
 public class VenteController {
@@ -37,6 +39,9 @@ public class VenteController {
         model.addAttribute("categorie", venteService.consulterCategories());
         return "nouvelleVente";
     }
+
+    @ModelAttribute("listeArticlesEnCours")public List<Article> getArticles(){
+        return venteService.consulterArticles(); }
 
     @PostMapping("/enchere/nouvelArticle")
     public String postNouvelleVente(Model model){
