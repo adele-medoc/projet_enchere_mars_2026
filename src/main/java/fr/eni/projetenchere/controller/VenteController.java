@@ -2,33 +2,29 @@ package fr.eni.projetenchere.controller;
 
 import fr.eni.projetenchere.bo.Adresse;
 import fr.eni.projetenchere.bo.Article;
+import fr.eni.projetenchere.dto.UtilisateurDto;
 import fr.eni.projetenchere.service.VenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping()
 public class VenteController {
 
-    @Autowired
-    VenteService nouvelleVenteService;
+    //TODO : choisir UN service
+
     @Autowired
     private VenteService venteService;
 
     @GetMapping
     public String getListeEncheres(Model model) {
-        model.addAttribute("listeArticlesEnCours", nouvelleVenteService.consulterArticles());
-        return null;
-    }
-    @GetMapping()
-    public String accueil(){
+        model.addAttribute("listeArticlesEnCours", venteService.consulterArticles());
         return "accueil";
     }
+
+
 
     @GetMapping("/enchere/{id}")
     public String getDetailArticle(@PathVariable long id, Model model){
@@ -44,8 +40,8 @@ public class VenteController {
 
     @PostMapping("/enchere/nouvelArticle")
     public String postNouvelleVente(Model model){
-        model.addAttribute("article",  new Article());
-        model.addAttribute("adresse",new Adresse());
+//        model.addAttribute("article",  new Article());
+        model.addAttribute("UtilisateurDto", new UtilisateurDto());
         return "nouvelleVente";
     }
 

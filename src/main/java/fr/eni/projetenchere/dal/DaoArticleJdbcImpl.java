@@ -4,6 +4,7 @@ import fr.eni.projetenchere.bo.Adresse;
 import fr.eni.projetenchere.bo.Article;
 import fr.eni.projetenchere.bo.Categorie;
 import fr.eni.projetenchere.bo.Utilisateur;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -21,7 +22,6 @@ public class DaoArticleJdbcImpl implements DaoArticle {
                                                             date_debut_vente_article AS dateDebut,
                                                             date_fin_vente_article AS dateFin,
                                                             prix_initial_article AS miseAPrix,
-                                                            prix_vente_article AS prixVente,
                                                             id_categorie AS noCategorie
                                                             FROM ARTICLE 
                                                     """;
@@ -38,6 +38,8 @@ public class DaoArticleJdbcImpl implements DaoArticle {
             INSERT INTO ARTICLE(nom_article,description_article,date_debut_vente_article,date_fin_vente_article,prix_initial_article,id_utilisateur,id_categorie,id_adresse)
             VALUES (?,?,?,?,?,?,?,?)
             """;
+
+    @Autowired
     JdbcTemplate jdbcTemplate;
 
     @Override
