@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public class DaoCategorieJdbcImpl implements DaoCategorie{
-    private static String SELECT_CATEGORIES = "SELECT * FROM [PROJET_ENCHERE].[dbo].[CATEGORIE]";
+    private static String SELECT_CATEGORIES = "SELECT  id_categorie,libelle_categorie AS libelle FROM [PROJET_ENCHERE].[dbo].[CATEGORIE]";
     private static String SELECT_CATEGORIE_BY_ID = "SELECT * FROM CATEGORIE WHERE id_categorie = ?";
     private static String INSERT_CATEGORIE = "INSERT INTO CATEGORIE(libelle_categorie) VALUES (?)";
     private static String DELETE_CATEGORIE = "DELETE FROM CATEGORIE WHERE id_categorie = ";
@@ -31,7 +31,8 @@ public class DaoCategorieJdbcImpl implements DaoCategorie{
 
     @Override
     public List<Categorie> selectCategories() {
-        return jdbcTemplate.query(SELECT_CATEGORIES,new BeanPropertyRowMapper<>());
+        System.out.println(jdbcTemplate.query(SELECT_CATEGORIES,new BeanPropertyRowMapper<>(Categorie.class)));
+        return jdbcTemplate.query(SELECT_CATEGORIES,new BeanPropertyRowMapper<>(Categorie.class));
     }
 
     @Override

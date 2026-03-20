@@ -19,9 +19,9 @@ public class Utilisateur {
     private Adresse adresse;
     private String motDePasse;
     private int credit;
-    private byte administrateur;
+    private boolean administrateur;
 
-    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, Adresse adresse, String motDePasse, int credit, byte administrateur) {
+    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, Adresse adresse, String motDePasse, int credit, boolean administrateur) {
         this.pseudo = pseudo;
         this.nom = nom;
         this.prenom = prenom;
