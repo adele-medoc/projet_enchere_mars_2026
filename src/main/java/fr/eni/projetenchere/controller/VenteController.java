@@ -21,8 +21,10 @@ public class VenteController {
     private VenteService venteService;
 
     @GetMapping
-    public String getListeEncheres(Model model){
+    public String getListeEncheres(Model model) {
         model.addAttribute("listeArticlesEnCours", nouvelleVenteService.consulterArticles());
+        return null;
+    }
     @GetMapping()
     public String accueil(){
         return "accueil";
