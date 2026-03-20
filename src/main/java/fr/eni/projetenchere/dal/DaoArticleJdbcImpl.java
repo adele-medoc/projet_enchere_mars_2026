@@ -15,11 +15,12 @@ import java.util.List;
 @Repository
 public class DaoArticleJdbcImpl implements DaoArticle {
     private static final String SELECT_ARTICLES = """
-                                                       SELECT a.*, u.pseudo_utilisateur, u.credit_utilisateur, ad.rue_adresse, ad.code_postale_adresse, ad.ville_adresse
-                                                                                                                        FROM ARTICLE a
-                                                                                                                        INNER JOIN UTILISATEUR U ON u.id_utilisateur = a.id_utilisateur
-                                                                                                                        INNER JOIN ADRESSE ad ON ad.id_adresse = a.id_adresse
-                                                                                                                        
+                                                       SELECT a.*, 
+                                                              u.pseudo_utilisateur, u.credit_utilisateur, 
+                                                              ad.rue_adresse, ad.code_postale_adresse, ad.ville_adresse
+                                                       FROM ARTICLE a
+                                                       INNER JOIN UTILISATEUR U ON u.id_utilisateur = a.id_utilisateur
+                                                       INNER JOIN ADRESSE ad ON ad.id_adresse = a.id_adresse
                                                     """;
     private static final String SELECT_ARTICLE_BY_ID = """
             SELECT *
