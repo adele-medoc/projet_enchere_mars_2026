@@ -7,9 +7,9 @@
     <h1 th:text="#{newVente.titre}"></h1>
 <!--    <img src="#" alt="image de l'objet">-->
 
-    <form method="post" th:action="@{/nouvelleVente}" th:object="${article}">
+    <form method="post" th:action="@{/nouvelleVente}" th:object="${UtilisateurDto}">
       <label for="article" th:text="#{newVente.article}"></label>
-      <input type="text" id="article" th:field="*{nom}" name="article">
+      <input type="text" id="article" th:field="*{user.nom}" name="article">
       <br>
 
       <label for="description" th:text="#{newVente.description}"></label>
