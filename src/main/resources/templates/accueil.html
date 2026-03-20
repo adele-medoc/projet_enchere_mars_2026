@@ -90,17 +90,17 @@
 
                 <figure>
                     <!-- TODO: penser à bien renseigner la src et le alt-->
-                    <img src="#" alt="">
+                    <img src="https://placehold.co/150x150" alt="">
                 </figure>
 
                 <div class="infos-enchere">
                     <h3><a href="#" th:text="${articleEnCours.nom}"></a></h3> <!-- TODO: dynamique-->
 
                     <div>
-                        <p> <span th:text="#{infos.encheres.prix}"> </span> <span th:text="${articleEnCours.prixVente}"> </span>
+                        <p> <span th:text="| #{infos.encheres.prix} :|"> </span> <span th:text="${articleEnCours.miseAPrix}"> </span>
                             points </p>
-                        <p> <span th:text="#{infos.encheres.fin}"> </span> <time th:datetime="${articleEnCours.dateFin}" th:text="${articleEnCours.dateFin}"> </time></p>
-                        <p> <span th:text="#{infos.encheres.vendeur}"></span> <a href="#">jojo44</a> </p> <!-- TODO: lien page uilisateur -->
+                        <p> <span th:text="|#{infos.encheres.fin} :|"> </span> <time th:datetime="${articleEnCours.dateFin}" th:text="${#temporals.format(articleEnCours.dateFin, 'dd MMMM yyyy')}"> </time></p>
+                        <p> <span th:text="|#{infos.encheres.vendeur} :|"></span> <a href="#">jojo44</a> </p> <!-- TODO: lien page uilisateur -->
                     </div>
 
                 </div> <!-- fin div infos encheres-->

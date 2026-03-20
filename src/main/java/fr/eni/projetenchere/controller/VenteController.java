@@ -12,22 +12,19 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping()
 public class VenteController {
-//todo il faut choisir un venteService
-    @Autowired
-    VenteService nouvelleVenteService;
+
+    //TODO : choisir UN service
+
     @Autowired
     private VenteService venteService;
 
     @GetMapping
-    public String getListeEncheres(Model model){
-        model.addAttribute("listeArticlesEnCours", nouvelleVenteService.consulterArticles());
-        return null;
-    }
-
-    @GetMapping()
-    public String accueil(){
+    public String getListeEncheres(Model model) {
+        model.addAttribute("listeArticlesEnCours", venteService.consulterArticles());
         return "accueil";
     }
+
+
 
     @GetMapping("/enchere/{id}")
     public String getDetailArticle(@PathVariable long id, Model model){

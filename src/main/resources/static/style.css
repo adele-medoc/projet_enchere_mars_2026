@@ -40,9 +40,17 @@ header a:hover{
     gap: 16px;
 }
 
+#enchere-grid {
+    display: flex;
+    gap:16px;
+    flex-wrap: wrap;
+}
+
 .carte-enchere {
     padding:8px;
     border:1px solid black;
+    width: 500px;
+    display: flex;
 }
 
 .search-categories {
