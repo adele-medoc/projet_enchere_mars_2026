@@ -2,6 +2,7 @@ package fr.eni.projetenchere.service;
 
 
 import fr.eni.projetenchere.bo.Utilisateur;
+import fr.eni.projetenchere.dal.DaoUtilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,9 +17,9 @@ public class UtilisateurServiceJdbcImpl implements UtilisateurService{
     // On utilise le PasswordEncoder défini dans SecurityConfiguration afin d'encoder le mot de passe des utilisateurs lors de leur création
 //    @Autowired
 //    private PasswordEncoder passwordEncoder;
-//    @Autowired
-//    private UtilisateurDao utilisateurDao;
-//
+    @Autowired
+    private DaoUtilisateur utilisateurDao;
+
 //    @Override
 //    public List<Utilisateur> consulterUtilisateurs() {
 //        return utilisateurDao.listUtilisateurs();
@@ -47,6 +48,11 @@ public class UtilisateurServiceJdbcImpl implements UtilisateurService{
     @Override
     public List<Utilisateur> consulterUtilisateurs() {
         return List.of();
+    }
+
+    @Override
+    public Utilisateur consultUserById(long idUtilisateur) {
+        return utilisateurDao.consultUserById(idUtilisateur);
     }
 
     @Override
