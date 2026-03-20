@@ -4,6 +4,7 @@ import fr.eni.projetenchere.bo.Adresse;
 import fr.eni.projetenchere.bo.Article;
 import fr.eni.projetenchere.bo.Categorie;
 import fr.eni.projetenchere.bo.Utilisateur;
+import fr.eni.projetenchere.dal.rowmappers.ArticleRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,16 +15,11 @@ import java.util.List;
 @Repository
 public class DaoArticleJdbcImpl implements DaoArticle {
     private static final String SELECT_ARTICLES = """
-                                                        SELECT  
-                                                            id_article AS idArticle,
-                                                            id_utilisateur as idUtilisateur,
-                                                            nom_article AS nom,
-                                                            description_article AS description,
-                                                            date_debut_vente_article AS dateDebut,
-                                                            date_fin_vente_article AS dateFin,
-                                                            prix_initial_article AS miseAPrix,
-                                                            id_categorie AS noCategorie
-                                                            FROM ARTICLE 
+                                                       SELECT a.*, u.pseudo_utilisateur, u.credit_utilisateur, ad.rue_adresse, ad.code_postale_adresse, ad.ville_adresse
+                                                                                                                        FROM ARTICLE a
+                                                                                                                        INNER JOIN UTILISATEUR U ON u.id_utilisateur = a.id_utilisateur
+                                                                                                                        INNER JOIN ADRESSE ad ON ad.id_adresse = a.id_adresse
+                                                                                                                        
                                                     """;
     private static final String SELECT_ARTICLE_BY_ID = """
             SELECT *
@@ -60,7 +56,7 @@ public class DaoArticleJdbcImpl implements DaoArticle {
     //TODO: il faudra un ArticleRowMapper pour récupérer les infos de l'utilisateur (pseudo, id) et de la Catégorie (libellé)
     @Override
     public List<Article> selectEncheresOuvertes() {
-        return jdbcTemplate.query(SELECT_ARTICLES_EN_COURS, new BeanPropertyRowMapper<>(Article.class));
+        return jdbcTemplate.query(SELECT_ARTICLES_EN_COURS, new ArticleRowMapper());
     }
 
     @Override
