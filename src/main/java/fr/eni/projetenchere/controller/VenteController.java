@@ -5,8 +5,10 @@ import fr.eni.projetenchere.bo.Article;
 import fr.eni.projetenchere.bo.Categorie;
 import fr.eni.projetenchere.dto.ArticleDto;
 import fr.eni.projetenchere.dto.UtilisateurDto;
+import fr.eni.projetenchere.security.UtilisateurSpringSecurity;
 import fr.eni.projetenchere.service.VenteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -55,7 +57,9 @@ public class VenteController {
         return venteService.consulterArticles(); }
 
     @PostMapping("/enchere/nouvelArticle")
-    public String postNouvelleVente(Article article, RedirectAttributes modelRedirect){
+    public String postNouvelleVente(Article article, RedirectAttributes modelRedirect,@AuthenticationPrincipal UtilisateurSpringSecurity user){
+        article.getUtilisateur().setIdUtilisateur(user.getUserId());
+        System.out.println("************************* article = " + article.toString());
         venteService.CreerNouvelleVente(article);
         modelRedirect.addFlashAttribute("messageConfirmation", "L'article a bien été enregistrée !");
         return "redirect:/enchere/nouvelArticle";
