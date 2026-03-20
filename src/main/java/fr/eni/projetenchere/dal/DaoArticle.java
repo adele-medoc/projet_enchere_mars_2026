@@ -9,9 +9,8 @@ public interface DaoArticle {
     List<Article> selectArticles();
     List<Article> selectEncheresOuvertes();
 
-    Article selectArticleById(long idArticle);
-    void deleteArticle();
-    void updateArticle(Article article);
+    // TODO: faire un tri des méthodes
+
 
     // Methodes propre à un utilisateur
     //List<Article> selectUserEncheresEnCours(long idUser);
