@@ -99,7 +99,7 @@
                         <p> <span th:text="| #{infos.encheres.prix} :|"> </span> <span th:text="${articleEnCours.miseAPrix}"> </span>
                             points </p>
                         <p> <span th:text="|#{infos.encheres.fin} :|"> </span> <time th:datetime="${articleEnCours.dateFin}" th:text="${#temporals.format(articleEnCours.dateFin, 'dd MMMM yyyy')}"> </time></p>
-                        <p> <span th:text="|#{infos.encheres.vendeur} :|"></span> <a th:href="@{/profil/(id=${articleEnCours.utilisateur.idUtilisateur})}" th:text="${articleEnCours.utilisateur.pseudo}"></a> </p>
+                        <p> <span th:text="|#{infos.encheres.vendeur} :|"></span> <a th:href="@{/profil/(${articleEnCours.utilisateur.pseudo})}" th:text="${articleEnCours.utilisateur.pseudo}"></a> </p>
                         <!-- TODO: lien page uilisateur -->
                     </div>
 

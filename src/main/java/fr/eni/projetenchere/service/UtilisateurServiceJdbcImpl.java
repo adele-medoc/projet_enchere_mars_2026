@@ -56,6 +56,11 @@ public class UtilisateurServiceJdbcImpl implements UtilisateurService{
     }
 
     @Override
+    public Utilisateur consultUserByPseudo(String pseudo) {
+        return utilisateurDao.consultUserByPseudo(pseudo);
+    }
+
+    @Override
     public void creerUtilisateur(Utilisateur utilisateur) {
 
     }

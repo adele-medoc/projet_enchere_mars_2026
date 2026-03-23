@@ -8,7 +8,7 @@
 
 <form th:action="@{/profil}" method="post" th:object="${utilisateur}">
   <label>Pseudo :</label>
-     <input type="text" th:field="*{pseudo}"><br>
+     <input type="text" th:field="*{pseudo}" th:placeholder="${#authentication.name}"><br>
   <label>Nom :</label>
      <input type="text" th:field="*{nom}"><br>
   <label>Prénom :</label>
