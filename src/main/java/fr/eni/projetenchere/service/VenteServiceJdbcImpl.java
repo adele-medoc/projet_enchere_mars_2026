@@ -1,11 +1,10 @@
 package fr.eni.projetenchere.service;
 
+import fr.eni.projetenchere.bo.Adresse;
 import fr.eni.projetenchere.bo.Article;
 import fr.eni.projetenchere.bo.Categorie;
 import fr.eni.projetenchere.bo.Utilisateur;
-import fr.eni.projetenchere.dal.DaoArticle;
-import fr.eni.projetenchere.dal.DaoCategorie;
-import fr.eni.projetenchere.dal.DaoUtilisateur;
+import fr.eni.projetenchere.dal.*;
 import fr.eni.projetenchere.security.UtilisateurSpringSecurity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,12 +17,22 @@ public class VenteServiceJdbcImpl implements VenteService {
     @Autowired
     DaoArticle daoArticle;
     @Autowired
-    DaoUtilisateur daoUtilisateur;
-    @Autowired
     DaoCategorie daoCategorie;
+    @Autowired
+    DaoAdresse daoAdresse;
 
     @Override
     public void CreerNouvelleVente(Article article, UtilisateurSpringSecurity user) {
+        Adresse adresseRetrait= new Adresse(article.getAdresseRetrait().getRue(),article.getAdresseRetrait().getCodePostal(),article.getAdresseRetrait().getVille());
+        // Si l'@ de retrait et l'@ de l'utilisateur actif sont les mêmes alors l'article à pour id_adresse le même que l'utilisateur
+        if(adresseRetrait.equals(user.getUtilisateur().getAdresse())){
+            article.getAdresseRetrait().setIdAdresse(user.getUtilisateur().getAdresse().getIdAdresse());
+        // Si non on créer l'@ en base et on retourne l'id pour l'associer à l'article
+        }else{
+            long idAdresse = daoAdresse.insertAdresseAndGetID(article.getAdresseRetrait().getRue(),article.getAdresseRetrait().getCodePostal(),article.getAdresseRetrait().getVille());
+            article.getAdresseRetrait().setIdAdresse(idAdresse);
+        }
+
         daoArticle.insertArticle(article,user);
     }
 

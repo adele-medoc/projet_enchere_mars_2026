@@ -53,7 +53,7 @@ public class DaoArticleJdbcImpl implements DaoArticle {
                 .addValue("dateDebut",article.getDateDebut())
                 .addValue("dateFin",article.getDateFin())
                 .addValue("prixInitial",article.getMiseAPrix())
-                .addValue("idVendeur",user.getUserId())
+                .addValue("idVendeur",user.getUtilisateur().getIdUtilisateur())
                 .addValue("idCategorie",article.getNoCategorie())
                 .addValue("idAdresse",article.getAdresseRetrait().getIdAdresse());
 

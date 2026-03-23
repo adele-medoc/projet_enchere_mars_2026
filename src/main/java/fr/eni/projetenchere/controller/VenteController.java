@@ -8,7 +8,9 @@ import fr.eni.projetenchere.dto.UtilisateurDto;
 import fr.eni.projetenchere.security.UtilisateurSpringSecurity;
 import fr.eni.projetenchere.service.VenteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -45,11 +47,9 @@ public class VenteController {
     }
 
     @GetMapping("/enchere/nouvelArticle")
-        public String getNouvelleVente(Model model){
-        model.addAttribute("categories", venteService.consulterCategories());
-        Article a = new Article();
-        a.setAdresseRetrait(new Adresse());
-        model.addAttribute("article", a);
+        public String getNouvelleVente(Model model,@AuthenticationPrincipal UtilisateurSpringSecurity user){
+        model.addAttribute("article", new Article());
+        model.addAttribute("adresseVendeur",user.getUtilisateur().getAdresse());
         return "nouvelleVente";
     }
 
@@ -58,12 +58,9 @@ public class VenteController {
 
     @PostMapping("/enchere/nouvelArticle")
     public String postNouvelleVente(Article article, RedirectAttributes modelRedirect,@AuthenticationPrincipal UtilisateurSpringSecurity user){
-//        long idUtilisateurActif = user.getUserId();
-//        article.getUtilisateur().setIdUtilisateur(idUtilisateurActif);
-//        System.out.println("************************* article = " + article.toString());
         venteService.CreerNouvelleVente(article,user);
         modelRedirect.addFlashAttribute("messageConfirmation", "L'article a bien été enregistrée !");
-        return "redirect:/enchere/nouvelArticle";
+        return "redirect:/";
     }
 
 }
