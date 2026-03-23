@@ -5,9 +5,12 @@ import fr.eni.projetenchere.bo.Article;
 import fr.eni.projetenchere.bo.Categorie;
 import fr.eni.projetenchere.bo.Utilisateur;
 import fr.eni.projetenchere.dal.rowmappers.ArticleRowMapper;
+import fr.eni.projetenchere.security.UtilisateurSpringSecurity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -33,16 +36,28 @@ public class DaoArticleJdbcImpl implements DaoArticle {
 
     private static final String INSERT_ARTICLE = """
             INSERT INTO ARTICLE(nom_article,description_article,date_debut_vente_article,date_fin_vente_article,prix_initial_article,id_utilisateur,id_categorie,id_adresse)
-            VALUES (?,?,?,?,?,?,?,?)
+            VALUES (:nom,:description,:dateDebut,:dateFin,:prixInitial,:idVendeur,:idCategorie,:idAdresse)
             """;
 
 
     @Autowired
     JdbcTemplate jdbcTemplate;
+    @Autowired
+    NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
-    public void insertArticle(Article article) {
-        jdbcTemplate.update(INSERT_ARTICLE);
+    public void insertArticle(Article article, UtilisateurSpringSecurity user) {
+        MapSqlParameterSource params = new MapSqlParameterSource()
+                .addValue("nom",article.getNom())
+                .addValue("description",article.getDescription())
+                .addValue("dateDebut",article.getDateDebut())
+                .addValue("dateFin",article.getDateFin())
+                .addValue("prixInitial",article.getMiseAPrix())
+                .addValue("idVendeur",user.getUserId())
+                .addValue("idCategorie",article.getNoCategorie())
+                .addValue("idAdresse",article.getAdresseRetrait().getIdAdresse());
+
+        namedParameterJdbcTemplate.update(INSERT_ARTICLE,params);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package fr.eni.projetenchere.security;
 
 import fr.eni.projetenchere.bo.Utilisateur;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -9,7 +11,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
+@Data
+@AllArgsConstructor
 public class UtilisateurSpringSecurity implements UserDetails {
+
     private Utilisateur utilisateur;
 
     @Override
@@ -29,5 +34,9 @@ public class UtilisateurSpringSecurity implements UserDetails {
     @Override
     public String getUsername() {
         return utilisateur.getPseudo();
+    }
+
+    public long getUserId() {
+        return utilisateur.getIdUtilisateur();
     }
 }

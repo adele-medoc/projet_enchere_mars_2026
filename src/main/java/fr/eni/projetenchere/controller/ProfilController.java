@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+
 public class ProfilController {
 
     @Autowired
@@ -38,8 +39,7 @@ public class ProfilController {
 
 
     @PostMapping("/")
-    public String postAnnuler(Model model){
+    public String postAnnuler(){
         return "redirect:/";
     }
-
-}
+    }

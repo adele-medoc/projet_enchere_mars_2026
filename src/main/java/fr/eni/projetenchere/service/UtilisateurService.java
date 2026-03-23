@@ -14,4 +14,5 @@ public interface UtilisateurService {
     void creerUtilisateur(Utilisateur utilisateur);
     void supprimerUtilisateur(long idUtilisateurASupprimer);
 
+    Utilisateur consultUserByUsername(String username);
 }

@@ -17,6 +17,11 @@ public class DaoUtilisateurJdbcImpl implements DaoUtilisateur{
             FROM UTILISATEUR
             WHERE id_utilisateur = ?
             """;
+    private static final String SELECT_BY_USERNAME = """
+            SELECT *
+            FROM UTILISATEUR
+            WHERE pseudo_utilisateur = ?
+            """;
 
     private static final String SELECT_BY_PSEUDO = """
             SELECT *
@@ -29,8 +34,8 @@ public class DaoUtilisateurJdbcImpl implements DaoUtilisateur{
         return jdbcTemplate.queryForObject(SELECT_BY_ID, new BeanPropertyRowMapper<>(Utilisateur.class),idUtilisateur);
     }
 
-    @Override
-    public Utilisateur consultUserByPseudo(String pseudo) {
-        return jdbcTemplate.queryForObject(SELECT_BY_PSEUDO, new BeanPropertyRowMapper<>(Utilisateur.class),pseudo);
+    public Utilisateur consultUserByUsername(String username){
+        return jdbcTemplate.queryForObject(SELECT_BY_USERNAME, new BeanPropertyRowMapper<>(Utilisateur.class),username);
     }
+
 }
