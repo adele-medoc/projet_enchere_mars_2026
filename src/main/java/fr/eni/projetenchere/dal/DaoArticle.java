@@ -1,11 +1,12 @@
 package fr.eni.projetenchere.dal;
 
 import fr.eni.projetenchere.bo.Article;
+import fr.eni.projetenchere.security.UtilisateurSpringSecurity;
 
 import java.util.List;
 
 public interface DaoArticle {
-    void insertArticle(Article article);
+    void insertArticle(Article article, UtilisateurSpringSecurity user);
     List<Article> selectArticles();
     List<Article> selectEncheresOuvertes();
 

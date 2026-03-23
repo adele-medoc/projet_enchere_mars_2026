@@ -1,14 +1,14 @@
-package fr.eni.projetenchere.security;
-
-import fr.eni.projetenchere.bo.Utilisateur;
-import fr.eni.projetenchere.service.UtilisateurService;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
-
+//package fr.eni.projetenchere.security;
+//
+//import fr.eni.projetenchere.bo.Utilisateur;
+//import fr.eni.projetenchere.service.UtilisateurService;
+//import lombok.AllArgsConstructor;
+//import lombok.Data;
+//import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.userdetails.UserDetailsService;
+//import org.springframework.security.core.userdetails.UsernameNotFoundException;
+//import org.springframework.stereotype.Service;
+//
 //@Data
 //@AllArgsConstructor
 //@Service
@@ -18,7 +18,12 @@ import org.springframework.stereotype.Service;
 //
 //    @Override
 //    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        Utilisateur user = userService.consulterUserByUsername(username);
+//        Utilisateur user = userService.consultUserByUsername(username);
+//        return new UtilisateurSpringSecurity(user);
+//    }
+//
+//    public UserDetails loadUserById(long id) throws UsernameNotFoundException {
+//        Utilisateur user = userService.consultUserById(id);
 //        return new UtilisateurSpringSecurity(user);
 //    }
 //}

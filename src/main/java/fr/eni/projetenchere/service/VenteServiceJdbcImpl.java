@@ -6,6 +6,7 @@ import fr.eni.projetenchere.bo.Utilisateur;
 import fr.eni.projetenchere.dal.DaoArticle;
 import fr.eni.projetenchere.dal.DaoCategorie;
 import fr.eni.projetenchere.dal.DaoUtilisateur;
+import fr.eni.projetenchere.security.UtilisateurSpringSecurity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +23,8 @@ public class VenteServiceJdbcImpl implements VenteService {
     DaoCategorie daoCategorie;
 
     @Override
-    public void CreerNouvelleVente(Article article) {
-        daoArticle.insertArticle(article);
+    public void CreerNouvelleVente(Article article, UtilisateurSpringSecurity user) {
+        daoArticle.insertArticle(article,user);
     }
 
     @Override
