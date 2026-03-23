@@ -9,6 +9,8 @@ import java.util.List;
 public interface UtilisateurService {
 
     List<Utilisateur> consulterUtilisateurs();
+    Utilisateur consultUserById(long id);
     void creerUtilisateur(Utilisateur utilisateur);
     void supprimerUtilisateur(long idUtilisateurASupprimer);
+
 }

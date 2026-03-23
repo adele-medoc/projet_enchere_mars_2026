@@ -85,7 +85,6 @@
 
         <section id="enchere-grid">
 
-            <!-- TODO : modifier le template carte-enchere (<article>) pour qu'il soit dynamique avec th:each -->
             <article class="carte-enchere" th:each="articleEnCours : ${listeArticlesEnCours}">
 
                 <figure>
@@ -94,13 +93,14 @@
                 </figure>
 
                 <div class="infos-enchere">
-                    <h3><a href="#" th:text="${articleEnCours.nom}"></a></h3> <!-- TODO: dynamique-->
+                    <h3><a href="#" th:text="${articleEnCours.nom}"></a></h3>
 
                     <div>
                         <p> <span th:text="| #{infos.encheres.prix} :|"> </span> <span th:text="${articleEnCours.miseAPrix}"> </span>
                             points </p>
                         <p> <span th:text="|#{infos.encheres.fin} :|"> </span> <time th:datetime="${articleEnCours.dateFin}" th:text="${#temporals.format(articleEnCours.dateFin, 'dd MMMM yyyy')}"> </time></p>
-                        <p> <span th:text="|#{infos.encheres.vendeur} :|"></span> <a th:href="@{/profil/${articleEnCours.utilisateur.getIdUtilisateur()}/}" th:text="${articleEnCours.utilisateur.pseudo}"></a> </p> <!-- TODO: lien page uilisateur -->
+                        <p> <span th:text="|#{infos.encheres.vendeur} :|"></span> <a th:href="@{/profil/(id=${articleEnCours.utilisateur.idUtilisateur})}" th:text="${articleEnCours.utilisateur.pseudo}"></a> </p>
+                        <!-- TODO: lien page uilisateur -->
                     </div>
 
                 </div> <!-- fin div infos encheres-->

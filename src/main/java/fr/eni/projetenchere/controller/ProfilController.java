@@ -18,6 +18,9 @@ import java.util.List;
 
 public class ProfilController {
 
+    @Autowired
+    UtilisateurService utilisateurService;
+
     @GetMapping("/profil")
     public String getUtilisateurs(Model model){
 
@@ -25,6 +28,15 @@ public class ProfilController {
 
         return "profil";
     }
+
+    @GetMapping("/profil/{id}")
+    public String getUserById(@PathVariable long id, Model model){
+        model.addAttribute("utilisateur", utilisateurService.consultUserById(id));
+
+        // TODO : changer par la template des infos utilisateur (vue profil un seul utilisateur)
+        return "profil";
+    }
+
 
     @PostMapping("/")
     public String postAnnuler(){
