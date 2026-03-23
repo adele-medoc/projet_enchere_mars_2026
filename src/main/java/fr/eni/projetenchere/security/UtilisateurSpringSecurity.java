@@ -33,7 +33,7 @@ public class UtilisateurSpringSecurity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return utilisateur.getPseudo();
+        return utilisateur.getUsername();
     }
 
     public long getUserId() {

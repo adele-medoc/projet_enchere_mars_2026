@@ -5,7 +5,6 @@ import fr.eni.projetenchere.bo.Utilisateur;
 import fr.eni.projetenchere.dal.DaoUtilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,7 +46,7 @@ public class UtilisateurServiceJdbcImpl implements UtilisateurService{
 
     @Override
     public List<Utilisateur> consulterUtilisateurs() {
-        return List.of();
+        return utilisateurDao.listUtilisateurs();
     }
 
     @Override
@@ -58,12 +57,13 @@ public class UtilisateurServiceJdbcImpl implements UtilisateurService{
 
     @Override
     public void creerUtilisateur(Utilisateur utilisateur) {
+        utilisateurDao.creerUtilisateur(utilisateur);
 
     }
 
     @Override
     public void supprimerUtilisateur(long idUtilisateurASupprimer) {
-
+        utilisateurDao.supprimerUtilisateur(idUtilisateurASupprimer);
     }
 
     @Override
