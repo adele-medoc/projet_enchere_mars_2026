@@ -10,6 +10,7 @@ public interface UtilisateurService {
 
     List<Utilisateur> consulterUtilisateurs();
     Utilisateur consultUserById(long id);
+    Utilisateur consultUserByPseudo(String pseudo);
     void creerUtilisateur(Utilisateur utilisateur);
     void supprimerUtilisateur(long idUtilisateurASupprimer);
 

@@ -29,9 +29,9 @@ public class ProfilController {
         return "profil";
     }
 
-    @GetMapping("/profil/{id}")
-    public String getUserById(@PathVariable long id, Model model){
-        model.addAttribute("utilisateur", utilisateurService.consultUserById(id));
+    @GetMapping("/profil/{pseudo}")
+    public String getUserById(@PathVariable String pseudo, Model model){
+        model.addAttribute("utilisateur", utilisateurService.consultUserByPseudo(pseudo));
 
         // TODO : changer par la template des infos utilisateur (vue profil un seul utilisateur)
         return "profil";

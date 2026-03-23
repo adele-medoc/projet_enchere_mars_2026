@@ -39,6 +39,7 @@ public class DaoArticleJdbcImpl implements DaoArticle {
             VALUES (:nom,:description,:dateDebut,:dateFin,:prixInitial,:idVendeur,:idCategorie,:idAdresse)
             """;
 
+
     @Autowired
     JdbcTemplate jdbcTemplate;
     @Autowired
@@ -61,15 +62,14 @@ public class DaoArticleJdbcImpl implements DaoArticle {
 
     @Override
     public List<Article> selectArticles() {
-        return jdbcTemplate.query(SELECT_ARTICLES, new BeanPropertyRowMapper<>(Article.class));
+        return jdbcTemplate.query(SELECT_ARTICLES, new ArticleRowMapper());
     }
 
     @Override
     public Article selectArticleById(long idArticle) {
-        return jdbcTemplate.queryForObject(SELECT_ARTICLE_BY_ID, new BeanPropertyRowMapper<>(Article.class), idArticle);
+        return jdbcTemplate.queryForObject(SELECT_ARTICLE_BY_ID, new ArticleRowMapper(), idArticle);
     }
 
-    //TODO: il faudra un ArticleRowMapper pour récupérer les infos de l'utilisateur (pseudo, id) et de la Catégorie (libellé)
     @Override
     public List<Article> selectEncheresOuvertes() {
         return jdbcTemplate.query(SELECT_ARTICLES_EN_COURS, new ArticleRowMapper());
