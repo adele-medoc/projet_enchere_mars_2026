@@ -58,9 +58,10 @@ public class VenteController {
 
     @PostMapping("/enchere/nouvelArticle")
     public String postNouvelleVente(Article article, RedirectAttributes modelRedirect,@AuthenticationPrincipal UtilisateurSpringSecurity user){
-        article.getUtilisateur().setIdUtilisateur(user.getUserId());
-        System.out.println("************************* article = " + article.toString());
-        venteService.CreerNouvelleVente(article);
+//        long idUtilisateurActif = user.getUserId();
+//        article.getUtilisateur().setIdUtilisateur(idUtilisateurActif);
+//        System.out.println("************************* article = " + article.toString());
+        venteService.CreerNouvelleVente(article,user);
         modelRedirect.addFlashAttribute("messageConfirmation", "L'article a bien été enregistrée !");
         return "redirect:/enchere/nouvelArticle";
     }

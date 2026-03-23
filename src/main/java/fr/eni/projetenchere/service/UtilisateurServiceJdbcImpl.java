@@ -64,4 +64,9 @@ public class UtilisateurServiceJdbcImpl implements UtilisateurService{
     public void supprimerUtilisateur(long idUtilisateurASupprimer) {
 
     }
+
+    @Override
+    public Utilisateur consultUserByUsername(String username) {
+        return utilisateurDao.consultUserByUsername(username);
+    }
 }
