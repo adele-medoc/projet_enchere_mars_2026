@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class Utilisateur {
 
     private long idUtilisateur;
-    private String pseudo;
+    private String username;
     private String nom;
     private String prenom;
     private String email;
@@ -21,8 +21,8 @@ public class Utilisateur {
     private int credit;
     private boolean administrateur;
 
-    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, Adresse adresse, String motDePasse, int credit, boolean administrateur) {
-        this.pseudo = pseudo;
+    public Utilisateur(String username, String nom, String prenom, String email, String telephone, Adresse adresse, String motDePasse, int credit, boolean administrateur) {
+        this.username = username;
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
@@ -37,7 +37,7 @@ public class Utilisateur {
     public String toString() {
         final StringBuffer sb = new StringBuffer("Utilisateur{");
         sb.append("idUtilisateur=").append(idUtilisateur);
-        sb.append(", pseudo='").append(pseudo).append('\'');
+        sb.append(", username='").append(username).append('\'');
         sb.append(", nom='").append(nom).append('\'');
         sb.append(", prenom='").append(prenom).append('\'');
         sb.append(", email='").append(email).append('\'');
@@ -49,4 +49,5 @@ public class Utilisateur {
         sb.append('}');
         return sb.toString();
     }
+
 }

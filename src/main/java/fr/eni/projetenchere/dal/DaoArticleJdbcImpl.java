@@ -19,7 +19,7 @@ import java.util.List;
 public class DaoArticleJdbcImpl implements DaoArticle {
     private static final String SELECT_ARTICLES = """
                                                        SELECT a.*, 
-                                                              u.pseudo_utilisateur, u.credit_utilisateur, 
+                                                              u.username_utilisateur, u.credit_utilisateur, 
                                                               ad.rue_adresse, ad.code_postale_adresse, ad.ville_adresse
                                                        FROM ARTICLE a
                                                        INNER JOIN UTILISATEUR U ON u.id_utilisateur = a.id_utilisateur
