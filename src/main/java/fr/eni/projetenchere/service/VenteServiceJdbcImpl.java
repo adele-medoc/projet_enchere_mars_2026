@@ -21,7 +21,7 @@ public class VenteServiceJdbcImpl implements VenteService {
     DaoEnchere daoEnchere;
 
     @Override
-    public void CreerNouvelleVente(Article article, UtilisateurSpringSecurity user) {
+    public void creerNouvelleVente(Article article, UtilisateurSpringSecurity user) {
         // Si l'@ de retrait est vide par défaut c'est celle du vendeur
         if(article.getAdresseRetrait().getRue().isEmpty() && article.getAdresseRetrait().getCodePostal().isEmpty() && article.getAdresseRetrait().getVille().isEmpty()){
             article.setAdresseRetrait(user.getUtilisateur().getAdresse());
@@ -46,7 +46,7 @@ public class VenteServiceJdbcImpl implements VenteService {
     }
 
     @Override
-    public void CreerNouvelleEnchere(Enchere enchere, long idarticle, UtilisateurSpringSecurity user) {
+    public void creerNouvelleEnchere(Enchere enchere, long idarticle, UtilisateurSpringSecurity user) {
         daoEnchere.insertEnchere(enchere,idarticle,user);
     }
     public Enchere consulterMeilleurOffreEnchere(long idArticle){

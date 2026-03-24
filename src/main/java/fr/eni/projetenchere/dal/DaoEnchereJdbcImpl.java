@@ -1,6 +1,7 @@
 package fr.eni.projetenchere.dal;
 
 import fr.eni.projetenchere.bo.Enchere;
+import fr.eni.projetenchere.dal.rowmappers.EnchereRowMapper;
 import fr.eni.projetenchere.security.UtilisateurSpringSecurity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -18,9 +19,11 @@ public class DaoEnchereJdbcImpl implements DaoEnchere{
     private static String SELECT_ENCHERE_BY_USER_ID = "";
     private static String SELECT_ENCHERE_BY_ID = "";
     private static String SELECT_MEILLEUR_OFFRE = """
-                  SELECT *
+                  SELECT ARTICLE.*, UTILISATEUR.*, ENCHERE.*
                   FROM ENCHERE
-                  WHERE id_article = ? AND montant_enchere = (
+                    JOIN ARTICLE on ENCHERE.id_article = ARTICLE.id_article
+                    JOIN UTILISATEUR on ENCHERE.id_utilisateur = UTILISATEUR.id_utilisateur
+                  WHERE ENCHERE.id_article = ? AND montant_enchere = (
                 												SELECT MAX(montant_enchere)
                 												FROM ENCHERE
                 												WHERE id_article = ?);
@@ -50,10 +53,11 @@ public class DaoEnchereJdbcImpl implements DaoEnchere{
     @Override
     public Enchere selectMeilleurOffreArticle(long idArticle) {
 
-        List<Enchere> rs =  jdbcTemplate.query(SELECT_MEILLEUR_OFFRE,new BeanPropertyRowMapper<>(Enchere.class),idArticle,idArticle);
+        List<Enchere> rs =  jdbcTemplate.query(SELECT_MEILLEUR_OFFRE,new EnchereRowMapper(),idArticle,idArticle);
         if(rs.isEmpty()){
             return null;
         }else{
+            System.out.println("-------------------------------- meilleur offre = " + rs);
             return rs.get(0);
         }
     }
