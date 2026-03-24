@@ -47,8 +47,8 @@ public class VenteController {
     @PostMapping("/enchere/{id}")
     public String postEnchereArticle(Enchere enchere, @PathVariable long id,@AuthenticationPrincipal UtilisateurSpringSecurity user, Model model){
         model.addAttribute("article", venteService.consulterArticleById(id));
-        enchere.getArticle().setIdArticle(id);
-        venteService.CreerNouvelleEnchere(enchere,id,user);
+        //enchere.getArticle().setIdArticle(id);
+        venteService.creerNouvelleEnchere(enchere,id,user);
         return "redirect:/enchere/{id}";
     }
 
@@ -64,7 +64,7 @@ public class VenteController {
 
     @PostMapping("/enchere/nouvelArticle")
     public String postNouvelleVente(Article article, RedirectAttributes modelRedirect,@AuthenticationPrincipal UtilisateurSpringSecurity user){
-        venteService.CreerNouvelleVente(article,user);
+        venteService.creerNouvelleVente(article,user);
         modelRedirect.addFlashAttribute("messageConfirmation", "L'article a bien été enregistrée !");
         return "redirect:/";
     }

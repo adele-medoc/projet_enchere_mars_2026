@@ -28,9 +28,10 @@
 
   <label for="miseAprix" th:text="#{newVente.miseAprix}"></label> <div th:text="${article.miseAPrix}" id="miseAprix"> </div> <br>
   <strong> <label for="meilleurOffre" th:text="#{detail.meilleurOffre}"></label> </strong>
-  <div id="meilleurOffre" th:text="${meilleurOffre?.montantEnchere}"></div> <br>
+  <div id="meilleurOffre" th:if="${meilleurOffre != null}" th:text="|${meilleurOffre.montantEnchere} points de ${meilleurOffre.utilisateur.username}|"></div> <br>
+  <div id="meilleurOffre1" th:unless="${meilleurOffre != null}" th:text="#{detail.offre}"></div> <br>
 
-  <form method="post" th:action="@{/enchere/${id}}" th:object="${enchere}">
+  <form method="post" th:action="@{/enchere/{id}(id=${id})}" th:object="${enchere}">
     <label for="enchere" th:text="#{detail.proposition}"></label>
     <input type="number" id="enchere" th:field="*{montantEnchere}">
     <input type="submit" th:value="#{bouton.encherir}">
