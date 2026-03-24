@@ -40,7 +40,7 @@ public class VenteController {
     public String getDetailArticle(@PathVariable long id, Model model){
         model.addAttribute("article", venteService.consulterArticleById(id));
         model.addAttribute("enchere",new Enchere());
-        model.addAttribute("MeilleurOffre",venteService.consulterMeilleurOffreEnchere(id));
+        model.addAttribute("meilleurOffre",venteService.consulterMeilleurOffreEnchere(id));
         return "detailVente";
     }
 

@@ -21,13 +21,11 @@ public class DaoUtilisateurJdbcImpl implements DaoUtilisateur{
             FROM UTILISATEUR
             WHERE id_utilisateur = ?
             """;
-    private static final String SELECT_BY_USERNAME =
-            """
-            SELECT id_utilisateur, pseudo_utilisateur,nom_utilisateur,prenom_utilisateur,email_utilisateur,telephone_utilisateur ,mot_de_passe_utilisateur,credit_utilisateur,administrateur_utilisateur, 
-                   ADRESSE.id_adresse ,rue_adresse,code_postale_adresse,ville_adresse       
-            FROM UTILISATEUR        
-            Join ADRESSE on ADRESSE.id_adresse = UTILISATEUR.id_adresse       
-            WHERE pseudo_utilisateur = ?;
+    private static final String SELECT_BY_USERNAME = """
+            SELECT id_utilisateur, username_utilisateur,nom_utilisateur,prenom_utilisateur,email_utilisateur,telephone_utilisateur ,mot_de_passe_utilisateur,credit_utilisateur,administrateur_utilisateur, ADRESSE.id_adresse ,rue_adresse,code_postale_adresse,ville_adresse
+            FROM UTILISATEUR
+            Join ADRESSE on ADRESSE.id_adresse = UTILISATEUR.id_adresse
+            WHERE username_utilisateur =?;
             """;
 
     private static final String UPDATE_BY_ID = """

@@ -27,7 +27,7 @@ public class DaoArticleJdbcImpl implements DaoArticle {
                                                        INNER JOIN ADRESSE ad ON ad.id_adresse = a.id_adresse
                                                     """;
     private static final String SELECT_ARTICLE_BY_ID = """
-              SELECT ARTICLE.*, rue_adresse, code_postale_adresse, ville_adresse, UTILISATEUR.id_utilisateur,pseudo_utilisateur,credit_utilisateur
+              SELECT ARTICLE.*, rue_adresse, code_postale_adresse, ville_adresse, UTILISATEUR.id_utilisateur,username_utilisateur,credit_utilisateur
               FROM ARTICLE
               JOIN UTILISATEUR ON ARTICLE.id_utilisateur = UTILISATEUR.id_utilisateur
               JOIN CATEGORIE ON ARTICLE.id_categorie = CATEGORIE.id_categorie

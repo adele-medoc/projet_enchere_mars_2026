@@ -28,7 +28,7 @@
 
   <label for="miseAprix" th:text="#{newVente.miseAprix}"></label> <div th:text="${article.miseAPrix}" id="miseAprix"> </div> <br>
   <strong> <label for="meilleurOffre" th:text="#{detail.meilleurOffre}"></label> </strong>
-  <div id="meilleurOffre"></div> <br>
+  <div id="meilleurOffre" th:text="${meilleurOffre?.montantEnchere}"></div> <br>
 
   <form method="post" th:action="@{/enchere/${id}}" th:object="${enchere}">
     <label for="enchere" th:text="#{detail.proposition}"></label>
