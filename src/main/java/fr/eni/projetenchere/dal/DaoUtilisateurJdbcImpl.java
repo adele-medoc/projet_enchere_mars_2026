@@ -22,7 +22,8 @@ public class DaoUtilisateurJdbcImpl implements DaoUtilisateur{
             WHERE id_utilisateur = ?
             """;
     private static final String SELECT_BY_USERNAME = """
-            SELECT id_utilisateur, username_utilisateur,nom_utilisateur,prenom_utilisateur,email_utilisateur,telephone_utilisateur ,mot_de_passe_utilisateur,credit_utilisateur,administrateur_utilisateur, ADRESSE.id_adresse ,rue_adresse,code_postale_adresse,ville_adresse
+            SELECT id_utilisateur, username_utilisateur,nom_utilisateur,prenom_utilisateur,email_utilisateur,telephone_utilisateur ,mot_de_passe_utilisateur,credit_utilisateur,administrateur_utilisateur, 
+                   ADRESSE.id_adresse ,rue_adresse,code_postale_adresse,ville_adresse
             FROM UTILISATEUR
             Join ADRESSE on ADRESSE.id_adresse = UTILISATEUR.id_adresse
             WHERE username_utilisateur =?;
@@ -30,7 +31,7 @@ public class DaoUtilisateurJdbcImpl implements DaoUtilisateur{
 
     private static final String UPDATE_BY_ID = """
                                                UPDATE UTILISATEUR
-                                               SET pseudo_utilisateur = :pseudo,
+                                               SET username_utilisateur = :username,
                                                    nom_utilisateur = :nom,
                                                    prenom_utilisateur = :prenom,
                                                    email_utilisateur = :email,
@@ -50,7 +51,11 @@ public class DaoUtilisateurJdbcImpl implements DaoUtilisateur{
                                                      """;
 
     private static final String INSERT = "insert into UTILISATEUR (username_utilisateur, nom_utilisateur, prenom_utilisateur, email_utilisateur, telephone_utilisateur, mot_de_passe_utilisateur, credit_utilisateur, administrateur_utilisateur) values (?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String SELECT = "select * from utilisateur";
+    private static final String SELECT = """ 
+                        select *,  ADRESSE.rue_adresse, ADRESSE.code_postale_adresse, ADRESSE.ville_adresse
+                           FROM UTILISATEUR
+                        Join ADRESSE on ADRESSE.id_adresse = UTILISATEUR.id_adresse """;
+
     private static final String DELETE = "delete from utilisateur where id = ?";
 
     @Override
@@ -79,7 +84,8 @@ public class DaoUtilisateurJdbcImpl implements DaoUtilisateur{
     @Override
     public List<Utilisateur> listUtilisateurs() {
         // requête de SELECT => .query() avec un mapper "prédéfini" (BeanPropertyRowMapper) pour convertir les résultats SQL en Utilisateur
-        return jdbcTemplate.query(SELECT, new BeanPropertyRowMapper<>(Utilisateur.class));
+//        return jdbcTemplate.query(SELECT, new BeanPropertyRowMapper<>(Utilisateur.class));
+        return jdbcTemplate.query(SELECT, new UtilisateurRowMapper());
     }
 
     @Override
@@ -94,7 +100,7 @@ public class DaoUtilisateurJdbcImpl implements DaoUtilisateur{
     public void updateUserInfo(long id, Utilisateur utilisateur) {
         MapSqlParameterSource paramsUtilisateur = new MapSqlParameterSource()
                 .addValue("id", id)
-                .addValue("pseudo", utilisateur.getUsername())
+                .addValue("username", utilisateur.getUsername())
                 .addValue("nom", utilisateur.getNom())
                 .addValue("prenom", utilisateur.getPrenom())
                 .addValue("email", utilisateur.getEmail())
