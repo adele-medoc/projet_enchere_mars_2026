@@ -1,5 +1,6 @@
 package fr.eni.projetenchere.dto;
 
+import fr.eni.projetenchere.bo.Adresse;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -29,6 +30,6 @@ public class UtilisateurCreateDto {
 
 
     @NotNull
-    private AdresseDTO adresse;
+    private Adresse adresse;
 
 }

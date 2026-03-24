@@ -12,6 +12,7 @@ public interface VenteService {
     void supprimerVente(long id);
     List<Categorie> consulterCategories();
     List<Article> consulterArticles();
+    Article selectArticleById(long id);
     Utilisateur consulterUserAuthentifier();
 
 }

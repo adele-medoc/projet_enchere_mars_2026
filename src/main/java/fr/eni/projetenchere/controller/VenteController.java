@@ -3,8 +3,6 @@ package fr.eni.projetenchere.controller;
 import fr.eni.projetenchere.bo.Adresse;
 import fr.eni.projetenchere.bo.Article;
 import fr.eni.projetenchere.bo.Categorie;
-import fr.eni.projetenchere.dto.ArticleDto;
-import fr.eni.projetenchere.dto.UtilisateurDto;
 import fr.eni.projetenchere.security.UtilisateurSpringSecurity;
 import fr.eni.projetenchere.service.VenteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.List;
 
 import java.util.List;
 

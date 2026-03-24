@@ -1,18 +1,13 @@
 package fr.eni.projetenchere.controller;
 
 
-import fr.eni.projetenchere.bo.Adresse;
-import fr.eni.projetenchere.bo.Article;
-import fr.eni.projetenchere.bo.Article;
 import fr.eni.projetenchere.bo.Utilisateur;
+import fr.eni.projetenchere.dto.UtilisateurUpdateDto;
 import fr.eni.projetenchere.service.UtilisateurService;
-import fr.eni.projetenchere.service.VenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 
@@ -26,17 +21,19 @@ public class ProfilController {
 
         model.addAttribute("utilisateur", new Utilisateur());
 
-        return "profil";
+        return "profilSetup";
     }
 
     @GetMapping("/profil/{username}")
     public String getUserById(@PathVariable String username, Model model){
-        model.addAttribute("utilisateur", utilisateurService.consultUserByUsername(username));
+
+        UtilisateurUpdateDto utilisateurUpdateDto = utilisateurService.consultUserByUsername(username);
+
+        model.addAttribute("utilisateur", utilisateurUpdateDto);
 
         // TODO : changer par la template des infos utilisateur (vue profil un seul utilisateur)
-        return "profil";
+        return "profilSetup";
     }
-
 
     @PostMapping("/")
     public String postAnnuler(){
