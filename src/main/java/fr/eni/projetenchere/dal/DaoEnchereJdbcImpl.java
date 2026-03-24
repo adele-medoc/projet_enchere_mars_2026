@@ -19,7 +19,7 @@ public class DaoEnchereJdbcImpl implements DaoEnchere{
     private static String SELECT_ENCHERE_BY_ID = "";
     private static String SELECT_MEILLEUR_OFFRE = """
                   SELECT *
-                  FROM ENCHERE\s
+                  FROM ENCHERE
                   WHERE id_article = ? AND montant_enchere = (
                 												SELECT MAX(montant_enchere)
                 												FROM ENCHERE
@@ -49,7 +49,12 @@ public class DaoEnchereJdbcImpl implements DaoEnchere{
 
     @Override
     public Enchere selectMeilleurOffreArticle(long idArticle) {
-        jdbcTemplate.queryForObject(SELECT_MEILLEUR_OFFRE,new BeanPropertyRowMapper<>(Enchere.class),idArticle,idArticle);
-        return null;
+
+        List<Enchere> rs =  jdbcTemplate.query(SELECT_MEILLEUR_OFFRE,new BeanPropertyRowMapper<>(Enchere.class),idArticle,idArticle);
+        if(rs.isEmpty()){
+            return null;
+        }else{
+            return rs.get(0);
+        }
     }
 }

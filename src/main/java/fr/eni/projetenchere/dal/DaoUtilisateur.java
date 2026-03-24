@@ -8,6 +8,7 @@ public interface DaoUtilisateur {
     Utilisateur consultUserById(long id);
     Utilisateur consultUserByUsername(String username);
 
+    void updateUserInfo(long id, Utilisateur utilisateur);
     void creerUtilisateur(Utilisateur utilisateur);
 
     List<Utilisateur> listUtilisateurs();

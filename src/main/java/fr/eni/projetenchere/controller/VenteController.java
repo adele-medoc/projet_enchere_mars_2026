@@ -4,14 +4,10 @@ import fr.eni.projetenchere.bo.Adresse;
 import fr.eni.projetenchere.bo.Article;
 import fr.eni.projetenchere.bo.Categorie;
 import fr.eni.projetenchere.bo.Enchere;
-import fr.eni.projetenchere.dto.ArticleDto;
-import fr.eni.projetenchere.dto.UtilisateurDto;
 import fr.eni.projetenchere.security.UtilisateurSpringSecurity;
 import fr.eni.projetenchere.service.VenteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -44,7 +40,7 @@ public class VenteController {
     public String getDetailArticle(@PathVariable long id, Model model){
         model.addAttribute("article", venteService.consulterArticleById(id));
         model.addAttribute("enchere",new Enchere());
-        model.addAttribute("MeilleurOffre",venteService.consulterMeilleurOffreEnchere(id));
+        model.addAttribute("meilleurOffre",venteService.consulterMeilleurOffreEnchere(id));
         return "detailVente";
     }
 
