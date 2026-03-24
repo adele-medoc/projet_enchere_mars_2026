@@ -18,7 +18,7 @@
   <div id="categorie" th:each="categorie : ${categories}" th:if="${categorie.idCategorie == article.noCategorie}" th:text="${categorie.libelle}" ></div> <br>
 
   <label for="vendeur" th:text="#{newVente.vendeur}"></label>
-  <div id="vendeur" th:text="${article.utilisateur.pseudo}"></div> <br>
+  <div id="vendeur" th:text="${article.utilisateur.username}"></div> <br>
 
   <label for="dateDebut" th:text="#{detail.dateDebut}"></label>
   <div> <time id="dateDebut" th:datetime="${article.dateFin}" th:text="${#temporals.format(article.dateDebut, 'dd MMMM yyyy')}"> </time></div> <br>
