@@ -1,6 +1,6 @@
 <!doctype html>
 <!-- Je veux utiliser le layout défini dans le fichier layoutPrincipal -->
-<html lang="fr" layout:decorate="~{layouts/mainLayout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+<html lang="fr" layout:decorate="~{layouts/mainLayout}" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <body>
 
   <main layout:fragment="contenu">
@@ -31,13 +31,15 @@
   <label th:text="#{profil.ville}"></label>
       <input type="text" th:field="*{adresse.ville}"><br>
 
-  <label th:text="#{profil.motDePasse}"></label>
-      <input type="password" th:field="*{motDePasse}"><br>
+    <!--<label th:text="#{profil.motDePasse}"></label>
+    <input type="password" th:field="*{motDePasse}"><br>
 
-  <label th:text="#{profil.confirmation}"></label>
-      <input type="password" th:field="*{motDePasse}"><br>
+
+      <label th:text="#{profil.confirmation}"></label>
+      <input type="password" th:field="*{motDePasse}"><br> -->
 
     <button type="submit" th:text="#{profil.creer}"></button>
+    <a sec:authorize access="principal.id == ${user.id}" th:href="@{/profilSetup}">Modifier</a>
   </form>
 
 

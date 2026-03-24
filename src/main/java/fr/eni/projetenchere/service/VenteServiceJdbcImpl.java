@@ -69,6 +69,7 @@ public class VenteServiceJdbcImpl implements VenteService {
         return daoArticle.selectArticleById(id);
     }
 
+
     @Override
     public Utilisateur consulterUserAuthentifier() {
         return null;

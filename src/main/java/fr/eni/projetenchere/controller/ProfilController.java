@@ -5,8 +5,8 @@ import fr.eni.projetenchere.bo.Adresse;
 import fr.eni.projetenchere.bo.Article;
 import fr.eni.projetenchere.bo.Article;
 import fr.eni.projetenchere.bo.Utilisateur;
-import fr.eni.projetenchere.service.UtilisateurService;
-import fr.eni.projetenchere.service.VenteService;
+import fr.eni.projetenchere.dto.UtilisateurUpdateDto;
+import fr.eni.projetenchere.service.UtilisateurService;import fr.eni.projetenchere.service.VenteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,15 +28,18 @@ public class ProfilController {
 
         model.addAttribute("utilisateur", new Utilisateur());
 
-        return "profil";
+        return "profilSetup";
     }
 
     @GetMapping("/profil/{username}")
     public String getUserById(@PathVariable String username, Model model){
-        model.addAttribute("utilisateur", utilisateurService.consultUserByUsername(username));
+
+        UtilisateurUpdateDto utilisateurUpdateDto = utilisateurService.consultUserDto(username);
+
+        model.addAttribute("utilisateur", utilisateurUpdateDto);
 
         // TODO : changer par la template des infos utilisateur (vue profil un seul utilisateur)
-        return "profil";
+        return "profilSetup";
     }
 
 
@@ -49,18 +52,18 @@ public class ProfilController {
     public String getCreationUtilisateur (Model model){
         model.addAttribute("utilisateur", new Utilisateur());
 
-        return "profil";
+        return "profilSetup";
     }
 
     @PostMapping("/nouveau")
     public String postCreer(@Valid Utilisateur utilisateur, BindingResult bindingResult){
 
         if (bindingResult.hasErrors()){
-            return "profil";
+            return "profilSetup";
         }
 
         utilisateurService.creerUtilisateur(utilisateur);
-        return "redirect:/profil";
+        return "redirect:/profilSetup";
     }
 
     }
