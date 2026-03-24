@@ -27,7 +27,7 @@ public class DaoUtilisateurJdbcImpl implements DaoUtilisateur{
             WHERE pseudo_utilisateur =?;
             """;
 
-    private static final String INSERT = "insert into UTILISATEUR (username_utilisateur, nom_utilisateur, prenom_utilisateur, email_utilisateur, telephone_utilisateur, mot_de_passe_utilisateur, credit_utilisateur, administrateur_utilisateur) values (?, ?, ?, ?, ?, ?, ?, 0)";
+    private static final String INSERT = "insert into UTILISATEUR (username_utilisateur, nom_utilisateur, prenom_utilisateur, email_utilisateur, telephone_utilisateur, mot_de_passe_utilisateur, credit_utilisateur, administrateur_utilisateur) values (?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String SELECT = "select * from utilisateur";
     private static final String DELETE = "delete from utilisateur where id = ?";
 
