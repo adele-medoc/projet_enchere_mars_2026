@@ -7,9 +7,11 @@ import fr.eni.projetenchere.bo.Article;
 import fr.eni.projetenchere.bo.Utilisateur;
 import fr.eni.projetenchere.service.UtilisateurService;
 import fr.eni.projetenchere.service.VenteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,4 +44,23 @@ public class ProfilController {
     public String postAnnuler(){
         return "redirect:/";
     }
+
+    @GetMapping("/nouveau")
+    public String getCreationUtilisateur (Model model){
+        model.addAttribute("utilisateur", new Utilisateur());
+
+        return "profil";
+    }
+
+    @PostMapping("/nouveau")
+    public String postCreer(@Valid Utilisateur utilisateur, BindingResult bindingResult){
+
+        if (bindingResult.hasErrors()){
+            return "profil";
+        }
+
+        utilisateurService.creerUtilisateur(utilisateur);
+        return "redirect:/profil";
+    }
+
     }

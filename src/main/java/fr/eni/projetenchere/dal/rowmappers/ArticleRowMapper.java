@@ -41,7 +41,7 @@ public class ArticleRowMapper implements RowMapper<Article> {
         // Ajout de l'objet utilisateur
         Utilisateur utilisateur = new Utilisateur();
         utilisateur.setIdUtilisateur(rs.getLong("id_utilisateur"));
-        utilisateur.setPseudo(rs.getString("pseudo_utilisateur"));
+        utilisateur.setUsername(rs.getString("username_utilisateur"));
         utilisateur.setCredit(rs.getInt("credit_utilisateur"));
         utilisateur.setAdresse(adresse);
 

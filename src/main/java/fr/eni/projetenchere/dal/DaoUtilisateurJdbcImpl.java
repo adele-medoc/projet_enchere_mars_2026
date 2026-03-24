@@ -7,6 +7,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class DaoUtilisateurJdbcImpl implements DaoUtilisateur{
 
@@ -25,6 +27,10 @@ public class DaoUtilisateurJdbcImpl implements DaoUtilisateur{
             WHERE pseudo_utilisateur =?;
             """;
 
+    private static final String INSERT = "insert into UTILISATEUR (username_utilisateur, nom_utilisateur, prenom_utilisateur, email_utilisateur, telephone_utilisateur, mot_de_passe_utilisateur, credit_utilisateur, administrateur_utilisateur) values (?, ?, ?, ?, ?, ?, ?, 0)";
+    private static final String SELECT = "select * from utilisateur";
+    private static final String DELETE = "delete from utilisateur where id = ?";
+
     @Override
     public Utilisateur consultUserById(long idUtilisateur) {
         return jdbcTemplate.queryForObject(SELECT_BY_ID, new BeanPropertyRowMapper<>(Utilisateur.class),idUtilisateur);
@@ -32,6 +38,33 @@ public class DaoUtilisateurJdbcImpl implements DaoUtilisateur{
 
     public Utilisateur consultUserByUsername(String username){
         return jdbcTemplate.queryForObject(SELECT_BY_USERNAME, new UtilisateurRowMapper(),username);
+    }
+
+    @Override
+    public void creerUtilisateur(Utilisateur utilisateur) {
+        // requête d'INSERT => .update()
+        // avec 2 paramètres pour remplacer les ? de ma requête (prenom, nom)
+        jdbcTemplate.update(INSERT, utilisateur.getUsername(),
+                utilisateur.getNom(),
+                utilisateur.getPrenom(),
+                utilisateur.getEmail(),
+                utilisateur.getTelephone(),
+                utilisateur.getMotDePasse(),
+                0,
+                0);
+    }
+
+    @Override
+    public List<Utilisateur> listUtilisateurs() {
+        // requête de SELECT => .query() avec un mapper "prédéfini" (BeanPropertyRowMapper) pour convertir les résultats SQL en Utilisateur
+        return jdbcTemplate.query(SELECT, new BeanPropertyRowMapper<>(Utilisateur.class));
+    }
+
+    @Override
+    public void supprimerUtilisateur(long idUtilisateur) {
+        // requête de DELETE => .update()
+        // avec un paramètre pour remplacer le ? de ma requête (idUtilisateur)
+        jdbcTemplate.update(DELETE, idUtilisateur);
     }
 
 }
