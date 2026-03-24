@@ -24,6 +24,7 @@ public class ArticleRowMapper implements RowMapper<Article> {
         article.setDateDebut(rs.getDate("date_debut_vente_article").toLocalDate());
         article.setDateFin(rs.getDate("date_fin_vente_article").toLocalDate());
         article.setMiseAPrix(rs.getInt("prix_initial_article"));
+        article.setNoCategorie(rs.getInt("id_categorie"));
 
         // 3 - gestion du prix de fin de vente qui doit pouvoir être nul au début
             Integer prixVenteFinal = rs.getObject("prix_vente_article", Integer.class);
