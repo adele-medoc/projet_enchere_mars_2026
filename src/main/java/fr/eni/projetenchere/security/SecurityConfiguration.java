@@ -32,8 +32,7 @@ public class SecurityConfiguration {
                 .httpBasic(Customizer.withDefaults())
                 // on utilise le formulaire par défaut de Spring
                 .formLogin((form) -> form
-                        .loginPage("/login")
-                        .permitAll()
+                        .loginPage("/login").permitAll()
                 )
                 // quand on se déconnecte=> on redirige vers l'accueil
                 .logout((logout) -> logout.logoutSuccessUrl("/"));

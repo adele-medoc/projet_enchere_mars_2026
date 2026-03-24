@@ -13,7 +13,7 @@ public class UtilisateurRowMapper implements RowMapper<Utilisateur> {
         Utilisateur user= new Utilisateur();
 
         user.setIdUtilisateur(rs.getLong("id_utilisateur"));
-        user.setPseudo(rs.getString("pseudo_utilisateur"));
+        user.setUsername(rs.getString("pseudo_utilisateur"));
         user.setNom(rs.getString("nom_utilisateur"));
         user.setPrenom(rs.getString("prenom_utilisateur"));
         user.setEmail(rs.getString("email_utilisateur"));
