@@ -18,7 +18,7 @@
   <div id="categorie" th:each="categorie : ${categories}" th:if="${categorie.idCategorie == article.noCategorie}" th:text="${categorie.libelle}" ></div> <br>
 
   <label for="vendeur" th:text="#{newVente.vendeur}"></label>
-  <div id="vendeur" th:text="${article.utilisateur.pseudo}"></div> <br>
+  <div id="vendeur" th:text="${article.utilisateur.username}"></div> <br>
 
   <label for="dateDebut" th:text="#{detail.dateDebut}"></label>
   <div> <time id="dateDebut" th:datetime="${article.dateFin}" th:text="${#temporals.format(article.dateDebut, 'dd MMMM yyyy')}"> </time></div> <br>
@@ -28,7 +28,7 @@
 
   <label for="miseAprix" th:text="#{newVente.miseAprix}"></label> <div th:text="${article.miseAPrix}" id="miseAprix"> </div> <br>
   <strong> <label for="meilleurOffre" th:text="#{detail.meilleurOffre}"></label> </strong>
-  <div id="meilleurOffre"></div> <br>
+  <div id="meilleurOffre" th:text="${meilleurOffre?.montantEnchere}"></div> <br>
 
   <form method="post" th:action="@{/enchere/${id}}" th:object="${enchere}">
     <label for="enchere" th:text="#{detail.proposition}"></label>
