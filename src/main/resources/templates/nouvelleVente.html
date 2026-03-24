@@ -41,13 +41,13 @@
       <fieldset>
         <legend th:text="#{newVente.adresseRetrait}"></legend>
         <label for="rue" th:text="#{newVente.rue}"></label>
-        <input class="input" type="text" th:field="*{adresseRetrait.rue}" id="rue">
+        <input class="input" type="text" th:placeholder="${adresseVendeur.rue}" th:field="*{adresseRetrait.rue}" id="rue">
         <br>
         <label for="cp" th:text="#{newVente.cp}"></label>
-        <input class="input" type="text"  th:field="*{adresseRetrait.codePostal}" id="cp">
+        <input class="input" type="text"  th:placeholder="${adresseVendeur.codePostal}" th:field="*{adresseRetrait.codePostal}" id="cp">
         <br>
         <label for="ville" th:text="#{newVente.ville}"></label>
-        <input class="input" type="text" th:field="*{adresseRetrait.ville}" id="ville">
+        <input class="input" type="text" th:placeholder="${adresseVendeur.ville}" th:field="*{adresseRetrait.ville}" id="ville">
       </fieldset>
         <input class="button" type="submit" th:value="#{bouton.enregistrer}">
         <input class="button" type="reset" th:value="#{bouton.annuler}">

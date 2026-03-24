@@ -7,28 +7,32 @@
 
   <h1 th:text="#{detail.titre}"></h1> <br>
 
-  <img src="#" alt="image de l'objet"> <br>
+<!--  <img src="#" alt="image de l'objet"> <br>-->
 
-  <h3 th:text="" id="nomArticle"></h3> <br>
+  <h3 th:text="${article.nom}" id="nomArticle"></h3> <br>
 
   <label for="description" th:text="#{newVente.description}"></label>
-  <p id="description"></p> <br>
+  <div id="description" th:text="${article.description}"></div> <br>
 
   <label for="categorie" th:text="#{newVente.categorie}"></label>
-  <p id="categorie" ></p> <br>
+  <div id="categorie" th:each="categorie : ${categories}" th:if="${categorie.idCategorie == article.noCategorie}" th:text="${categorie.libelle}" ></div> <br>
 
-  <label for="vendeur" th:text="#{newVente.description}"></label>
-  <p id="vendeur"></p> <br>
+  <label for="vendeur" th:text="#{newVente.vendeur}"></label>
+  <div id="vendeur" th:text="${article.utilisateur.pseudo}"></div> <br>
 
-  <label for="date" th:text="#{detail.date}"></label>
-  <p id="date"></p> <br>
-  <label for="miseAprix" th:text="#{newVente.miseAprix}"></label> <p id="miseAprix"> </p> <br>
+  <label for="dateDebut" th:text="#{detail.dateDebut}"></label>
+  <div> <time id="dateDebut" th:datetime="${article.dateFin}" th:text="${#temporals.format(article.dateDebut, 'dd MMMM yyyy')}"> </time></div> <br>
+
+  <label for="dateFin" th:text="#{detail.datefin}"></label>
+  <div> <time id="dateFin" th:datetime="${article.dateFin}" th:text="${#temporals.format(article.dateFin, 'dd MMMM yyyy')}"> </time></div> <br>
+
+  <label for="miseAprix" th:text="#{newVente.miseAprix}"></label> <div th:text="${article.miseAPrix}" id="miseAprix"> </div> <br>
   <strong> <label for="meilleurOffre" th:text="#{detail.meilleurOffre}"></label> </strong>
-  <p id="meilleurOffre"></p> <br>
+  <div id="meilleurOffre"></div> <br>
 
-  <form method="post" th:action="@{/nouvelleVente}">
+  <form method="post" th:action="@{/enchere/${id}}" th:object="${enchere}">
     <label for="enchere" th:text="#{detail.proposition}"></label>
-    <input type="number" id="enchere">
+    <input type="number" id="enchere" th:field="*{montantEnchere}">
     <input type="submit" th:value="#{bouton.encherir}">
   </form>
 </main>

@@ -3,6 +3,7 @@ package fr.eni.projetenchere.controller;
 import fr.eni.projetenchere.bo.Adresse;
 import fr.eni.projetenchere.bo.Article;
 import fr.eni.projetenchere.bo.Categorie;
+import fr.eni.projetenchere.bo.Enchere;
 import fr.eni.projetenchere.dto.ArticleDto;
 import fr.eni.projetenchere.dto.UtilisateurDto;
 import fr.eni.projetenchere.security.UtilisateurSpringSecurity;
@@ -34,16 +35,25 @@ public class VenteController {
 
     @GetMapping
     public String getListeEncheres(Model model) {
-        model.addAttribute("listeArticlesEnCours", venteService.consulterArticles());
+        //model.addAttribute("listeArticlesEnCours", venteService.consulterArticles());
+        model.addAttribute("articles",venteService.consulterArticles());
         return "accueil";
     }
 
-
-
     @GetMapping("/enchere/{id}")
     public String getDetailArticle(@PathVariable long id, Model model){
-        //model.addAttribute("article", ArticleService.consulterArticleParId(id));
-        return "";
+        model.addAttribute("article", venteService.consulterArticleById(id));
+        model.addAttribute("enchere",new Enchere());
+        model.addAttribute("MeilleurOffre",venteService.consulterMeilleurOffreEnchere(id));
+        return "detailVente";
+    }
+
+    @PostMapping("/enchere/{id}")
+    public String postEnchereArticle(Enchere enchere, @PathVariable long id,@AuthenticationPrincipal UtilisateurSpringSecurity user, Model model){
+        model.addAttribute("article", venteService.consulterArticleById(id));
+        enchere.getArticle().setIdArticle(id);
+        venteService.CreerNouvelleEnchere(enchere,id,user);
+        return "redirect:/enchere/{id}";
     }
 
     @GetMapping("/enchere/nouvelArticle")
