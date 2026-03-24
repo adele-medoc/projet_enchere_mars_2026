@@ -15,7 +15,9 @@ public interface UtilisateurService {
     Utilisateur consultUserById(long id);
     void creerUtilisateur(Utilisateur utilisateur);
     void supprimerUtilisateur(long idUtilisateurASupprimer);
-    UtilisateurUpdateDto consultUserByUsername(String username);
+
+    Utilisateur consultUserByUsername(String username);
+    UtilisateurUpdateDto consultUserDto(String username);
     void updateUserById(long id, UtilisateurUpdateDto utilisateurUpdateDto,
                                         @AuthenticationPrincipal UtilisateurSpringSecurity utilisateurConnecte, PasswordEncoder passwordEncoder);
 

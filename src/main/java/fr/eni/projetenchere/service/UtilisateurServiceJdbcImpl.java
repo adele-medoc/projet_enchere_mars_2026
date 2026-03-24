@@ -18,8 +18,8 @@ import java.util.List;
 public class UtilisateurServiceJdbcImpl implements UtilisateurService{
 
     // On utilise le PasswordEncoder défini dans SecurityConfiguration afin d'encoder le mot de passe des utilisateurs lors de leur création
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Autowired
     private DaoUtilisateur utilisateurDao;
 
@@ -50,7 +50,7 @@ public class UtilisateurServiceJdbcImpl implements UtilisateurService{
 
     @Override
     public List<Utilisateur> consulterUtilisateurs() {
-        return List.of();
+        return utilisateurDao.listUtilisateurs();
     }
 
     @Override
@@ -61,16 +61,26 @@ public class UtilisateurServiceJdbcImpl implements UtilisateurService{
 
     @Override
     public void creerUtilisateur(Utilisateur utilisateur) {
-
+        String motDePasseEncode = passwordEncoder.encode(utilisateur.getMotDePasse());
+        utilisateur.setMotDePasse(motDePasseEncode);
+        utilisateurDao.creerUtilisateur(utilisateur);
     }
+
+
 
     @Override
     public void supprimerUtilisateur(long idUtilisateurASupprimer) {
-
+        utilisateurDao.supprimerUtilisateur(idUtilisateurASupprimer);
     }
 
     @Override
-    public UtilisateurUpdateDto consultUserByUsername(String username) {
+    public Utilisateur consultUserByUsername(String username) {
+        return utilisateurDao.consultUserByUsername(username);
+    }
+
+
+    @Override
+    public UtilisateurUpdateDto consultUserDto(String username) {
         Utilisateur utilisateur = utilisateurDao.consultUserByUsername(username);
 
         UtilisateurUpdateDto utilisateurUpdateDto = new UtilisateurUpdateDto();
@@ -81,7 +91,7 @@ public class UtilisateurServiceJdbcImpl implements UtilisateurService{
         adresse.setCodePostal(utilisateur.getAdresse().getCodePostal());
 
         utilisateurUpdateDto.setAdresse(adresse);
-        utilisateurUpdateDto.setPseudo(utilisateur.getPseudo());
+        utilisateurUpdateDto.setPseudo(utilisateur.getUsername());
         utilisateurUpdateDto.setNom(utilisateur.getNom());
         utilisateurUpdateDto.setPrenom(utilisateur.getPrenom());
         utilisateurUpdateDto.setEmail(utilisateur.getEmail());
@@ -104,7 +114,7 @@ public class UtilisateurServiceJdbcImpl implements UtilisateurService{
 
         // je récupère les données du formulaire pour les transférer à l'utilisateur
         Utilisateur utilisateur = utilisateurDao.consultUserById(id);
-        utilisateur.setPseudo(utilisateurUpdateDto.getPseudo());
+        utilisateur.setUsername(utilisateurUpdateDto.getPseudo());
         utilisateur.setNom(utilisateurUpdateDto.getNom());
         utilisateur.setPrenom(utilisateurUpdateDto.getPrenom());
         utilisateur.setEmail(utilisateurUpdateDto.getEmail());

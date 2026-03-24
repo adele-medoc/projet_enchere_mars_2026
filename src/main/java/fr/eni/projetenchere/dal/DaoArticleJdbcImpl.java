@@ -19,15 +19,19 @@ import java.util.List;
 public class DaoArticleJdbcImpl implements DaoArticle {
     private static final String SELECT_ARTICLES = """
                                                        SELECT a.*, 
-                                                              u.pseudo_utilisateur, u.credit_utilisateur, 
+                                                              u.username_utilisateur, u.credit_utilisateur, 
                                                               ad.rue_adresse, ad.code_postale_adresse, ad.ville_adresse
                                                        FROM ARTICLE a
                                                        INNER JOIN UTILISATEUR U ON u.id_utilisateur = a.id_utilisateur
+                                                       INNER JOIN CATEGORIE ON a.id_categorie = CATEGORIE.id_categorie
                                                        INNER JOIN ADRESSE ad ON ad.id_adresse = a.id_adresse
                                                     """;
     private static final String SELECT_ARTICLE_BY_ID = """
-            SELECT *
-            FROM ARTICLE
+              SELECT ARTICLE.*, rue_adresse, code_postale_adresse, ville_adresse, UTILISATEUR.id_utilisateur,pseudo_utilisateur,credit_utilisateur
+              FROM ARTICLE
+              JOIN UTILISATEUR ON ARTICLE.id_utilisateur = UTILISATEUR.id_utilisateur
+              JOIN CATEGORIE ON ARTICLE.id_categorie = CATEGORIE.id_categorie
+              JOIN ADRESSE ON ARTICLE.id_adresse = ADRESSE.id_adresse
             WHERE id_article = ?
             """;
     private static final String SELECT_ARTICLES_EN_COURS = SELECT_ARTICLES + " " + """ 
@@ -53,7 +57,7 @@ public class DaoArticleJdbcImpl implements DaoArticle {
                 .addValue("dateDebut",article.getDateDebut())
                 .addValue("dateFin",article.getDateFin())
                 .addValue("prixInitial",article.getMiseAPrix())
-                .addValue("idVendeur",user.getUserId())
+                .addValue("idVendeur",user.getUtilisateur().getIdUtilisateur())
                 .addValue("idCategorie",article.getNoCategorie())
                 .addValue("idAdresse",article.getAdresseRetrait().getIdAdresse());
 

@@ -6,9 +6,9 @@
   <main layout:fragment="contenu">
     <h1 th:text="#{profil.titre}"></h1>
 
-<form th:action="@{/profil}" method="post" th:object="${utilisateur}">
-  <label th:text="#{profil.pseudo}"></label>
-     <input type="text" th:field="*{pseudo}"><br>
+<form th:action="@{/utilisateurs}" method="post" th:object="${utilisateur}">
+  <label th:text="#{profil.username}"></label>
+     <input type="text" th:field="*{username}"><br>
 
   <label th:text="#{profil.nom}"></label>
      <input type="text" th:field="*{nom}"><br>
@@ -16,13 +16,16 @@
   <label th:text="#{profil.prenom}"></label>
       <input type="text" th:field="*{prenom}"><br>
 
+    <label th:text="#{profil.telephone}"></label>
+    <input type="text" th:field="*{telephone}"><br>
+
   <label th:text="#{profil.email}"></label>
       <input type="text" th:field="*{email}"><br>
 
   <label th:text="#{profil.rue}"></label>
       <input type="text" th:field="*{adresse.rue}"><br>
 
-  <label th:text="#{profil.codePostal}">Code postal :</label>
+  <label th:text="#{profil.codePostal}"></label>
       <input type="text" th:field="*{adresse.codePostal}"><br>
 
   <label th:text="#{profil.ville}"></label>
@@ -38,6 +41,7 @@
     <button type="submit" th:text="#{profil.creer}"></button>
     <a sec:authorize access="principal.id == ${user.id}" th:href="@{/profilSetup}">Modifier</a>
   </form>
+
 
 <form th:action="@{/}" method="post">
     <button type="submit">Annuler</button>
