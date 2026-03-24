@@ -3,9 +3,10 @@ package fr.eni.projetenchere.service;
 
 import fr.eni.projetenchere.bo.Utilisateur;
 import fr.eni.projetenchere.dal.DaoUtilisateur;
+import fr.eni.projetenchere.dto.AdresseDTO;
+import fr.eni.projetenchere.dto.UtilisateurUpdateDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -67,7 +68,28 @@ public class UtilisateurServiceJdbcImpl implements UtilisateurService{
     }
 
     @Override
-    public Utilisateur consultUserByUsername(String username) {
-        return utilisateurDao.consultUserByUsername(username);
+    public UtilisateurUpdateDto consultUserByUsername(String username) {
+        Utilisateur utilisateur = utilisateurDao.consultUserByUsername(username);
+
+        UtilisateurUpdateDto utilisateurUpdateDto = new UtilisateurUpdateDto();
+        AdresseDTO adresseDTO = new AdresseDTO();
+
+        adresseDTO.setRue(utilisateur.getAdresse().getRue());
+        adresseDTO.setVille(utilisateur.getAdresse().getVille());
+        adresseDTO.setCodePostal(utilisateur.getAdresse().getCodePostal());
+
+        utilisateurUpdateDto.setAdresse(adresseDTO);
+        utilisateurUpdateDto.setPseudo(utilisateur.getPseudo());
+        utilisateurUpdateDto.setNom(utilisateur.getNom());
+        utilisateurUpdateDto.setPrenom(utilisateur.getPrenom());
+        utilisateurUpdateDto.setEmail(utilisateur.getEmail());
+        utilisateurUpdateDto.setTelephone(utilisateur.getTelephone());
+        utilisateurUpdateDto.setMotDePasseActuel(utilisateur.getMotDePasse());
+
+        System.out.println(utilisateurUpdateDto);
+
+        return utilisateurUpdateDto;
+
+
     }
 }

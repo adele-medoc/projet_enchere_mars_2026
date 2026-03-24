@@ -1,7 +1,7 @@
 package fr.eni.projetenchere.service;
 
 import fr.eni.projetenchere.bo.Utilisateur;
-import org.jspecify.annotations.Nullable;
+import fr.eni.projetenchere.dto.UtilisateurUpdateDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,5 +12,5 @@ public interface UtilisateurService {
     Utilisateur consultUserById(long id);
     void creerUtilisateur(Utilisateur utilisateur);
     void supprimerUtilisateur(long idUtilisateurASupprimer);
-    Utilisateur consultUserByUsername(String username);
+    UtilisateurUpdateDto consultUserByUsername(String username);
 }
