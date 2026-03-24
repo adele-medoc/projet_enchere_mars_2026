@@ -91,12 +91,12 @@ public class UtilisateurServiceJdbcImpl implements UtilisateurService{
         adresse.setCodePostal(utilisateur.getAdresse().getCodePostal());
 
         utilisateurUpdateDto.setAdresse(adresse);
-        utilisateurUpdateDto.setPseudo(utilisateur.getUsername());
+        utilisateurUpdateDto.setUsername(utilisateur.getUsername());
         utilisateurUpdateDto.setNom(utilisateur.getNom());
         utilisateurUpdateDto.setPrenom(utilisateur.getPrenom());
         utilisateurUpdateDto.setEmail(utilisateur.getEmail());
         utilisateurUpdateDto.setTelephone(utilisateur.getTelephone());
-        utilisateurUpdateDto.setMotDePasseActuel(utilisateur.getMotDePasse());
+        utilisateurUpdateDto.setMotDePasse(utilisateur.getMotDePasse());
 
         System.out.println(utilisateurUpdateDto);
 
@@ -114,7 +114,7 @@ public class UtilisateurServiceJdbcImpl implements UtilisateurService{
 
         // je récupère les données du formulaire pour les transférer à l'utilisateur
         Utilisateur utilisateur = utilisateurDao.consultUserById(id);
-        utilisateur.setUsername(utilisateurUpdateDto.getPseudo());
+        utilisateur.setUsername(utilisateurUpdateDto.getUsername());
         utilisateur.setNom(utilisateurUpdateDto.getNom());
         utilisateur.setPrenom(utilisateurUpdateDto.getPrenom());
         utilisateur.setEmail(utilisateurUpdateDto.getEmail());
@@ -135,7 +135,7 @@ public class UtilisateurServiceJdbcImpl implements UtilisateurService{
                     String ancientMotDePasse = utilisateur.getMotDePasse();
 
                     //je récupère les champs mdp renseignés dans le DTO Utilisateur
-                    String ancientMotDePasseDto = utilisateurUpdateDto.getMotDePasseActuel();
+                    String ancientMotDePasseDto = utilisateurUpdateDto.getMotDePasse();
                     String nouveauMotDePasse = utilisateurUpdateDto.getNouveauMotDePasse();
                     String confirmationMotDePasse = utilisateurUpdateDto.getConfirmMotDePasse();
 

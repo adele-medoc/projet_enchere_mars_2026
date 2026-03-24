@@ -29,7 +29,7 @@ public class UtilisateurController {
     public String getUtilisateurs(Model model, @AuthenticationPrincipal UtilisateurSpringSecurity user){
         model.addAttribute("utilisateurs", utilisateurService.consulterUtilisateurs());
         model.addAttribute("utilisateur", new Utilisateur());
-        return "profil";
+        return "profilSetup";
     }
 
     @PostMapping

@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotNull;
 public class UtilisateurCreateDto {
 
     @NotBlank
-    private String pseudo;
+    private String username;
 
     @NotBlank
     private String nom;

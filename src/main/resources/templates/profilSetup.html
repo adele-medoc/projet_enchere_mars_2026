@@ -31,15 +31,20 @@
   <label th:text="#{profil.ville}"></label>
       <input type="text" th:field="*{adresse.ville}"><br>
 
-    <!--<label th:text="#{profil.motDePasse}"></label>
+    <label th:text="#{profil.motDePasse}"></label>
     <input type="password" th:field="*{motDePasse}"><br>
 
 
       <label th:text="#{profil.confirmation}"></label>
-      <input type="password" th:field="*{motDePasse}"><br> -->
+      <input type="password" th:field="*{motDePasse}"><br>
+
+
+
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
 
     <button type="submit" th:text="#{profil.creer}"></button>
-    <a sec:authorize access="principal.id == ${user.id}" th:href="@{/profilSetup}">Modifier</a>
+<!--    <a sec:authorize access="principal.id == ${user.id}" th:href="@{/profilSetup}">Modifier</a>-->
   </form>
 
 

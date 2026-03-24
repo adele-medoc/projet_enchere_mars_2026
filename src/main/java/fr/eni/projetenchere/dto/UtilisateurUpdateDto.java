@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class UtilisateurUpdateDto {
 
     @NotBlank
-    private String pseudo;
+    private String username;
 
     @NotBlank
     private String nom;
@@ -30,7 +30,7 @@ public class UtilisateurUpdateDto {
     private String telephone;
 
     @NotBlank @Min(8)
-    private String motDePasseActuel;
+    private String motDePasse;
 
     private String nouveauMotDePasse;
 
