@@ -41,8 +41,10 @@ public class SecurityConfiguration {
     @Bean // on définit un bean pour l'utilitaire d'encryption de mot de passe
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        //return new BCryptPasswordEncoder();
+//        return new BCryptPasswordEncoder();
     }
+
+
 
 }
     //    @Bean // on définit un bean pour la gestion des utilisateurs en mémoire

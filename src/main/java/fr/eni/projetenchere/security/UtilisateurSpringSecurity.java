@@ -8,6 +8,7 @@ import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Collection;
 import java.util.List;
@@ -21,15 +22,19 @@ public class UtilisateurSpringSecurity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+
         if(utilisateur.isAdministrateur()){
             return List.of(new SimpleGrantedAuthority("ROLE_admin"));
+
         }else{
             return List.of(new SimpleGrantedAuthority("ROLE_user"));
         }
+
     }
 
     @Override
     public @Nullable String getPassword() {
+
         return utilisateur.getMotDePasse();
     }
 
@@ -39,6 +44,7 @@ public class UtilisateurSpringSecurity implements UserDetails {
     }
 
     public long getUserId() {
+
         return utilisateur.getIdUtilisateur();
     }
 }
