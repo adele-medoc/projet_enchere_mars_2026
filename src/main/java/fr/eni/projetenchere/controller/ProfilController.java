@@ -39,8 +39,9 @@ public class ProfilController {
         model.addAttribute("utilisateur", utilisateurUpdateDto);
 
         // TODO : changer par la template des infos utilisateur (vue profil un seul utilisateur)
-        return "profilSetup";
+        return "profilAffichage";
     }
+
 
 
     @PostMapping("/")

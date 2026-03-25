@@ -1,0 +1,43 @@
+<!doctype html>
+<!-- Je veux utiliser le layout défini dans le fichier layoutPrincipal -->
+<html lang="fr" layout:decorate="~{layouts/mainLayout}" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<body>
+
+<main layout:fragment="contenu">
+    <a th:href="@{/}">← retour</a>
+    <h2 th:text="|Affichage profil de : ${utilisateur.prenom}|"></h2>
+
+    <label th:text="#{profil.username}"></label>
+    <p th:text="${utilisateur.username}"></p><br>
+
+    <label th:text="#{profil.nom}"></label>
+    <p th:text="${utilisateur.nom}"></p><br>
+
+    <label th:text="#{profil.prenom}"></label>
+    <p th:text="${utilisateur.prenom}"></p><br>
+
+    <label th:text="#{profil.telephone}"></label>
+    <p th:text="${utilisateur.telephone}"></p><br>
+
+    <label th:text="#{profil.email}"></label>
+    <p th:text="${utilisateur.email}"></p><br>
+
+    <label th:text="#{profil.rue}"></label>
+    <p th:text="${utilisateur.adresse.rue}"></p><br>
+
+    <label th:text="#{profil.codePostal}"></label>
+    <p th:text="${utilisateur.adresse.codePostal}"></p><br>
+
+    <label th:text="#{profil.ville}"></label>
+    <p th:text="${utilisateur.adresse.ville}"></p><br>
+
+    <label th:text="#{profil.motDePasse}"></label>
+    <p th:text="${utilisateur.motDePasse}"></p><br>
+
+    <label th:text="#{profil.confirmation}"></label>
+    <p th:text="${utilisateur.motDePasse}"></p><br>
+
+    <a class="button" th:href="@{/profilSetup}" th:text="#{profilAffichage.modifier}"></a>
+</main>
+</body>
+</html>
