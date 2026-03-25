@@ -10,22 +10,38 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-@Data
-@AllArgsConstructor
+
 @Service
 public class ServicePersonaliseAuthentification implements UserDetailsService {
 
-    UtilisateurService userService;
+    @Autowired
+    UtilisateurService utilisateurService;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Utilisateur user = userService.consultUserByUsername(username);
-        System.out.println("******************" + user + "******************");
-        return new UtilisateurSpringSecurity(user);
+    public UserDetails loadUserByUsername(String username) {
+        for (Utilisateur utilisateur : utilisateurService.consulterUtilisateurs()) {
+            if (utilisateur.getUsername().equals(username)) {return new UtilisateurSpringSecurity(utilisateur);}
+        }
+        throw new UsernameNotFoundException(username);
     }
+}
+
+//@Data
+//@AllArgsConstructor
+//@Service
+//public class ServicePersonaliseAuthentification implements UserDetailsService {
+//
+//    UtilisateurService userService;
+//
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        Utilisateur user = userService.consultUserByUsername(username);
+//        System.out.println("******************" + user + "******************");
+//        return new UtilisateurSpringSecurity(user);
+//    }
 
 //    public UserDetails loadUserById(long id) throws UsernameNotFoundException {
 //        Utilisateur user = userService.consultUserById(id);
 //        return new UtilisateurSpringSecurity(user);
 //    }
-}
+//}

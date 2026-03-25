@@ -9,10 +9,10 @@ import fr.eni.projetenchere.security.UtilisateurSpringSecurity;
 import java.util.List;
 
 public interface VenteService {
-    void CreerNouvelleVente(Article article, UtilisateurSpringSecurity user);
+    void creerNouvelleVente(Article article, UtilisateurSpringSecurity user);
     void supprimerVente(long id);
 
-    void CreerNouvelleEnchere(Enchere enchere, long idarticle, UtilisateurSpringSecurity user);
+    void creerNouvelleEnchere(Enchere enchere, long idarticle, UtilisateurSpringSecurity user);
     Enchere consulterMeilleurOffreEnchere(long idArticle);
 
     List<Categorie> consulterCategories();

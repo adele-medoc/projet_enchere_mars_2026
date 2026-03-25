@@ -29,7 +29,7 @@ public class DaoUtilisateurJdbcImpl implements DaoUtilisateur{
 
     private static final String UPDATE_BY_ID = """
                                                UPDATE UTILISATEUR
-                                               SET pseudo_utilisateur = :pseudo,
+                                               SET username_utilisateur = :username,
                                                    nom_utilisateur = :nom,
                                                    prenom_utilisateur = :prenom,
                                                    email_utilisateur = :email,
@@ -87,7 +87,8 @@ public class DaoUtilisateurJdbcImpl implements DaoUtilisateur{
     @Override
     public List<Utilisateur> listUtilisateurs() {
         // requête de SELECT => .query() avec un mapper "prédéfini" (BeanPropertyRowMapper) pour convertir les résultats SQL en Utilisateur
-        return jdbcTemplate.query(SELECT, new BeanPropertyRowMapper<>(Utilisateur.class));
+//        return jdbcTemplate.query(SELECT, new BeanPropertyRowMapper<>(Utilisateur.class));
+        return jdbcTemplate.query(SELECT, new UtilisateurRowMapper());
     }
 
     @Override
@@ -102,7 +103,7 @@ public class DaoUtilisateurJdbcImpl implements DaoUtilisateur{
     public void updateUserInfo(long id, Utilisateur utilisateur) {
         MapSqlParameterSource paramsUtilisateur = new MapSqlParameterSource()
                 .addValue("id", id)
-                .addValue("pseudo", utilisateur.getUsername())
+                .addValue("username", utilisateur.getUsername())
                 .addValue("nom", utilisateur.getNom())
                 .addValue("prenom", utilisateur.getPrenom())
                 .addValue("email", utilisateur.getEmail())
