@@ -16,18 +16,16 @@ public class DaoUtilisateurJdbcImpl implements DaoUtilisateur{
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    private static final String SELECT_BY_ID = """
-            SELECT *
-            FROM UTILISATEUR
-            WHERE id_utilisateur = ?
-            """;
-    private static final String SELECT_BY_USERNAME = """
-            SELECT id_utilisateur, username_utilisateur,nom_utilisateur,prenom_utilisateur,email_utilisateur,telephone_utilisateur ,mot_de_passe_utilisateur,credit_utilisateur,administrateur_utilisateur, 
-                   ADRESSE.id_adresse ,rue_adresse,code_postale_adresse,ville_adresse
-            FROM UTILISATEUR
-            Join ADRESSE on ADRESSE.id_adresse = UTILISATEUR.id_adresse
-            WHERE username_utilisateur =?;
-            """;
+    private static final String SELECT = """
+                                            SELECT id_utilisateur, username_utilisateur,nom_utilisateur,prenom_utilisateur,email_utilisateur,telephone_utilisateur ,mot_de_passe_utilisateur,credit_utilisateur,administrateur_utilisateur,
+                                                 ADRESSE.id_adresse ,rue_adresse,code_postale_adresse,ville_adresse
+                                            FROM UTILISATEUR
+                                            Join ADRESSE on ADRESSE.id_adresse = UTILISATEUR.id_adresse
+    """;
+
+    private static final String SELECT_BY_ID = SELECT + " WHERE id_utilisateur = ?";
+
+    private static final String SELECT_BY_USERNAME = SELECT + " WHERE username_utilisateur =?";
 
     private static final String UPDATE_BY_ID = """
                                                UPDATE UTILISATEUR
@@ -39,6 +37,7 @@ public class DaoUtilisateurJdbcImpl implements DaoUtilisateur{
                                                    mot_de_passe_utilisateur = :motDePasse
                                                WHERE id_utilisateur = :id
                                                """;
+
     private static final String UPDATE_USER_ADRESS = """                                           
                                                         UPDATE a
                                                          SET a.rue_adresse = :rue,
