@@ -50,11 +50,15 @@ public class DaoUtilisateurJdbcImpl implements DaoUtilisateur{
                                                          WHERE u.id_utilisateur = :id;
                                                      """;
 
-    private static final String INSERT = "insert into UTILISATEUR (username_utilisateur, nom_utilisateur, prenom_utilisateur, email_utilisateur, telephone_utilisateur, mot_de_passe_utilisateur, credit_utilisateur, administrateur_utilisateur) values (?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String SELECT = """ 
-                        select *,  ADRESSE.rue_adresse, ADRESSE.code_postale_adresse, ADRESSE.ville_adresse
-                           FROM UTILISATEUR
-                        Join ADRESSE on ADRESSE.id_adresse = UTILISATEUR.id_adresse """;
+    private static final String INSERT = """
+                                        insert into UTILISATEUR (username_utilisateur, nom_utilisateur, prenom_utilisateur, 
+                                                                 email_utilisateur, telephone_utilisateur, mot_de_passe_utilisateur, credit_utilisateur, administrateur_utilisateur) 
+                                        values (?, ?, ?, ?, ?, ?, ?, ?)""";
+
+    private static final String INSERT_ADRESSE = """
+                                                 insert into ADRESSE (rue_adresse, code_postale_adresse, ville_adresse)
+                                                 values (?, ?, ?);
+                                                 """;
 
     private static final String DELETE = "delete from utilisateur where id = ?";
 
@@ -95,7 +99,7 @@ public class DaoUtilisateurJdbcImpl implements DaoUtilisateur{
         jdbcTemplate.update(DELETE, idUtilisateur);
     }
 
-    // TODO : finir méthode update
+
     @Override
     public void updateUserInfo(long id, Utilisateur utilisateur) {
         MapSqlParameterSource paramsUtilisateur = new MapSqlParameterSource()
