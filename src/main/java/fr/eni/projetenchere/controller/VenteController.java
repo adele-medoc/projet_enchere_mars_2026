@@ -37,10 +37,13 @@ public class VenteController {
     }
 
     @GetMapping("/enchere/{id}")
-    public String getDetailArticle(@PathVariable long id, Model model){
+    public String getDetailArticle(@PathVariable long id, Model model,@AuthenticationPrincipal UtilisateurSpringSecurity user){
         model.addAttribute("article", venteService.consulterArticleById(id));
         model.addAttribute("enchere",new Enchere());
         model.addAttribute("meilleurOffre",venteService.consulterMeilleurOffreEnchere(id));
+        model.addAttribute("userActif",user);
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Utilisateur actif "+ user.toString() +"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" );
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Utilisateur article "+ venteService.consulterArticleById(id).getUtilisateur().toString() +"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" );
         return "detailVente";
     }
 
@@ -48,12 +51,14 @@ public class VenteController {
     public String postEnchereArticle(Enchere enchere, @PathVariable long id,@AuthenticationPrincipal UtilisateurSpringSecurity user, Model model){
         model.addAttribute("article", venteService.consulterArticleById(id));
         //enchere.getArticle().setIdArticle(id);
+
         venteService.creerNouvelleEnchere(enchere,id,user);
         return "redirect:/enchere/{id}";
     }
 
     @GetMapping("/enchere/nouvelArticle")
         public String getNouvelleVente(Model model,@AuthenticationPrincipal UtilisateurSpringSecurity user){
+        model.addAttribute("origine", "nouveau");
         model.addAttribute("article", new Article());
         model.addAttribute("adresseVendeur",user.getUtilisateur().getAdresse());
         return "nouvelleVente";
@@ -63,10 +68,27 @@ public class VenteController {
         return venteService.consulterArticles(); }
 
     @PostMapping("/enchere/nouvelArticle")
-    public String postNouvelleVente(Article article, RedirectAttributes modelRedirect,@AuthenticationPrincipal UtilisateurSpringSecurity user){
+    public String postNouvelleVente(Article article, Model model,RedirectAttributes modelRedirect,@AuthenticationPrincipal UtilisateurSpringSecurity user){
+        model.addAttribute("origine", "nouveau");
         venteService.creerNouvelleVente(article,user);
         modelRedirect.addFlashAttribute("messageConfirmation", "L'article a bien été enregistrée !");
         return "redirect:/";
+    }
+
+    @GetMapping("/enchere/{id}/modifier")
+    public String getModifierArticle(Model model,@PathVariable long id){
+        System.out.println("********************************"+ venteService.consulterArticleById(id).toString() +"********************************************");
+        model.addAttribute("origine", "modifier");
+        model.addAttribute("article",venteService.consulterArticleById(id));
+        model.addAttribute("article",new Article());
+
+        return "nouvelleVente";
+    }
+
+    @PostMapping("/enchere/{id}/modifier")
+    public String postModifierArticle(Article article,Model model,@PathVariable long id){
+        venteService.modifierArticle(article);
+        return "redirect:/enchere/{id}";
     }
 
 }

@@ -20,4 +20,6 @@ public interface VenteService {
     Article consulterArticleById(long id);
     Utilisateur consulterUserAuthentifier();
 
+    void modifierArticle(Article article);
+
 }
