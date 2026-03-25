@@ -4,8 +4,11 @@
 <body>
 
 <main layout:fragment="contenu" th:object="${article}">
-
+<a class="input button" th:href="@{/}"> Retour Accueil</a>
   <h1 th:text="#{detail.titre}"></h1> <br>
+  <h2 th:if="${article.dateDebut.isAfter(#temporals.createToday())}"> Vente pas encore commencée </h2>
+  <h2 th:if="${article.dateDebut.isBefore(#temporals.createToday()) && article.dateFin.isAfter(#temporals.createToday())}"> Vente en cours </h2>
+  <h2 th:if="${article.dateFin.isBefore(#temporals.createToday())}"> Vente terminé </h2>
 
 <!--  <img src="#" alt="image de l'objet"> <br>-->
 
@@ -32,10 +35,12 @@
   <div id="meilleurOffre1" th:unless="${meilleurOffre != null}" th:text="#{detail.offre}"></div> <br>
 
   <form method="post" th:action="@{/enchere/{id}(id=${id})}" th:object="${enchere}">
-    <label for="enchere" th:text="#{detail.proposition}"></label>
-    <input type="number" id="enchere" th:field="*{montantEnchere}">
-    <input type="submit" th:value="#{bouton.encherir}">
+    <label for="enchere" th:text="#{detail.proposition}" th:if="${article.utilisateur.username != userActif.utilisateur.username && article.dateDebut.isBefore(#temporals.createToday()) && article.dateFin.isAfter(#temporals.createToday())}"></label>
+    <input type="number" id="enchere" th:field="*{montantEnchere}" th:if="${article.utilisateur.username != userActif.utilisateur.username && article.dateDebut.isBefore(#temporals.createToday()) && article.dateFin.isAfter(#temporals.createToday())}">
+    <input type="submit" th:value="#{bouton.encherir}" th:if="${article.utilisateur.username != userActif.utilisateur.username && article.dateDebut.isBefore(#temporals.createToday()) && article.dateFin.isAfter(#temporals.createToday()) }">
   </form>
+<a th:href="|/enchere/${article.idArticle}/modifier|" class="input button" th:if="${article.utilisateur.username == userActif.utilisateur.username && article.dateDebut.isAfter(#temporals.createToday())}">Modifier la vente </a>
+<a href="/" th:if="${article.utilisateur.username == userActif.utilisateur.username && article.dateFin.isBefore(#temporals.createToday())}">Retrait effectué</a>
 </main>
 
 </body>

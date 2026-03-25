@@ -61,7 +61,7 @@ public class VenteServiceJdbcImpl implements VenteService {
 
     @Override
     public List<Article> consulterArticles() {
-        return daoArticle.selectEncheresOuvertes();
+        return daoArticle.selectArticles();
 
     }
 
@@ -73,6 +73,11 @@ public class VenteServiceJdbcImpl implements VenteService {
     @Override
     public Utilisateur consulterUserAuthentifier() {
         return null;
+    }
+
+    @Override
+    public void modifierArticle(Article article) {
+        daoArticle.updateArticle(article);
     }
 
 

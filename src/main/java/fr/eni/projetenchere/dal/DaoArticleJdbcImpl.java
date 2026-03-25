@@ -43,6 +43,19 @@ public class DaoArticleJdbcImpl implements DaoArticle {
             VALUES (:nom,:description,:dateDebut,:dateFin,:prixInitial,:idVendeur,:idCategorie,:idAdresse)
             """;
 
+    private static final String UPDATE_ARTICLE =
+            """ 
+        UPDATE ARTICLE
+        SET nom_article = ?, description_article =?, date_debut_vente_article = ?, date_fin_vente_article = ?,
+        prix_initial_article = ?,id_categorie = ?
+        where id_article = ?
+        """;
+    private static final String UPDATE_PRIX_VENTE_ARTICLE = """
+            UPDATE ARTICLE
+            SET prix_vente_article = ?
+            where id_article = ?
+            """;
+
 
     @Autowired
     JdbcTemplate jdbcTemplate;
@@ -86,6 +99,6 @@ public class DaoArticleJdbcImpl implements DaoArticle {
 
     @Override
     public void updateArticle(Article article) {
-
+        jdbcTemplate.update(UPDATE_ARTICLE,article.getNom(),article.getDescription(),article.getDateDebut(),article.getDateFin(),article.getMiseAPrix(),article.getNoCategorie(),article.getIdArticle());
     }
 }
