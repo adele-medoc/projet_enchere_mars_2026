@@ -12,7 +12,7 @@ public interface VenteService {
     void creerNouvelleVente(Article article, UtilisateurSpringSecurity user);
     void supprimerVente(long id);
 
-    void creerNouvelleEnchere(Enchere enchere, long idarticle, UtilisateurSpringSecurity user);
+    void creerNouvelleEnchere(Enchere enchere, long idarticle, UtilisateurSpringSecurity user) throws Exception;
     Enchere consulterMeilleurOffreEnchere(long idArticle);
 
     List<Categorie> consulterCategories();
@@ -21,5 +21,5 @@ public interface VenteService {
     Utilisateur consulterUserAuthentifier();
 
     void modifierArticle(Article article);
-
+    void retraitArticle(UtilisateurSpringSecurity vendeur,long idArticle);
 }

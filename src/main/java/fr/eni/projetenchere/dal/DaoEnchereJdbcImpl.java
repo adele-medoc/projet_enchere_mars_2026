@@ -19,15 +19,14 @@ public class DaoEnchereJdbcImpl implements DaoEnchere{
     private static String SELECT_ENCHERE_BY_USER_ID = "";
     private static String SELECT_ENCHERE_BY_ID = "";
     private static String SELECT_MEILLEUR_OFFRE = """
-                  SELECT ARTICLE.*, UTILISATEUR.*, ENCHERE.*
-                  FROM ENCHERE
-                    JOIN ARTICLE on ENCHERE.id_article = ARTICLE.id_article
-                    JOIN UTILISATEUR on ENCHERE.id_utilisateur = UTILISATEUR.id_utilisateur
-                  WHERE ENCHERE.id_article = ? AND montant_enchere = (
-                												SELECT MAX(montant_enchere)
-                												FROM ENCHERE
-                												WHERE id_article = ?);
-            """;
+                  SELECT id_enchere, montant_enchere,date_enchere, UTILISATEUR.*,Article.nom_article,ARTICLE.description_article, ARTICLE.id_article,date_debut_vente_article,date_fin_vente_article,prix_initial_article,prix_vente_article,id_categorie
+            FROM ENCHERE
+            JOIN ARTICLE on ENCHERE.id_article = ARTICLE.id_article
+            JOIN UTILISATEUR on ENCHERE.id_utilisateur = UTILISATEUR.id_utilisateur
+            WHERE ENCHERE.id_article = ? AND montant_enchere = (
+                            									SELECT MAX(montant_enchere)
+                            									FROM ENCHERE
+                            									WHERE id_article = ?);""";
 
     @Autowired
     JdbcTemplate jdbcTemplate;

@@ -31,6 +31,9 @@ public class VenteController {
         return venteService.consulterCategories();
     }
 
+    @ModelAttribute("articles")public List<Article> getArticles(){
+        return venteService.consulterArticles(); }
+
     @GetMapping
     public String getListeEncheres(Model model, @AuthenticationPrincipal UtilisateurSpringSecurity user) {
         //model.addAttribute("listeArticlesEnCours", venteService.consulterArticles());
@@ -43,6 +46,7 @@ public class VenteController {
 
     @GetMapping("/enchere/{id}")
     public String getDetailArticle(@PathVariable long id, Model model,@AuthenticationPrincipal UtilisateurSpringSecurity user){
+        venteService.retraitArticle(user,id);
         model.addAttribute("article", venteService.consulterArticleById(id));
         model.addAttribute("enchere",new Enchere());
         model.addAttribute("meilleurOffre",venteService.consulterMeilleurOffreEnchere(id));
@@ -53,11 +57,16 @@ public class VenteController {
     }
 
     @PostMapping("/enchere/{id}")
-    public String postEnchereArticle(Enchere enchere, @PathVariable long id,@AuthenticationPrincipal UtilisateurSpringSecurity user, Model model){
+    public String postEnchereArticle(Enchere enchere, @PathVariable long id,@AuthenticationPrincipal UtilisateurSpringSecurity user, Model model,RedirectAttributes redirectAttributes){
         model.addAttribute("article", venteService.consulterArticleById(id));
         //enchere.getArticle().setIdArticle(id);
-
-        venteService.creerNouvelleEnchere(enchere,id,user);
+        try {
+            venteService.creerNouvelleEnchere(enchere,id,user);
+            redirectAttributes.addFlashAttribute("success", "Enchère effectuée !");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error",e.getMessage());
+            System.out.println(e.getMessage());
+        }
         return "redirect:/enchere/{id}";
     }
 
@@ -69,8 +78,6 @@ public class VenteController {
         return "nouvelleVente";
     }
 
-    @ModelAttribute("listeArticlesEnCours")public List<Article> getArticles(){
-        return venteService.consulterArticles(); }
 
     @PostMapping("/enchere/nouvelArticle")
     public String postNouvelleVente(Article article, Model model,RedirectAttributes modelRedirect,@AuthenticationPrincipal UtilisateurSpringSecurity user){
@@ -94,6 +101,13 @@ public class VenteController {
     public String postModifierArticle(Article article,Model model,@PathVariable long id){
         venteService.modifierArticle(article);
         return "redirect:/enchere/{id}";
+    }
+
+    @GetMapping("/enchere/{id}/retraitArticle")
+    public String getRetraitArticle(@PathVariable long id,@AuthenticationPrincipal UtilisateurSpringSecurity user){
+        venteService.retraitArticle(user,id);
+
+        return "accueil";
     }
 
 }

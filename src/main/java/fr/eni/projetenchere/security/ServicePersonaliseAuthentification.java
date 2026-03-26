@@ -24,13 +24,9 @@ public class ServicePersonaliseAuthentification implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        List<Utilisateur> users = utilisateurService.consulterUtilisateurs();
-        for (Utilisateur utilisateur : users) {
-            if (utilisateur.getUsername().equals(username)) {
-                System.out.println(utilisateur.getMotDePasse());
-                System.out.println(utilisateur.getMotDePasse().length());
-                return new UtilisateurSpringSecurity(utilisateur);
-            }
+        for (Utilisateur utilisateur : utilisateurService.consulterUtilisateurs()) {
+            if (utilisateur.getUsername().equals(username)) {return new UtilisateurSpringSecurity(utilisateur);}
+            System.out.println(passwordEncoder.encode("stephane"));
         }
         throw new UsernameNotFoundException(username);
     }

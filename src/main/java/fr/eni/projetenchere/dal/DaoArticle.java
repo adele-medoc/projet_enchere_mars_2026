@@ -1,6 +1,7 @@
 package fr.eni.projetenchere.dal;
 
 import fr.eni.projetenchere.bo.Article;
+import fr.eni.projetenchere.bo.Enchere;
 import fr.eni.projetenchere.security.UtilisateurSpringSecurity;
 
 import java.util.List;
@@ -22,5 +23,6 @@ public interface DaoArticle {
     Article selectArticleById(long id);
     void deleteArticle(long id);
     void updateArticle(Article article);
+    void updatePrixVenteArticle(long idArticle, Enchere enchere);
 
 }

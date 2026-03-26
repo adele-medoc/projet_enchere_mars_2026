@@ -7,7 +7,7 @@
         <a th:href="@{/categories/gestion}" th:text="#{header.categorie}" sec:authorize="hasRole('admin')"></a>
         <a th:href="@{/utilisateur/gestion}" th:text="#{header.user}" sec:authorize="hasRole('admin')"></a>
         <a th:href="@{/enchere/nouvelArticle}" th:text="#{header.newVente}" sec:authorize="isAuthenticated()"></a>
-        <a th:href="@{|/profil/${username}|}" th:text="#{header.affichageProfil}" sec:authorize="isAuthenticated()"></a>
+        <a th:href="@{|/profil/${#authentication.name}|}" th:text="#{header.affichageProfil}" sec:authorize="isAuthenticated()"></a>
     </nav>
 
     <!--    Si l'utilisateur est connectée on affiche ça -->

@@ -60,6 +60,8 @@ public class UtilisateurServiceJdbcImpl implements UtilisateurService{
 
     @Override
     public List<Utilisateur> consulterUtilisateurs() {
+        String motDePasseEncode = passwordEncoder.encode("aa");
+        System.out.println("************** aa encodé : " + motDePasseEncode);
         return utilisateurDao.listUtilisateurs();
     }
 
