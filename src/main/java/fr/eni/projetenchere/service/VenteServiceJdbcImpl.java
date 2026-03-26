@@ -64,7 +64,6 @@ public class VenteServiceJdbcImpl implements VenteService {
 
     @Override
     public List<Categorie> consulterCategories() {
-
         return daoCategorie.selectCategories();
     }
 

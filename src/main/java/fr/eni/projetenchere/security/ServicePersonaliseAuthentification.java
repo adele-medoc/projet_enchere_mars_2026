@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class ServicePersonaliseAuthentification implements UserDetailsService {
@@ -19,8 +21,12 @@ public class ServicePersonaliseAuthentification implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        for (Utilisateur utilisateur : utilisateurService.consulterUtilisateurs()) {
-            if (utilisateur.getUsername().equals(username)) {return new UtilisateurSpringSecurity(utilisateur);}
+        List<Utilisateur> users = utilisateurService.consulterUtilisateurs();
+        for (Utilisateur utilisateur : users) {
+            if (utilisateur.getUsername().equals(username)) {
+                System.out.println(utilisateur.getMotDePasse());
+                return new UtilisateurSpringSecurity(utilisateur);
+            }
         }
         throw new UsernameNotFoundException(username);
     }

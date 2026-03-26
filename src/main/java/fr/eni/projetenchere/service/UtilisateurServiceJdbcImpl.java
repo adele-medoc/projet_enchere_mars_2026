@@ -18,10 +18,19 @@ import java.util.List;
 public class UtilisateurServiceJdbcImpl implements UtilisateurService{
 
     // On utilise le PasswordEncoder défini dans SecurityConfiguration afin d'encoder le mot de passe des utilisateurs lors de leur création
-    @Autowired
+//    @Autowired
     private PasswordEncoder passwordEncoder;
-    @Autowired
+
+//    @Autowired
     private DaoUtilisateur utilisateurDao;
+
+    public UtilisateurServiceJdbcImpl(
+            PasswordEncoder passwordEncoder,
+            DaoUtilisateur utilisateurDao
+    ) {
+        this.passwordEncoder = passwordEncoder;
+        this.utilisateurDao = utilisateurDao;
+    }
 
 //    @Override
 //    public List<Utilisateur> consulterUtilisateurs() {
@@ -50,6 +59,8 @@ public class UtilisateurServiceJdbcImpl implements UtilisateurService{
 
     @Override
     public List<Utilisateur> consulterUtilisateurs() {
+        String motDePasseEncode = passwordEncoder.encode("aa");
+        System.out.println("************** aa encodé : " + motDePasseEncode);
         return utilisateurDao.listUtilisateurs();
     }
 
