@@ -1,9 +1,6 @@
 package fr.eni.projetenchere.dal;
 
-import fr.eni.projetenchere.bo.Adresse;
-import fr.eni.projetenchere.bo.Article;
-import fr.eni.projetenchere.bo.Categorie;
-import fr.eni.projetenchere.bo.Utilisateur;
+import fr.eni.projetenchere.bo.*;
 import fr.eni.projetenchere.dal.rowmappers.ArticleRowMapper;
 import fr.eni.projetenchere.security.UtilisateurSpringSecurity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,5 +97,8 @@ public class DaoArticleJdbcImpl implements DaoArticle {
     @Override
     public void updateArticle(Article article) {
         jdbcTemplate.update(UPDATE_ARTICLE,article.getNom(),article.getDescription(),article.getDateDebut(),article.getDateFin(),article.getMiseAPrix(),article.getNoCategorie(),article.getIdArticle());
+    }
+    public void updatePrixVenteArticle(long idArticle, Enchere enchere){
+        jdbcTemplate.update(UPDATE_PRIX_VENTE_ARTICLE,enchere.getMontantEnchere(), idArticle);
     }
 }
