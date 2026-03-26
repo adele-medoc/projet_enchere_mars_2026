@@ -22,6 +22,7 @@ import java.util.List;
 @RequestMapping()
 public class VenteController {
 
+
     @Autowired
     private VenteService venteService;
 

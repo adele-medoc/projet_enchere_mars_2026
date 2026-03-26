@@ -22,4 +22,5 @@ public interface UtilisateurService {
     void updateUserById(long id, UtilisateurUpdateDto utilisateurUpdateDto,
                                         @AuthenticationPrincipal UtilisateurSpringSecurity utilisateurConnecte, PasswordEncoder passwordEncoder);
 
+
 }

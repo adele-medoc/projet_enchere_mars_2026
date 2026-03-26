@@ -80,6 +80,7 @@ public class UtilisateurServiceJdbcImpl implements UtilisateurService{
              ENVOYER L'UTILISATEUR CRÉÉ A utilisateurDao.creerUtilisateur()
          */
 
+
         String motDePasseEncode = passwordEncoder.encode(utilisateurDto.getMotDePasse());
 //        System.out.println(utilisateur.getMotDePasse());
         utilisateurDto.setMotDePasse(motDePasseEncode);

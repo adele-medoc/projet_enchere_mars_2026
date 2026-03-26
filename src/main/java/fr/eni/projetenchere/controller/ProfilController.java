@@ -44,7 +44,6 @@ public class ProfilController {
     }
 
 
-
     @PostMapping("/")
     public String postAnnuler(){
         return "redirect:/";

@@ -33,6 +33,7 @@ public class UtilisateurController {
         return "profilSetup";
     }
 
+
     @PostMapping
     public String postUtilisateurs(UtilisateurCreateDto utilisateurDto){
         utilisateurService.creerUtilisateur(utilisateurDto);
