@@ -60,6 +60,8 @@ public class DaoUtilisateurJdbcImpl implements DaoUtilisateur{
                                                  """;
 
     private static final String DELETE = "delete from utilisateur where id = ?";
+    private static final String UPDATE_CREDIT = "UPDATE UTILISATEUR SET credit_utilisateur = ? where id_utilisateur=?";
+
 
     @Override
     public Utilisateur consultUserById(long idUtilisateur) {
@@ -119,5 +121,9 @@ public class DaoUtilisateurJdbcImpl implements DaoUtilisateur{
         jdbcTemplate.update(UPDATE_USER_ADRESS, paramsAdresse);
         jdbcTemplate.update(UPDATE_BY_ID, paramsUtilisateur);
 
+    }
+
+    public void updateCreditUtilisateur(long idUser, int credit){
+        jdbcTemplate.update(UPDATE_CREDIT,credit,idUser);
     }
 }

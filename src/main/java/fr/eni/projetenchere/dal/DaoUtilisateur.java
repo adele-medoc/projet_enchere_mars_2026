@@ -14,4 +14,5 @@ public interface DaoUtilisateur {
     List<Utilisateur> listUtilisateurs();
 
     void supprimerUtilisateur(long idUtilisateur);
+    void updateCreditUtilisateur(long idUser, int credit);
 }
