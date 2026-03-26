@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import java.util.List;
@@ -30,9 +31,12 @@ public class VenteController {
     }
 
     @GetMapping
-    public String getListeEncheres(Model model) {
+    public String getListeEncheres(Model model, @AuthenticationPrincipal UtilisateurSpringSecurity user) {
         //model.addAttribute("listeArticlesEnCours", venteService.consulterArticles());
+        model.addAttribute("user", user);
+        model.addAttribute("now", LocalDate.now());
         model.addAttribute("articles",venteService.consulterArticles());
+
         return "accueil";
     }
 

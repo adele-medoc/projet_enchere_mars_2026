@@ -4,6 +4,7 @@ package fr.eni.projetenchere.service;
 import fr.eni.projetenchere.bo.Adresse;
 import fr.eni.projetenchere.bo.Utilisateur;
 import fr.eni.projetenchere.dal.DaoUtilisateur;
+import fr.eni.projetenchere.dto.UtilisateurCreateDto;
 import fr.eni.projetenchere.dto.UtilisateurUpdateDto;
 import fr.eni.projetenchere.security.UtilisateurSpringSecurity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,8 +60,6 @@ public class UtilisateurServiceJdbcImpl implements UtilisateurService{
 
     @Override
     public List<Utilisateur> consulterUtilisateurs() {
-        String motDePasseEncode = passwordEncoder.encode("aa");
-        System.out.println("************** aa encodé : " + motDePasseEncode);
         return utilisateurDao.listUtilisateurs();
     }
 
@@ -71,10 +70,21 @@ public class UtilisateurServiceJdbcImpl implements UtilisateurService{
 
 
     @Override
-    public void creerUtilisateur(Utilisateur utilisateur) {
-        String motDePasseEncode = passwordEncoder.encode(utilisateur.getMotDePasse());
-        utilisateur.setMotDePasse(motDePasseEncode);
-        utilisateurDao.creerUtilisateur(utilisateur);
+    public void creerUtilisateur(UtilisateurCreateDto utilisateurDto) {
+
+        /*  TODO : CRÉER un NEW UTILISATEUR()
+             LUI PASSER LES DONNÉES DE UtilisateurCreateDto avec les SETTERS et GETTERS (cf. updateUserByiD) SAUF MDP
+             VERIFIER QUE LA CONFIRMATION DU MDP = MDP (if confirmationMdp.equals(mdp)) sinon Exception
+             ENCODER LE MDP
+             PASSER LE MDP ENCODE A L'UTILISATEUR CRÉÉ
+             ENVOYER L'UTILISATEUR CRÉÉ A utilisateurDao.creerUtilisateur()
+         */
+
+        String motDePasseEncode = passwordEncoder.encode(utilisateurDto.getMotDePasse());
+//        System.out.println(utilisateur.getMotDePasse());
+        utilisateurDto.setMotDePasse(motDePasseEncode);
+//
+//        utilisateurDao.creerUtilisateur(utilisateur);
     }
 
 
@@ -92,25 +102,31 @@ public class UtilisateurServiceJdbcImpl implements UtilisateurService{
 
     @Override
     public UtilisateurUpdateDto consultUserDto(String username) {
+        // je récup l'utilisateur que je veux modif par son pseudo
         Utilisateur utilisateur = utilisateurDao.consultUserByUsername(username);
 
+        // je crée un Dto pour le remplir avec les données de l'utilisateur afin de le renvoyer au formulaire
         UtilisateurUpdateDto utilisateurUpdateDto = new UtilisateurUpdateDto();
+
+        // je crée une adresse pour lui affecter plus tard
         Adresse adresse = new Adresse();
 
+        // je remplis les données de l'adresse
         adresse.setRue(utilisateur.getAdresse().getRue());
         adresse.setVille(utilisateur.getAdresse().getVille());
         adresse.setCodePostal(utilisateur.getAdresse().getCodePostal());
 
+        // je passe l'adresse au Dto
         utilisateurUpdateDto.setAdresse(adresse);
+
+        // je remplis les infos du Dto avec les données de l'utilisateur
         utilisateurUpdateDto.setUsername(utilisateur.getUsername());
         utilisateurUpdateDto.setNom(utilisateur.getNom());
         utilisateurUpdateDto.setPrenom(utilisateur.getPrenom());
         utilisateurUpdateDto.setEmail(utilisateur.getEmail());
         utilisateurUpdateDto.setTelephone(utilisateur.getTelephone());
-        utilisateurUpdateDto.setMotDePasse(utilisateur.getMotDePasse());
 
-        System.out.println(utilisateurUpdateDto);
-
+        // je retourne le Dto au Controller
         return utilisateurUpdateDto;
 
     }

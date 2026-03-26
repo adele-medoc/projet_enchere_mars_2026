@@ -5,6 +5,7 @@ import fr.eni.projetenchere.bo.Adresse;
 import fr.eni.projetenchere.bo.Article;
 import fr.eni.projetenchere.bo.Article;
 import fr.eni.projetenchere.bo.Utilisateur;
+import fr.eni.projetenchere.dto.UtilisateurCreateDto;
 import fr.eni.projetenchere.dto.UtilisateurUpdateDto;
 import fr.eni.projetenchere.service.UtilisateurService;import fr.eni.projetenchere.service.VenteService;
 import jakarta.validation.Valid;
@@ -51,20 +52,20 @@ public class ProfilController {
 
     @GetMapping("/nouveau")
     public String getCreationUtilisateur (Model model){
-        model.addAttribute("utilisateur", new Utilisateur());
+        model.addAttribute("utilisateurCreateDto", new UtilisateurCreateDto());
 
         return "profilSetup";
     }
 
     @PostMapping("/nouveau")
-    public String postCreer(@Valid Utilisateur utilisateur, BindingResult bindingResult){
+    public String postCreer(@Valid @ModelAttribute("utilisateurCreateDto") UtilisateurCreateDto utilisateurDto, BindingResult bindingResult){
 
         if (bindingResult.hasErrors()){
             return "profilSetup";
         }
 
-        utilisateurService.creerUtilisateur(utilisateur);
-        return "redirect:/profilSetup";
+        utilisateurService.creerUtilisateur(utilisateurDto);
+        return "redirect:/nouveau";
     }
 
     }
