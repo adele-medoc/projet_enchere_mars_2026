@@ -8,9 +8,9 @@
 <main layout:fragment="contenu">
 
 
-    <div th:if="${param.error}">Invalid username and password.</div>
+    <div th:if="${param.error}">Identifiant ou mot de passe invalide</div>
 
-    <div th:if="${param.logout}">You have been logged out.</div>
+    <div th:if="${param.logout}">Vous avez été déconnecté de votre compte</div>
 
     <form th:action="@{/login}" method="post" th:object="${utilisateur}">
         <p>
@@ -20,7 +20,7 @@
 
         <p>
             <label th:text="#{login.Mdp}"></label>
-            <input type="password" th:field="*{motDePasse}"><br>
+            <input type="password" th:name="password"><br>
         </p>
 
         <p>
@@ -35,7 +35,7 @@
         <input type="submit" value="Connexion"><br>
     </form>
 
-    <a class="button" th:href="@{/nouveau}" th:text="#{login.creerUnCompte}"></a>
+    <a class="btn" th:href="@{/nouveau}" th:text="#{login.creerUnCompte}"></a>
 </main>
 
 </body>
