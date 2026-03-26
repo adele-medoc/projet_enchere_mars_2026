@@ -9,6 +9,8 @@
   <h2 th:if="${article.dateDebut.isAfter(#temporals.createToday())}"> Vente pas encore commencée </h2>
   <h2 th:if="${article.dateDebut.isBefore(#temporals.createToday()) && article.dateFin.isAfter(#temporals.createToday())}"> Vente en cours </h2>
   <h2 th:if="${article.dateFin.isBefore(#temporals.createToday())}"> Vente terminé </h2>
+  <h3 th:if="${article.dateFin.isBefore(#temporals.createToday()) && meilleurOffre != null}" th:text="| Article remporté par ${meilleurOffre.utilisateur.username}|"></h3>
+
 
 <!--  <img src="#" alt="image de l'objet"> <br>-->
 
@@ -40,7 +42,10 @@
     <input type="submit" th:value="#{bouton.encherir}" th:if="${article.utilisateur.username != userActif.utilisateur.username && article.dateDebut.isBefore(#temporals.createToday()) && article.dateFin.isAfter(#temporals.createToday()) }">
   </form>
 <a th:href="|/enchere/${article.idArticle}/modifier|" class="input button" th:if="${article.utilisateur.username == userActif.utilisateur.username && article.dateDebut.isAfter(#temporals.createToday())}">Modifier la vente </a>
-<a href="/" th:if="${article.utilisateur.username == userActif.utilisateur.username && article.dateFin.isBefore(#temporals.createToday())}">Retrait effectué</a>
+<a th:href="|/enchere/${article.idArticle}/retraitArticle|" th:if="${article.utilisateur.username == userActif.utilisateur.username && article.dateFin.isBefore(#temporals.createToday())}">Retrait effectué</a>
+  <p th:if="${messageConfirmation}" th:text="${messageConfirmation}"> </p>
+  <p th:if="${error}" style="color:red;" th:text="${error}"></p>
+  <p th:if="${success}" style="color:green;" th:text="${success}"></p>
 </main>
 
 </body>

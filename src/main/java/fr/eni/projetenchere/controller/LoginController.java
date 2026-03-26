@@ -26,6 +26,7 @@ public class LoginController {
         model.addAttribute("utilisateurs", utilisateurService.consulterUtilisateurs());
         model.addAttribute("utilisateur", new Utilisateur());
         return "login";
+
     }
 
     @PostMapping

@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,13 +17,16 @@ import java.util.List;
 public class DaoUtilisateurJdbcImpl implements DaoUtilisateur{
 
     @Autowired
+    private NamedParameterJdbcTemplate namedParameterjdbcTemplate;
+
+    @Autowired
     JdbcTemplate jdbcTemplate;
 
     private static final String SELECT = """
                                             SELECT id_utilisateur, username_utilisateur,nom_utilisateur,prenom_utilisateur,email_utilisateur,telephone_utilisateur ,mot_de_passe_utilisateur,credit_utilisateur,administrateur_utilisateur,
                                                  ADRESSE.id_adresse ,rue_adresse,code_postale_adresse,ville_adresse
                                             FROM UTILISATEUR
-                                            Join ADRESSE on ADRESSE.id_adresse = UTILISATEUR.id_adresse
+                                            INNER JOIN ADRESSE on ADRESSE.id_adresse = UTILISATEUR.id_adresse
     """;
 
     private static final String SELECT_BY_ID = SELECT + " WHERE id_utilisateur = ?";
@@ -51,27 +57,48 @@ public class DaoUtilisateurJdbcImpl implements DaoUtilisateur{
 
     private static final String INSERT = """
                                         insert into UTILISATEUR (username_utilisateur, nom_utilisateur, prenom_utilisateur, 
-                                                                 email_utilisateur, telephone_utilisateur, mot_de_passe_utilisateur, credit_utilisateur, administrateur_utilisateur) 
-                                        values (?, ?, ?, ?, ?, ?, ?, ?)""";
+                                                                 email_utilisateur, telephone_utilisateur, mot_de_passe_utilisateur, credit_utilisateur, administrateur_utilisateur, id_adresse) 
+                                        values (?, ?, ?, ?, ?, ?, ?, ?, ?)""";
 
     private static final String INSERT_ADRESSE = """
                                                  insert into ADRESSE (rue_adresse, code_postale_adresse, ville_adresse)
-                                                 values (?, ?, ?);
+                                                 values (:rue, :codePostal, :ville);
                                                  """;
 
     private static final String DELETE = "delete from utilisateur where id = ?";
+    private static final String UPDATE_CREDIT = "UPDATE UTILISATEUR SET credit_utilisateur = ? where id_utilisateur=?";
+
 
     @Override
     public Utilisateur consultUserById(long idUtilisateur) {
-        return jdbcTemplate.queryForObject(SELECT_BY_ID, new BeanPropertyRowMapper<>(Utilisateur.class),idUtilisateur);
+        return jdbcTemplate.queryForObject(SELECT_BY_ID, new UtilisateurRowMapper(),idUtilisateur);
     }
 
+    @Override
     public Utilisateur consultUserByUsername(String username){
-        return jdbcTemplate.queryForObject(SELECT_BY_USERNAME, new UtilisateurRowMapper(),username);
+        return jdbcTemplate.queryForObject(SELECT_BY_USERNAME, new BeanPropertyRowMapper<>(Utilisateur.class),username);
     }
 
     @Override
     public void creerUtilisateur(Utilisateur utilisateur) {
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        MapSqlParameterSource paramsAdresse = new MapSqlParameterSource()
+                .addValue("rue", utilisateur.getAdresse().getRue())
+                .addValue("codePostal", utilisateur.getAdresse().getCodePostal())
+                .addValue("ville", utilisateur.getAdresse().getVille());
+
+        /**
+         * 2 - Je défini un KeyHolder
+         * Cela me permet de récupérer l'id générée
+         */
+
+
+        namedParameterjdbcTemplate.update(INSERT_ADRESSE, paramsAdresse, keyHolder);
+
+        long idAdresse = keyHolder.getKey().longValue();
+
         // requête d'INSERT => .update()
         // avec 2 paramètres pour remplacer les ? de ma requête (prenom, nom)
         jdbcTemplate.update(INSERT, utilisateur.getUsername(),
@@ -81,7 +108,8 @@ public class DaoUtilisateurJdbcImpl implements DaoUtilisateur{
                 utilisateur.getTelephone(),
                 utilisateur.getMotDePasse(),
                 0,
-                0);
+                0,
+                idAdresse);
     }
 
     @Override
@@ -119,5 +147,9 @@ public class DaoUtilisateurJdbcImpl implements DaoUtilisateur{
         jdbcTemplate.update(UPDATE_USER_ADRESS, paramsAdresse);
         jdbcTemplate.update(UPDATE_BY_ID, paramsUtilisateur);
 
+    }
+
+    public void updateCreditUtilisateur(long idUser, int credit){
+        jdbcTemplate.update(UPDATE_CREDIT,credit,idUser);
     }
 }
