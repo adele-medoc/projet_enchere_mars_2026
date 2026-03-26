@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,15 +19,14 @@ public class ServicePersonaliseAuthentification implements UserDetailsService {
 
     @Autowired
     UtilisateurService utilisateurService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        List<Utilisateur> users = utilisateurService.consulterUtilisateurs();
-        for (Utilisateur utilisateur : users) {
-            if (utilisateur.getUsername().equals(username)) {
-                System.out.println(utilisateur.getMotDePasse());
-                return new UtilisateurSpringSecurity(utilisateur);
-            }
+        for (Utilisateur utilisateur : utilisateurService.consulterUtilisateurs()) {
+            if (utilisateur.getUsername().equals(username)) {return new UtilisateurSpringSecurity(utilisateur);}
+            System.out.println(passwordEncoder.encode("stephane"));
         }
         throw new UsernameNotFoundException(username);
     }

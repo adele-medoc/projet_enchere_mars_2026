@@ -16,23 +16,23 @@ public class LoginController {
     @Autowired
     private UtilisateurService utilisateurService;
 
+//    @GetMapping("/login")
+//    String login() {
+//        return "login";
+//    }
+
     @GetMapping("/login")
-    String login() {
+    public String getUtilisateurs(Model model, @AuthenticationPrincipal UtilisateurSpringSecurity user){
+        model.addAttribute("utilisateurs", utilisateurService.consulterUtilisateurs());
+        model.addAttribute("utilisateur", new Utilisateur());
         return "login";
 
     }
 
-//    @GetMapping("/login")
-//    public String getUtilisateurs(Model model, @AuthenticationPrincipal UtilisateurSpringSecurity user){
-//        model.addAttribute("utilisateurs", utilisateurService.consulterUtilisateurs());
-//        model.addAttribute("utilisateur", new Utilisateur());
-//        return "login";
-//    }
-//
-//    @PostMapping
-//    public String postUtilisateurs(Utilisateur utilisateur){
-//        utilisateurService.creerUtilisateur(utilisateur);
-//        return "redirect:/";
-//    }
+    @PostMapping
+    public String postUtilisateurs(Utilisateur utilisateur){
+        utilisateurService.creerUtilisateur(utilisateur);
+        return "redirect:/";
+    }
 
 }
