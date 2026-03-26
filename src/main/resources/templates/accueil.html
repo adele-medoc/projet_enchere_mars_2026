@@ -34,11 +34,12 @@
                     <input type="submit" th:value="#{search.action}">
                 </div>
 
+
             </form> <!-- fin form recherche & categories -->
 
             <!-- TODO: ajouter le lien vers le mapping -->
             <!-- TODO: attribut disabled sur un des form filtres lorsque l'autre est sélectionné -->
-            <form action="" method="GET" class="flex-row">
+            <form action="" method="GET" class="flex-row" th:object="${articles}">
                     <div>
                         <p>
                             <input type="radio" name="filtreAccueil" id="filtreEncheres">
@@ -47,11 +48,11 @@
 
                         <p>
                             <label for="encheresOuvertes" th:text="#{achats.ouverts.label}"></label>
-                            <input type="checkbox" class="ui-checkbox" name="enchereOuvertes" id="encheresOuvertes">
+                            <input type="checkbox" class="ui-checkbox" name="enchereOuvertes" id="encheresOuvertes" th:checked="${articlesdateFin > now}">
                         </p>
                         <p>
-                            <label for="encheres" th:text="#{achats.encours.label}"></label>
-                            <input type="checkbox" class="ui-checkbox" name="enchere" id="encheres">
+                            <label for="encheresEnCours" th:text="#{achats.encours.label}"></label>
+                            <input type="checkbox" class="ui-checkbox" name="enchereEnCours" id="encheresEnCours">
                         </p>
                         <p>
                             <label for="encheresRemportees" th:text="#{achats.gagnes.label}"></label>
@@ -67,8 +68,8 @@
                         </p>
 
                         <p>
-                            <label for="ventes" th:text="#{ventes.encours.label}"></label>
-                            <input type="checkbox" name="ventes" id="ventes">
+                            <label for="ventesEnCours" th:text="#{ventes.encours.label}"></label>
+                            <input type="checkbox" name="ventesEnCours" id="ventesEnCours">
                         </p>
                         <label for="ventesNonDebutees" th:text="#{ventes.futures.label}"></label>
                         <input type="checkbox" name="ventesNonDebutees" id="ventesNonDebutees">

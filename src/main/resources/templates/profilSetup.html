@@ -6,7 +6,7 @@
   <main layout:fragment="contenu">
     <h1 th:text="#{profil.titre}"></h1>
 
-<form th:action="@{/utilisateurs}" method="post" th:object="${utilisateur}">
+<form th:action="@{/utilisateurs}" method="post" th:object="${utilisateurCreateDto}">
   <label th:text="#{profil.username}"></label>
      <input type="text" th:field="*{username}"><br>
 
@@ -36,7 +36,7 @@
 
 
       <label th:text="#{profil.confirmation}"></label>
-      <input type="password" ><br>
+      <input type="password" th:field="*{confirmationMotDePasse}"><br>
 
 
 

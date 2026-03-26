@@ -22,9 +22,9 @@ public class LoginController {
 //    }
 
     @GetMapping("/login")
-    public String getUtilisateurs(Model model, @AuthenticationPrincipal UtilisateurSpringSecurity user){
-        model.addAttribute("utilisateurs", utilisateurService.consulterUtilisateurs());
+    String login(Model model) {
         model.addAttribute("utilisateur", new Utilisateur());
+
         return "login";
 
     }
