@@ -37,13 +37,14 @@ public class ArticleRowMapper implements RowMapper<Article> {
         adresse.setCodePostal(rs.getString("code_postale_adresse"));
         adresse.setVille(rs.getString("ville_adresse"));
 
+        article.setAdresseRetrait(adresse);
 
         // Ajout de l'objet utilisateur
         Utilisateur utilisateur = new Utilisateur();
         utilisateur.setIdUtilisateur(rs.getLong("id_utilisateur"));
         utilisateur.setUsername(rs.getString("username_utilisateur"));
         utilisateur.setCredit(rs.getInt("credit_utilisateur"));
-        utilisateur.setAdresse(adresse);
+
 
         article.setUtilisateur(utilisateur);
 

@@ -12,15 +12,15 @@
 
     <div th:if="${param.logout}">You have been logged out.</div>
 
-    <form th:action="@{/login}" method="post">
+    <form th:action="@{/login}" method="post" th:object="${utilisateur}">
         <p>
             <label th:text="#{login.identifiant}"></label>
-            <input type="text" name="username"/>
+            <input type="text" th:field="*{username}">
         </p>
 
         <p>
             <label th:text="#{login.Mdp}"></label>
-            <input type="password" name="password"><br>
+            <input type="password" th:field="*{motDePasse}"><br>
         </p>
 
         <p>
@@ -35,7 +35,7 @@
         <input type="submit" value="Connexion"><br>
     </form>
 
-    <a class="btn" th:href="@{/nouveau}" th:text="#{login.creerUnCompte}"></a>
+    <a class="button" th:href="@{/nouveau}" th:text="#{login.creerUnCompte}"></a>
 </main>
 
 </body>

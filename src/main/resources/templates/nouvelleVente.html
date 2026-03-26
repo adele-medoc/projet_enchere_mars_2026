@@ -4,20 +4,23 @@
 <body>
 
   <main layout:fragment="contenu">
-    <h1 th:text="#{newVente.titre}"></h1>
+    <h1 th:text="#{newVente.titre}" th:if="${origine == 'nouveau'}"></h1>
+    <h1 th:text="#{modVente.titre}" th:if="${origine == 'modifier'}"></h1>
 <!--    <img src="#" alt="image de l'objet">-->
 
-    <form method="post" th:action="@{/enchere/nouvelArticle}" th:object="${article}">
+    <form method="post" th:action="${origine == 'nouveau'} ? @{/enchere/nouvelArticle} : @{|/enchere/${id}/modifier|}" th:object="${article}">
       <label for="article" th:text="#{newVente.article}"></label>
-      <input class="input" type="text" id="article" th:field="*{nom}" >
+      <input class="input" type="text" id="article" th:field="*{nom}" th:if="${origine == 'nouveau'}">
+      <input class="input" type="text" id="article1" th:text="${nom}" th:field="*{nom}" th:if="${origine == 'modifier'}">
       <br>
 
       <label for="description" th:text="#{newVente.description}"></label>
-      <input class="input" type="text" id="description" th:field="*{description}">
+      <input class="input" type="text" id="description" th:field="*{description}" th:if="${origine == 'nouveau'}">
+      <input class="input" type="text" id="description1" th:text="${description}" th:field="*{description}" th:if="${origine == 'modifier'}">
       <br>
 
       <label for="categorie" th:text="#{newVente.categorie}"></label>
-      <select class="input" id="categorie" th:field="*{noCategorie}">
+      <select class="input" id="categorie" th:field="*{noCategorie}" >
         <option th:each="categorie : ${categories}" th:text="${categorie.libelle}" th:value="${categorie.idCategorie}"></option>
       </select>
       <br>
@@ -27,27 +30,33 @@
 <!--      <br>-->
 
       <label for="miseAprix" th:text="#{newVente.miseAprix}"></label>
-      <input class="input" type="number"  th:field="*{miseAPrix}" id="miseAprix">
+      <input class="input" type="number"  th:field="*{miseAPrix}" id="miseAprix" th:if="${origine == 'nouveau'}">
+      <input class="input" type="number"  th:field="*{miseAPrix}" id="miseAprix1" th:if="${origine == 'modifier'}">
       <br>
 
       <label for="debutEnchere" th:text="#{newVente.debutEnchere}"></label>
-      <input class="input" type="date" th:field="*{dateDebut}" id="debutEnchere">
+      <input class="input" type="date" th:field="*{dateDebut}" id="debutEnchere" th:if="${origine == 'nouveau'}">
+      <input class="input" type="date" th:value="${article.dateDebut}"  id="debutEnchere1" th:if="${origine == 'modifier'}">
       <br>
 
       <label for="finEnchere" th:text="#{newVente.finEnchere}"></label>
-      <input class="input" type="date" th:field="*{dateFin}" id="finEnchere">
+      <input class="input" type="date" th:field="*{dateFin}" id="finEnchere" th:if="${origine == 'nouveau'}">
+      <input class="input" type="date" th:value="*{dateFin}" id="finEnchere1" th:if="${origine == 'modifier'}">
       <br>
-<!--  todo : afficher adresse du vendeur aka l'utilisateur actif  -->
+
       <fieldset>
         <legend th:text="#{newVente.adresseRetrait}"></legend>
         <label for="rue" th:text="#{newVente.rue}"></label>
-        <input class="input" type="text" th:placeholder="${adresseVendeur.rue}" th:field="*{adresseRetrait.rue}" id="rue">
+        <input class="input" type="text" th:placeholder="${adresseVendeur.rue}" th:field="*{adresseRetrait.rue}" id="rue" th:if="${origine == 'nouveau'}">
+        <input class="input" type="text"  th:field="${article.adresseRetrait.rue}" id="rue1" th:if="${origine == 'modifier'}">
         <br>
         <label for="cp" th:text="#{newVente.cp}"></label>
-        <input class="input" type="text"  th:placeholder="${adresseVendeur.codePostal}" th:field="*{adresseRetrait.codePostal}" id="cp">
+        <input class="input" type="text"  th:placeholder="${adresseVendeur.codePostal}" th:field="*{adresseRetrait.codePostal}" id="cp" th:if="${origine == 'nouveau'}">
+        <input class="input" type="text"  th:field="${article.adresseRetrait.codePostal}" id="cp1" th:if="${origine == 'modifier'}">
         <br>
         <label for="ville" th:text="#{newVente.ville}"></label>
-        <input class="input" type="text" th:placeholder="${adresseVendeur.ville}" th:field="*{adresseRetrait.ville}" id="ville">
+        <input class="input" type="text" th:placeholder="${adresseVendeur.ville}" th:field="*{adresseRetrait.ville}" id="ville" th:if="${origine == 'nouveau'}">
+        <input class="input" type="text"  th:field="${article.adresseRetrait.ville}" id="ville1" th:if="${origine == 'modifier'}">
       </fieldset>
         <input class="button" type="submit" th:value="#{bouton.enregistrer}">
         <input class="button" type="reset" th:value="#{bouton.annuler}">
