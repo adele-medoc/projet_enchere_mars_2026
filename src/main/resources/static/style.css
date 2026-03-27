@@ -286,7 +286,10 @@ table tbody tr:hover {
 }
 /* ********************Accueil (toutes les enchères)******************** */
 /* -----------card------------- */
-
+a{text-decoration: none}
+#filters-menu{
+    margin: 40px 0px;
+}
 /* ------------------------ */
 #filters-menu > form {
     gap: 16px;
