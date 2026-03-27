@@ -42,7 +42,7 @@
     <input type="submit" th:value="#{bouton.encherir}" th:if="${article.utilisateur.username != userActif.utilisateur.username && article.dateDebut.isBefore(#temporals.createToday()) && article.dateFin.isAfter(#temporals.createToday()) }">
   </form>
 <a th:href="|/enchere/${article.idArticle}/modifier|" class="input button" th:if="${article.utilisateur.username == userActif.utilisateur.username && article.dateDebut.isAfter(#temporals.createToday())}">Modifier la vente </a>
-<a th:href="|/enchere/${article.idArticle}/retraitArticle|" th:if="${article.utilisateur.username == userActif.utilisateur.username && article.dateFin.isBefore(#temporals.createToday())}">Retrait effectué</a>
+<a th:href="|/enchere/${article.idArticle}/retraitArticle|" th:if="${article.utilisateur.username == userActif.utilisateur.username && article.dateFin.isBefore(#temporals.createToday()) && article.prixVente == null}">Retrait effectué</a>
   <p th:if="${messageConfirmation}" th:text="${messageConfirmation}"> </p>
   <p th:if="${error}" style="color:red;" th:text="${error}"></p>
   <p th:if="${success}" style="color:green;" th:text="${success}"></p>
