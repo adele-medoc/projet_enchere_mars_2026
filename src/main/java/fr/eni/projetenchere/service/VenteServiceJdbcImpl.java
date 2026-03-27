@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class VenteServiceJdbcImpl implements VenteService {
@@ -103,6 +106,38 @@ public class VenteServiceJdbcImpl implements VenteService {
             article.setPrixVente(meilleurOffre.getMontantEnchere());
 
         }
+    }
+
+    public List<Article> rechercheAvecFiltres(FiltreRecherche r, UtilisateurSpringSecurity user){
+        List<Article> listeArticlesAafficher = new ArrayList<>();
+
+
+        if(!(r.getSearchbar().isEmpty())){
+            listeArticlesAafficher.addAll(daoArticle.getArticleSearch(r));
+        }
+
+        if(r.isVenteNonDebute()){
+            listeArticlesAafficher.addAll(daoArticle.getVenteNonDebute(user));
+        }
+        if(r.isVenteEnCours()){
+            listeArticlesAafficher.addAll(daoArticle.getVenteEnCours(user));
+        }
+        if(r.isVenteTermine()){
+            listeArticlesAafficher.addAll(daoArticle.getVenteTermine(user));
+        }
+        if(r.isEnchereOuverte()){
+            listeArticlesAafficher.addAll(daoArticle.getEnchereNonDebute(user));
+        }
+        if(r.isEnchereEnCours()){
+            listeArticlesAafficher.addAll(daoArticle.getEnchereEnCours(user));
+        }
+        if(r.isEnchereRemportee()){
+            listeArticlesAafficher.addAll(daoArticle.getEnchereTermine(user));
+        }
+        Set<Article> set = new HashSet<>(listeArticlesAafficher);
+        listeArticlesAafficher.clear();
+        listeArticlesAafficher.addAll(set);
+        return listeArticlesAafficher;
     }
 
 

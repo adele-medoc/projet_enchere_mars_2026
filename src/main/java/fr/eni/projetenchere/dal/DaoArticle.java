@@ -2,6 +2,7 @@ package fr.eni.projetenchere.dal;
 
 import fr.eni.projetenchere.bo.Article;
 import fr.eni.projetenchere.bo.Enchere;
+import fr.eni.projetenchere.bo.FiltreRecherche;
 import fr.eni.projetenchere.security.UtilisateurSpringSecurity;
 
 import java.util.List;
@@ -24,5 +25,15 @@ public interface DaoArticle {
     void deleteArticle(long id);
     void updateArticle(Article article);
     void updatePrixVenteArticle(long idArticle, Enchere enchere);
+
+    List<Article> getArticleSearch(FiltreRecherche recherche);
+
+    List<Article> getEnchereNonDebute(UtilisateurSpringSecurity user);
+    List<Article> getEnchereEnCours(UtilisateurSpringSecurity user);
+    List<Article> getEnchereTermine(UtilisateurSpringSecurity user);
+    List<Article> getVenteNonDebute(UtilisateurSpringSecurity user);
+    List<Article> getVenteEnCours(UtilisateurSpringSecurity user);
+    List<Article> getVenteTermine(UtilisateurSpringSecurity user);
+
 
 }
