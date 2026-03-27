@@ -1,6 +1,7 @@
 package fr.eni.projetenchere.controller;
 
 import fr.eni.projetenchere.bo.Utilisateur;
+import fr.eni.projetenchere.dto.UtilisateurCreateDto;
 import fr.eni.projetenchere.security.UtilisateurSpringSecurity;
 import fr.eni.projetenchere.service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,8 @@ public class LoginController {
     }
 
     @PostMapping
-    public String postUtilisateurs(Utilisateur utilisateur){
-        utilisateurService.creerUtilisateur(utilisateur);
+    public String postUtilisateurs(UtilisateurCreateDto utilisateurDto){
+        utilisateurService.creerUtilisateur(utilisateurDto);
         return "redirect:/";
     }
 

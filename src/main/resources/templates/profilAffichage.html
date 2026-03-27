@@ -31,13 +31,7 @@
     <label th:text="#{profil.ville}"></label>
     <p th:text="${utilisateur.adresse.ville}"></p><br>
 
-    <label th:text="#{profil.motDePasse}"></label>
-    <p th:text="${utilisateur.motDePasse}"></p><br>
-
-    <label th:text="#{profil.confirmation}"></label>
-    <p th:text="${utilisateur.motDePasse}"></p><br>
-
-    <a class="button" th:href="@{/profilSetup}" th:text="#{profilAffichage.modifier}"></a>
+    <a class="button" th:href="@{/nouveau}" th:text="#{profilAffichage.modifier}"></a>
 </main>
 </body>
 </html>

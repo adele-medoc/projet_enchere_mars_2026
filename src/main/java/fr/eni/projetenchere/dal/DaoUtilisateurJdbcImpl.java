@@ -76,7 +76,7 @@ public class DaoUtilisateurJdbcImpl implements DaoUtilisateur{
 
     @Override
     public Utilisateur consultUserByUsername(String username){
-        return jdbcTemplate.queryForObject(SELECT_BY_USERNAME, new BeanPropertyRowMapper<>(Utilisateur.class),username);
+        return jdbcTemplate.queryForObject(SELECT_BY_USERNAME, new UtilisateurRowMapper(), username);
     }
 
     @Override
@@ -146,7 +146,6 @@ public class DaoUtilisateurJdbcImpl implements DaoUtilisateur{
 
         jdbcTemplate.update(UPDATE_USER_ADRESS, paramsAdresse);
         jdbcTemplate.update(UPDATE_BY_ID, paramsUtilisateur);
-
     }
 
     public void updateCreditUtilisateur(long idUser, int credit){

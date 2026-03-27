@@ -74,23 +74,28 @@ public class UtilisateurServiceJdbcImpl implements UtilisateurService{
     @Override
     public void creerUtilisateur(UtilisateurCreateDto utilisateurDto) {
 
-        /*  TODO : CRÉER un NEW UTILISATEUR()
-             LUI PASSER LES DONNÉES DE UtilisateurCreateDto avec les SETTERS et GETTERS (cf. updateUserByiD) SAUF MDP
-             VERIFIER QUE LA CONFIRMATION DU MDP = MDP (if confirmationMdp.equals(mdp)) sinon Exception
-             ENCODER LE MDP
-             PASSER LE MDP ENCODE A L'UTILISATEUR CRÉÉ
-             ENVOYER L'UTILISATEUR CRÉÉ A utilisateurDao.creerUtilisateur()
-         */
+        Utilisateur utilisateur = new Utilisateur();
+        utilisateur.setUsername(utilisateurDto.getUsername());
+        utilisateur.setNom(utilisateurDto.getNom());
+        utilisateur.setPrenom(utilisateurDto.getPrenom());
+        utilisateur.setTelephone(utilisateurDto.getTelephone());
+        utilisateur.setEmail(utilisateurDto.getEmail());
 
+        Adresse adresse = new Adresse();
+        adresse.setRue(utilisateurDto.getAdresse().getRue());
+        adresse.setCodePostal(utilisateurDto.getAdresse().getCodePostal());
+        adresse.setVille(utilisateurDto.getAdresse().getVille());
+        utilisateur.setAdresse(adresse);
 
-        String motDePasseEncode = passwordEncoder.encode(utilisateurDto.getMotDePasse());
-//        System.out.println(utilisateur.getMotDePasse());
-        utilisateurDto.setMotDePasse(motDePasseEncode);
-//
-//        utilisateurDao.creerUtilisateur(utilisateur);
+        String motDePasse = utilisateurDto.getMotDePasse();
+        String confirmationMDP = utilisateurDto.getConfirmationMotDePasse();
+        if (confirmationMDP.equals(motDePasse)){
+            String motDePasseEncode = passwordEncoder.encode(motDePasse);
+            utilisateur.setMotDePasse(motDePasseEncode);
+        }
+
+        utilisateurDao.creerUtilisateur(utilisateur);
     }
-
-
 
     @Override
     public void supprimerUtilisateur(long idUtilisateurASupprimer) {
@@ -101,7 +106,6 @@ public class UtilisateurServiceJdbcImpl implements UtilisateurService{
     public Utilisateur consultUserByUsername(String username) {
         return utilisateurDao.consultUserByUsername(username);
     }
-
 
     @Override
     public UtilisateurUpdateDto consultUserDto(String username) {
