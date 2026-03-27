@@ -50,6 +50,7 @@ public class VenteController {
         return "accueil";
     }
 
+    //--------------------------------------------------------------------------------------------------------------------------------------------------
     @GetMapping("/enchere/{id}")
     public String getDetailArticle(@PathVariable long id, Model model,@AuthenticationPrincipal UtilisateurSpringSecurity user){
         venteService.retraitArticle(user,id);
@@ -75,6 +76,7 @@ public class VenteController {
         }
         return "redirect:/enchere/{id}";
     }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------
 
     @GetMapping("/enchere/nouvelArticle")
         public String getNouvelleVente(Model model,@AuthenticationPrincipal UtilisateurSpringSecurity user){

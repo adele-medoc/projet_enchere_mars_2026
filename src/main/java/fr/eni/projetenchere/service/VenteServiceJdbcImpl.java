@@ -50,11 +50,11 @@ public class VenteServiceJdbcImpl implements VenteService {
     public void supprimerVente(long id) {
          daoArticle.deleteArticle(id);
     }
-
+    //--------------------------------------------------------------------------------------------------------------------------------------------------
     @Override
     public void creerNouvelleEnchere(Enchere enchere, long idArticle, UtilisateurSpringSecurity user) throws Exception {
         Enchere meilleurEnchere = daoEnchere.selectMeilleurOffreArticle(idArticle);
-        // si l'enchère emise par l'acheteur est inférieur à son credit et que l'enchère est plus haute que la meilleur enchere pour l'instant alors l'enchère est enregistrer dans la base de donnée
+        // si l'enchère émise par l'acheteur est inférieur à son credit et que l'enchère est plus haute que la meilleur enchere pour l'instant alors l'enchère est enregistrer dans la base de donnée
         if(user.getUtilisateur().getCredit() > enchere.getMontantEnchere() && enchere.getMontantEnchere() > meilleurEnchere.getMontantEnchere()) {
             daoEnchere.insertEnchere(enchere,idArticle,user);
         }else{
@@ -64,7 +64,7 @@ public class VenteServiceJdbcImpl implements VenteService {
     public Enchere consulterMeilleurOffreEnchere(long idArticle){
         return daoEnchere.selectMeilleurOffreArticle(idArticle);
     }
-
+    //--------------------------------------------------------------------------------------------------------------------------------------------------
     @Override
     public List<Categorie> consulterCategories() {
         return daoCategorie.selectCategories();

@@ -13,11 +13,12 @@ import java.util.List;
 
 @Repository
 public class DaoEnchereJdbcImpl implements DaoEnchere{
+    @Autowired
+    JdbcTemplate jdbcTemplate;
+    @Autowired
+    NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private static String INSERT_ENCHERE = "INSERT INTO ENCHERE(montant_enchere,date_enchere,id_utilisateur,id_article) VALUES(?,GETUTCDATE(),?,?)";
-    private static String SELECT_ENCHERES = "";
-    private static String SELECT_ENCHERE_BY_USER_ID = "";
-    private static String SELECT_ENCHERE_BY_ID = "";
     private static String SELECT_MEILLEUR_OFFRE = """
                   SELECT id_enchere, montant_enchere,date_enchere, UTILISATEUR.*,Article.nom_article,ARTICLE.description_article, ARTICLE.id_article,date_debut_vente_article,date_fin_vente_article,prix_initial_article,prix_vente_article,id_categorie
             FROM ENCHERE
@@ -27,23 +28,6 @@ public class DaoEnchereJdbcImpl implements DaoEnchere{
                             									SELECT MAX(montant_enchere)
                             									FROM ENCHERE
                             									WHERE id_article = ?);""";
-
-    @Autowired
-    JdbcTemplate jdbcTemplate;
-    @Autowired
-    NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
-
-    @Override
-    public List<Enchere> selectEncheres() {
-        return List.of();
-    }
-
-    @Override
-    public Enchere selectEnchereById() {
-        return null;
-    }
-
     @Override
     public void insertEnchere(Enchere enchere, long idArticle, UtilisateurSpringSecurity user) {
         jdbcTemplate.update(INSERT_ENCHERE,enchere.getMontantEnchere(),user.getUtilisateur().getIdUtilisateur(),idArticle);
@@ -60,4 +44,20 @@ public class DaoEnchereJdbcImpl implements DaoEnchere{
             return rs.get(0);
         }
     }
+
+    private static String SELECT_ENCHERES = "";
+    private static String SELECT_ENCHERE_BY_USER_ID = "";
+    private static String SELECT_ENCHERE_BY_ID = "";
+
+    @Override
+    public List<Enchere> selectEncheres() {
+        return List.of();
+    }
+
+    @Override
+    public Enchere selectEnchereById() {
+        return null;
+    }
+
+
 }

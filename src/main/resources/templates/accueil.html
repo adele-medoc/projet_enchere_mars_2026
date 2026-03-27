@@ -17,34 +17,20 @@
 
                     <input type="search" name="recherche" th:placeholder="#{recherche.placeholder}">
 
-                    <!--TODO: le select categorie doit être modifié pour être dynamique -->
                     <p>
                         <label for="categories" th:text="#{categories.menu.label}"> </label>
                         <select name="categories" id="categories">
-                            <option value="informatique">Informatique</option>
-                            <option value="ameublement">Ameublement</option>
-                            <option value="vetements">Vêtements</option>
-                            <option value="loisirs">Sport & Loisirs</option>
+                            <option th:each="categorie : ${categories}" th:text="${categorie.libelle}" th:value="${categorie.idCategorie}"></option>
                         </select>
                     </p>
 
                 </div> <!-- fin div barre recherche & categories -->
 
-                <div class="search-input">
-                    <input type="submit" th:value="#{search.action}">
-                </div>
-
-
-            </form> <!-- fin form recherche & categories -->
-
-            <!-- TODO: ajouter le lien vers le mapping -->
-            <!-- TODO: attribut disabled sur un des form filtres lorsque l'autre est sélectionné -->
-            <form action="" method="GET" class="flex-row" th:object="${articles}">
-                    <div>
-                        <p>
-                            <input type="radio" name="filtreAccueil" id="filtreEncheres">
-                            <label for="filtreEncheres" th:text="#{filtre.achats.label}"></label>
-                        </p>
+                <div>
+<!--                        <p>-->
+<!--                            <input type="radio" name="filtreAccueil" id="filtreEncheres">-->
+<!--                            <label for="filtreEncheres" th:text="#{filtre.achats.label}"></label>-->
+<!--                        </p>-->
 
                         <p>
                             <label for="encheresOuvertes" th:text="#{achats.ouverts.label}"></label>
@@ -59,26 +45,28 @@
                             <input type="checkbox" class="ui-checkbox" name="enchereRemportees" id="encheresRemportees">
                         </p>
 
-                    </div> <!-- fin div filtre achats/encheres -->
+                </div> <!-- fin div filtre achats/encheres -->
 
-                    <div>
-                        <p>
-                            <input type="radio" name="filtreAccueil" id="filtreVentes">
-                            <label for="filtreVentes" th:text="#{filtre.ventes.label}"></label>
-                        </p>
+                <div>
+<!--                        <p>-->
+<!--                            <input type="radio" name="filtreAccueil" id="filtreVentes">-->
+<!--                            <label for="filtreVentes" th:text="#{filtre.ventes.label}"></label>-->
+<!--                        </p>-->
 
                         <p>
                             <label for="ventesEnCours" th:text="#{ventes.encours.label}"></label>
-                            <input type="checkbox" name="ventesEnCours" id="ventesEnCours">
+                            <input type="checkbox" class="ui-checkbox" name="ventesEnCours" id="ventesEnCours">
                         </p>
                         <label for="ventesNonDebutees" th:text="#{ventes.futures.label}"></label>
-                        <input type="checkbox" name="ventesNonDebutees" id="ventesNonDebutees">
+                        <input type="checkbox" class="ui-checkbox" name="ventesNonDebutees" id="ventesNonDebutees">
                         <p>
                             <label for="ventesTerminees" th:text="#{ventes.terminees.label}"></label>
-                            <input type="checkbox" name="ventesTerminees" id="ventesTerminees">
+                            <input class="ui-checkbox" type="checkbox" name="ventesTerminees" id="ventesTerminees">
                         </p>
-                    </div>
-
+                </div>
+                <div class="search-input">
+                    <input type="submit" class="button" th:value="#{search.action}">
+                </div>
                 </form> <!-- fin form filtre encheres/ventes actives en cours etc -->
 
 
