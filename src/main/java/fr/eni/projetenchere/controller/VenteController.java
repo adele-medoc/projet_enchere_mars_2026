@@ -1,9 +1,6 @@
 package fr.eni.projetenchere.controller;
 
-import fr.eni.projetenchere.bo.Adresse;
-import fr.eni.projetenchere.bo.Article;
-import fr.eni.projetenchere.bo.Categorie;
-import fr.eni.projetenchere.bo.Enchere;
+import fr.eni.projetenchere.bo.*;
 import fr.eni.projetenchere.security.UtilisateurSpringSecurity;
 import fr.eni.projetenchere.service.VenteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +36,17 @@ public class VenteController {
         //model.addAttribute("listeArticlesEnCours", venteService.consulterArticles());
         model.addAttribute("user", user);
         model.addAttribute("now", LocalDate.now());
+//        model.addAttribute("achat",true);
         model.addAttribute("articles",venteService.consulterArticles());
+        model.addAttribute("enchereOuverte",true);
+        model.addAttribute("enchereEnCours",true);
+        model.addAttribute("enchereRemportee",true);
 
+//        model.addAttribute("vente",false);
+        model.addAttribute("venteNonDebute",true);
+        model.addAttribute("venteEnCours",true);
+        model.addAttribute("venteTermine",true);
+        model.addAttribute("filtreRecherche",new FiltreRecherche());
         return "accueil";
     }
 

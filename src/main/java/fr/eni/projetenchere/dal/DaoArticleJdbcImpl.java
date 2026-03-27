@@ -101,4 +101,46 @@ public class DaoArticleJdbcImpl implements DaoArticle {
     public void updatePrixVenteArticle(long idArticle, Enchere enchere){
         jdbcTemplate.update(UPDATE_PRIX_VENTE_ARTICLE,enchere.getMontantEnchere(), idArticle);
     }
+
+
+    private static final String SELECT_SEARCH_BAR = " SELECT * FROM ARTICLE WHERE nom_article LIKE ?";
+    private static final String SELECT_VENTE_NON_DEBUTE = "  SELECT * FROM ARTICLE WHERE date_debut_vente_article > GETDATE()";
+    private static final String SELECT_VENTE_EN_COURS = "SELECT * FROM ARTICLE WHERE date_debut_vente_article < GETDATE() and date_fin_vente_article > GETDATE()";
+    private static final String SELECT_VENTE_TERMINE = "SELECT * FROM ARTICLE WHERE date_fin_vente_article < GETDATE()";
+    private static final String SELECT_MES_VENTES = " and id_utilisateur != ?";
+    private static final String SELECT_MES_ENCHERES = " and id_utilisateur = ?";
+
+    public List<Article> getArticleSearch(FiltreRecherche recherche) {
+        String strRecherche = "%" + recherche.getSearchbar() + "%";
+        return jdbcTemplate.query(SELECT_SEARCH_BAR, new BeanPropertyRowMapper<>(Article.class),strRecherche);
+    }
+
+    public List<Article> getEnchereNonDebute(UtilisateurSpringSecurity user) {
+        return jdbcTemplate.query(SELECT_VENTE_NON_DEBUTE + SELECT_MES_ENCHERES, new ArticleRowMapper(),user.getUtilisateur().getIdUtilisateur());
+    }
+
+    public List<Article> getEnchereEnCours(UtilisateurSpringSecurity user) {
+        return jdbcTemplate.query(SELECT_VENTE_EN_COURS + SELECT_MES_ENCHERES, new ArticleRowMapper(),user.getUtilisateur().getIdUtilisateur());
+    }
+
+    public List<Article> getEnchereTermine(UtilisateurSpringSecurity user) {
+        return jdbcTemplate.query(SELECT_VENTE_TERMINE + SELECT_MES_ENCHERES, new ArticleRowMapper(),user.getUtilisateur().getIdUtilisateur());
+    }
+
+    public List<Article> getVenteNonDebute(UtilisateurSpringSecurity user) {
+        return jdbcTemplate.query(SELECT_VENTE_NON_DEBUTE + SELECT_MES_VENTES, new ArticleRowMapper(),user.getUtilisateur().getIdUtilisateur());
+    }
+
+    public List<Article> getVenteEnCours(UtilisateurSpringSecurity user) {
+        return jdbcTemplate.query(SELECT_VENTE_EN_COURS + SELECT_MES_VENTES, new ArticleRowMapper(),user.getUtilisateur().getIdUtilisateur());
+    }
+
+    public List<Article> getVenteTermine(UtilisateurSpringSecurity user) {
+        return jdbcTemplate.query(SELECT_VENTE_TERMINE + SELECT_MES_VENTES, new ArticleRowMapper(),user.getUtilisateur().getIdUtilisateur());
+    }
+
+
+
+
+
 }
